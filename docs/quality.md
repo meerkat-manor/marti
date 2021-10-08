@@ -1,11 +1,11 @@
 # Quality definition
 
-The Marti definition allows for the inclusion of a load quality 
+The **marti** definition allows for the inclusion of a load quality 
 definition.  This load quality definition is intended to be
 able to be applied universally with common tools.  As such not 
 all needs are covered.
 
-
+## Defined laod quality metrics
 
 
 * Number of records in the document - This is the number of data primary records not the 

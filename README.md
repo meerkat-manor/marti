@@ -1,18 +1,18 @@
 # Marti
 
-Marti is for metadata reconcilation for transfer information.
+**marti** stands for metadata reconcilation for transfer information.
 
 The objective is the provide transfer information for high volume data such as
 in files.  The document (files) can be transferred via HTTPS, SFTP, message queue, 
 network share or other.  The transfer information being described here does not 
-need to arrive via the same channel and cluld be received via email or 
+need to arrive via the same channel and could be received via email or 
 even synchronous / asynchronous API. The transfer information does not dictate or 
 determine how the data is formatted.
 
 The transfer information can provide details on the document format, but in itself
 it does not understand the data fomrat.
 
-Marti is intended to provide minimum basic information on the transfer with  
+**marti** is intended to provide minimum basic information on the transfer with  
 ability to include additional optional information.  The metadata reconcilation 
 transfer document being decscribed here wil be referred to as the [Marti](Marti.md)
 document throughout this documentation.
