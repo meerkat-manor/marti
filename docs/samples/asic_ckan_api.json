@@ -1,0 +1,188 @@
+
+{
+    "help": "https://data.gov.au/data/api/3/action/help_show?name=package_show",
+    "success": true,
+    "result": {
+      "license_title": "Creative Commons Attribution 3.0 Australia",
+      "maintainer": "xuantungphan",
+      "relationships_as_object": [],
+      "jurisdiction": "Commonwealth of Australia",
+      "temporal_coverage_to": "",
+      "private": false,
+      "maintainer_email": null,
+      "num_tags": 7,
+      "geospatial_topic": [],
+      "id": "f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038",
+      "metadata_created": "2015-05-17T23:41:45.976104",
+      "spatial_coverage": "Australia",
+      "metadata_modified": "2021-09-08T20:42:43.210579",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "author_email": null,
+      "state": "active",
+      "version": null,
+      "license_id": "cc-by",
+      "contact_point": "Access.Request@asic.gov.au",
+      "type": "dataset",
+      "resources": [
+        {
+          "mimetype": "application/pdf",
+          "cache_url": null,
+          "hash": "22552e688cf87ff1edcaf000daec307c",
+          "description": "Help File as at 29/03/2021",
+          "name": "Financial Advisers Dataset - Help File",
+          "format": "PDF",
+          "url": "https://data.gov.au/data/dataset/f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038/resource/b4fc36ca-b9d5-4ad4-9631-c914367ea302/download/financial-advisers-register-help-file.pdf",
+          "datastore_active": true,
+          "cache_last_updated": null,
+          "package_id": "f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038",
+          "created": "2015-05-19T05:10:05.120187",
+          "state": "active",
+          "mimetype_inner": null,
+          "last_modified": "2021-03-29T02:23:10.146935",
+          "position": 0,
+          "wms_layer": "",
+          "revision_id": "e0c387a2-8ae3-4c95-a88c-f0328546a824",
+          "url_type": "upload",
+          "id": "b4fc36ca-b9d5-4ad4-9631-c914367ea302",
+          "resource_type": null,
+          "size": 741345
+        },
+        {
+          "mimetype": "application/zip",
+          "cache_url": null,
+          "hash": "5708dfd23d7a089d78da03932e4f8871",
+          "description": "Financial Advisers Dataset extract as at 09/09/2021 06:42",
+          "name": "Financial Advisers Dataset - Current",
+          "format": "CSV",
+          "url": "https://data.gov.au/data/dataset/f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038/resource/691ff9ed-b601-481d-8283-88127dbbc869/download/financial_advisers_202109.zip",
+          "datastore_active": true,
+          "cache_last_updated": null,
+          "package_id": "f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038",
+          "created": "2015-07-14T05:18:49.260369",
+          "state": "active",
+          "mimetype_inner": null,
+          "last_modified ": "09/09/2021 06:42",
+          "last_modified": "2021-09-08T20:42:41.180925",
+          "position": 1,
+          "revision_id": "052e8870-2258-4e1a-bd8e-63539ea6a86d",
+          "url_type": "upload",
+          "id": "691ff9ed-b601-481d-8283-88127dbbc869",
+          "resource_type": null,
+          "size": 4724626
+        },
+        {
+          "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "cache_url": null,
+          "hash": "",
+          "description": "Financial Advisers Dataset extract as at 09/09/2021 06:42",
+          "name": "Financial Advisers Dataset - Current",
+          "format": "XLSX",
+          "url": "https://data.gov.au/data/dataset/f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038/resource/2156cb99-3358-4847-8b5b-fcd2f0d3c4e2/download/financial_advisers_202109.xlsx",
+          "datastore_active": true,
+          "cache_last_updated": null,
+          "package_id": "f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038",
+          "created": "2016-11-02T11:54:38.840025",
+          "state": "active",
+          "mimetype_inner": null,
+          "last_modified ": "09/09/2021 06:42",
+          "last_modified": "2021-09-08T20:42:43.173322",
+          "position": 2,
+          "revision_id": "052e8870-2258-4e1a-bd8e-63539ea6a86d",
+          "url_type": "upload",
+          "id": "2156cb99-3358-4847-8b5b-fcd2f0d3c4e2",
+          "resource_type": null,
+          "size": 9518613
+        }
+      ],
+      "num_resources": 3,
+      "tags": [
+        {
+          "vocabulary_id": null,
+          "state": "active",
+          "display_name": "ASIC",
+          "id": "810f2863-57e1-4667-bcd7-a7e5a23e2c85",
+          "name": "ASIC"
+        },
+        {
+          "vocabulary_id": null,
+          "state": "active",
+          "display_name": "FA",
+          "id": "33f60a4e-677d-488e-997f-35b5d0e07f7e",
+          "name": "FA"
+        },
+        {
+          "vocabulary_id": null,
+          "state": "active",
+          "display_name": "Financial Advisor",
+          "id": "185cfc29-d1fa-49d4-9838-5fc8a5356eac",
+          "name": "Financial Advisor"
+        },
+        {
+          "vocabulary_id": null,
+          "state": "active",
+          "display_name": "Financial Services",
+          "id": "bca08a1e-f484-4d80-985b-21a8edceffeb",
+          "name": "Financial Services"
+        },
+        {
+          "vocabulary_id": null,
+          "state": "active",
+          "display_name": "Government",
+          "id": "3ae412c6-5a51-43f3-ace6-db9cce09078a",
+          "name": "Government"
+        },
+        {
+          "vocabulary_id": null,
+          "state": "active",
+          "display_name": "Moneysmart",
+          "id": "29392d0c-4634-43a1-9fa8-75b725d8b2af",
+          "name": "Moneysmart"
+        },
+        {
+          "vocabulary_id": null,
+          "state": "active",
+          "display_name": "Register",
+          "id": "08a3cb64-498a-4a1f-a28a-637f5883c2da",
+          "name": "Register"
+        }
+      ],
+      "temporal_coverage_from": "2015-05-18",
+      "language": "English",
+      "groups": [
+        {
+          "display_name": "Business Support and Regulation",
+          "description": "Formulating policy to regulate and support the private sector, including small business and non-profit organisations. Developing strategies to assist business growth and management. Implementing advocacy programs, providing funding and administering regulatory bodies.\r\n\r\nIncludes components listed at http://agift.naa.gov.au/000411.htm",
+          "image_display_url": "",
+          "title": "Business Support and Regulation",
+          "id": "ada735db-98c9-42cb-8969-dc356ea4281e",
+          "name": "business"
+        }
+      ],
+      "creator_user_id": "ca0a12ce-2789-41d6-8441-2a554ebea837",
+      "relationships_as_subject": [],
+      "field_of_research": [],
+      "organization": {
+        "description": "ASIC is Australia’s corporate, markets and financial services regulator.\r\nASIC contributes to Australia’s economic reputation and wellbeing by ensuring that Australia’s financial markets are fair and transparent, supported by confident and informed investors and consumers.\r\n",
+        "created": "2014-08-26T02:05:56.563716",
+        "title": "Australian Securities and Investments Commission (ASIC)",
+        "name": "australian-securities-and-investments-commission-asic",
+        "is_organization": true,
+        "state": "active",
+        "image_url": "2019-05-14-060147.648429ASIC-Master-Logo.jpg",
+        "revision_id": "a24f67c9-a818-4f33-a50e-0d80adc5b0ac",
+        "type": "organization",
+        "id": "ddd3e2d8-d0e8-4d43-a1e5-39984eb8e774",
+        "approval_status": "approved"
+      },
+      "name": "asic-financial-adviser",
+      "isopen": true,
+      "url": null,
+      "notes": "###Update November 2019 - additional fields ###\r\n\r\nFrom 21 November 2019, the dataset will be updated to include 7 new fields (see help file for details)\r\n\r\nThese fields are included in conjunction with the professional standards reforms for financial advisers. More information can be found on the ASIC website https://asic.gov.au/regulatory-resources/financial-services/professional-standards-for-financial-advisers-reforms/.\r\n\r\n__Note:__ For most advisers the new fields will be unpopulated on 21 November 2019. As advisers provide this data to ASIC it will appear in the dataset.\r\n\r\n***\r\n\r\n###Dataset summary###\r\n\r\nASIC is Australia’s corporate, markets and financial services regulator. ASIC contributes to Australia’s economic reputation and wellbeing by ensuring that Australia’s financial markets are fair and transparent, supported by confident and informed investors and consumers. \r\n \r\nAustralian Financial Services Licensees are required to keep the details of their financial advisers up to date on ASIC's Financial Advisers Register. Information contained in the register is made available to the public to search via ASIC's Moneysmart website.  \r\n\r\nSelect data from the Financial Advisers Register will be uploaded each week to www.data.gov.au. The data made available will be a snapshot of the register at a point in time. Legislation prescribes the type of information ASIC is allowed to disclose to the public.  \r\n\r\nThe information included in the downloadable dataset is:     \r\n\r\n* Adviser name\r\n* Adviser number\r\n* Adviser role\r\n* Adviser sub type\r\n* Adviser role status\r\n* Adviser ABN\r\n* Year first provided advice \r\n* Licence name\r\n* Licence number\r\n* Licence ABN\r\n* Licence controlled by\r\n* Adviser start date\r\n* Adviser end date\r\n* Adviser CPD failure year\r\n* Adviser principal business address suburb\r\n* Adviser principal business address State/Territory\r\n* Adviser principal business address postcode\r\n* Adviser principal business address Country\r\n* Appointing representative name\r\n* Appointing representative number\r\n* Appointing representative ABN\r\n* Disciplinary action start date\r\n* Disciplinary action end date\r\n* Disciplinary action type\r\n* Product authorisations (for a full list see the Financial Adviser Register – Help File)\r\n* Qualifications and Training\r\n* FASEA approved qualifications\r\n* Memberships\r\n* Further restrictions\r\n\r\nAdditional information about financial advisers can be found via [ASIC's website] (http://www.asic.gov.au/ \"ASIC's website\"). Accessing some information may attract a fee.   \r\n\r\nMore information about searching [ASIC's registers] (http://www.asic.gov.au/online-services/search-asics-registers/ \"ASIC's registers\").   ",
+      "owner_org": "ddd3e2d8-d0e8-4d43-a1e5-39984eb8e774",
+      "license_url": "http://creativecommons.org/licenses/by/3.0/au/",
+      "data_state": "active",
+      "title": "ASIC – Financial Advisers Dataset",
+      "revision_id": "aa30a12e-e903-44eb-adb8-da54ce62df58",
+      "update_freq": "weekly"
+    }
+  }
