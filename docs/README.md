@@ -20,3 +20,6 @@ can adjust if they resonate with your circumstances,
 5. [Load quality metrics support](quality.md)
 6. [Comparison of marti definition](comparison.md)
 7. [References](references.md)
+
+
+[!INCLUDE [marti High Level Definition](../marti.md)]
