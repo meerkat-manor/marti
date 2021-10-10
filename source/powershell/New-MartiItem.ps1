@@ -1,5 +1,5 @@
 
-function Add-MartiItem
+function New-MartiItem
 {
 Param( 
     [Parameter(Mandatory)][String] $SourcePath,
@@ -38,7 +38,7 @@ Param(
             $hash = (Get-FileHash -Path $item.FullName -Algorithm $hashAlgo).Hash
         }
 
-        $lattribute =  Get-MartiFileAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
+        $lattribute =  Set-MartiFileAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
 
         $oResource = [PSCustomObject]@{ 
             title = $item.Name.Replace($item.Extension, "")

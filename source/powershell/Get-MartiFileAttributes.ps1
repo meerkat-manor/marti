@@ -145,10 +145,10 @@ function New-DefaultZipAttributes {
     return $lattribute
 }
 
-function Update-AttributeValueString {
+function Set-AttributeValueString {
     Param (
         # Attribute List
-        [Parameter(Mandatory)]  [System.Collections.ArrayList] $lAttribute,
+        [Parameter(Mandatory)]  [System.Collections.ArrayList] $Attributes,
         # Attribute Category
         [Parameter(Mandatory)] [String] $Category,
         # Attribute Key Name
@@ -161,7 +161,7 @@ function Update-AttributeValueString {
         [String] $Comparison = "EQ"
     )
 
-    foreach ($item in $lAttribute)
+    foreach ($item in $Attributes)
     {
         if ($item.category -eq $Category -and $item.name -eq $Key -and $item.function -eq $Function)
         {
@@ -173,11 +173,20 @@ function Update-AttributeValueString {
         }
     }
 
-    Write-Error "No match found for attribute name '$Key' and category '$Category' and function '$Function' "
+    # Add the attribute    
+    $oAttribute = [PSCustomObject]@{
+        category = $Category
+        name = $Key
+        function = $Function
+        comparison = $Comparison
+        value = $Value
+    }    
+    $Attributes += $oAttribute
+    return
 }
 
 
-function Update-AttributeValueNumber {
+function Set-AttributeValueNumber {
     Param (
         # Attribute List
         [Parameter(Mandatory)]  [System.Collections.ArrayList] $Attributes,
@@ -205,11 +214,21 @@ function Update-AttributeValueNumber {
         }
     }
 
-    Write-Error "No match found for attribute name '$Key' and category '$Category' and function '$Function' "
+
+    # Add the attribute    
+    $oAttribute = [PSCustomObject]@{
+        category = $Category
+        name = $Key
+        function = $Function
+        comparison = $Comparison
+        value = $Value
+    }    
+    $Attributes += $oAttribute
+    return
 }
 
 
-function Get-MartiFileAttributes {
+function Set-MartiFileAttributes {
     Param (
         # File path
         [Parameter(Mandatory)] [String] $Path,
@@ -235,8 +254,8 @@ function Get-MartiFileAttributes {
                 }
                 $rowCount += 1
             }
-            Update-AttributeValueNumber -Attributes $lattribute -Key "records" -Category "dataset" -Function "count" -Value $rowCount
-            Update-AttributeValueNumber -Attributes $lattribute -Key "columns" -Category "dataset" -Function "count" -Value $colCount
+            Set-AttributeValueNumber -Attributes $lattribute -Key "records" -Category "dataset" -Function "count" -Value $rowCount
+            Set-AttributeValueNumber -Attributes $lattribute -Key "columns" -Category "dataset" -Function "count" -Value $colCount
         }
     }
 
@@ -256,8 +275,8 @@ function Get-MartiFileAttributes {
                 }
                 $rowCount += 1
             }
-            Update-AttributeValueNumber -Attributes $lattribute -Key "records" -Category "dataset" -Function "count" -Value $rowCount
-            Update-AttributeValueNumber -Attributes $lattribute -Key "columns" -Category "dataset" -Function "count" -Value $colCount
+            Set-AttributeValueNumber -Attributes $lattribute -Key "records" -Category "dataset" -Function "count" -Value $rowCount
+            Set-AttributeValueNumber -Attributes $lattribute -Key "columns" -Category "dataset" -Function "count" -Value $colCount
         }
     }
 
@@ -271,7 +290,7 @@ function Get-MartiFileAttributes {
             $shell = New-Object -Com Shell.Application
             $zipFile = $shell.NameSpace($Path)
             $items = $zipFile.Items()
-            Update-AttributeValueNumber -Attributes $lattribute -Key "files" -Category "dataset" -Function "count" -Value $items.Count
+            Set-AttributeValueNumber -Attributes $lattribute -Key "files" -Category "dataset" -Function "count" -Value $items.Count
         }
     }
 
@@ -285,4 +304,5 @@ function Get-MartiFileAttributes {
 
     return $lattribute
 }
+
 

@@ -1,6 +1,7 @@
 
 . C:\Users\meerkat\source\marti\source\powershell\New-Marti.ps1
-. C:\Users\meerkat\source\marti\source\powershell\Add-MartiItem.ps1
+. C:\Users\meerkat\source\marti\source\powershell\New-MartiChildItem.ps1
+. C:\Users\meerkat\source\marti\source\powershell\New-MartiItem.ps1
 . C:\Users\meerkat\source\marti\source\powershell\Get-Marti.ps1
 . C:\Users\meerkat\source\marti\source\powershell\Compress-Marti.ps1
 . C:\Users\meerkat\source\marti\source\powershell\Get-MartiFileAttributes.ps1
@@ -85,13 +86,30 @@ Write-Host "First fetch the BSB files " -ForeGroundColor Green
 $fileList = ListFtpDirectory -Username "anonymous" -Password "anon@merebox.com" -RemoteFile $remoteDirectory
 Write-Host "File list size: $($fileList.count)"
 
+
+Write-Host "Now iterate through the remote files and build remote marti list " -ForeGroundColor Green
+
 $oMarti = New-MartiDefinition
+$oMarti.title = "Remote_BSB_data"
+$oMarti.description = "This definition covers the remote BSB data files `r downloaded from the Australian Payment Network"
+$oMarti.contactPoint = "meerkat@merebox.com"
+$oMarti.landingPage = "https://github.com/meerkat-manor/marti/blob/main/docs/samples/asic_ckan_api.json"
+$oMarti.theme = "payment"
+
 ForEach ($item in $fileList) {
     if ($item -ne "" -and $item.startswith("BSBDirectory")) {
-        #Write-Host "Pulling file: $item"
         PullFtpFile -Username "anonymous" -Password "anon@merebox.com" -RemoteFile ($remoteDirectory + $item) -OutputPath (Join-Path -Path $localDirectory -ChildPath $item)
         Write-Host "Add BSB $item file to Remote marti metadata sample " -ForeGroundColor Yellow
-        $oResource = Add-MartiItem -SourcePath (Join-Path -Path $localDirectory -ChildPath $item) -UrlPath $remoteDirectory -LogPath ".\test\Logs" -ExtendAttributes
+        $oResource = New-MartiItem -SourcePath (Join-Path -Path $localDirectory -ChildPath $item) -UrlPath $remoteDirectory -LogPath ".\test\Logs" -ExtendAttributes
+        if ($item.endswith(".txt")) {
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "header" -Category "dataset" -Function "count" -Value 1
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "footer" -Category "dataset" -Function "count" -Value 1
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "columns" -Category "dataset" -Function "count" -Value 8
+        }
+        if ($item.endswith(".csv")) {
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "header" -Category "dataset" -Function "count" -Value 0
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "footer" -Category "dataset" -Function "count" -Value 0
+        }
         $oMarti.resources += $oResource
     }
 }
@@ -100,21 +118,51 @@ $fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBRemote.mri.json"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
 Write-Host "Remote marti definition file is $fileJson " -ForeGroundColor Green
 
-Write-Host "Now iterate through the local files and build ZIP " -ForeGroundColor Green
 
-if ($fileList -lt 0) {
-    $zipFile = Join-Path -Path $localDirectory -ChildPath "BSBDirectory.zip"
-    if (Test-Path -Path $zipFile) {
-        Remove-Item -Path $zipFile
-    }
-    foreach($file in Get-ChildItem $localDirectory)
-    {
-        if ($file.Name.startswith("BSBDirectory")) {
-            Write-Host "Add BSB file $file to Local marti metadata sample " -ForeGroundColor Yellow
-            Compress-Archive -Path $file.FullName -DestinationPath $zipFile -Update
+Write-Host "Now iterate through the local files and build marti ZIP " -ForeGroundColor Green
+
+$oMarti = New-MartiDefinition
+$oMarti.title = "Zip_BSB_data"
+$oMarti.description = "This definition covers the ZIP BSB data files `r downloaded from the Australian Payment Network"
+$oMarti.contactPoint = "meerkat@merebox.com"
+$oMarti.landingPage = "https://github.com/meerkat-manor/marti/blob/main/docs/samples/asic_ckan_api.json"
+$oMarti.theme = "payment"
+
+$zipFileName = "BSBDirectory.zip"
+$zipFile = Join-Path -Path $localDirectory -ChildPath $zipFileName
+if (Test-Path -Path $zipFile) {
+    Remove-Item -Path $zipFile
+}
+foreach($file in Get-ChildItem $localDirectory)
+{
+    if ($file.Name.startswith("BSBDirectory") -and $file.Name -ne $zipFileName) {
+        Write-Host "Add BSB file $file to Local marti metadata sample " -ForeGroundColor Yellow
+        Compress-Archive -Path $file.FullName -DestinationPath $zipFile -Update
+        $oResource = New-MartiItem -SourcePath $file.FullName -UrlPath $localDirectory -LogPath ".\test\Logs" -ExtendAttributes
+        if ($file.Extension -eq ".txt") {
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "header" -Category "dataset" -Function "count" -Value 1
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "footer" -Category "dataset" -Function "count" -Value 1
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "columns" -Category "dataset" -Function "count" -Value 8
         }
+        if ($file.Extension -eq ".csv") {
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "header" -Category "dataset" -Function "count" -Value 0
+            Set-AttributeValueNumber -Attributes $oResource.attributes -Key "footer" -Category "dataset" -Function "count" -Value 0
+        }
+        $oResource.url = "@"+$zipFileName + "/" + $file.Name
+        $oMarti.resources += $oResource
     }
 }
+$oResource = New-MartiItem -SourcePath $zipFile -UrlPath $localDirectory -LogPath ".\test\Logs" -ExtendAttributes
+Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algorithm" -Value "WINZIP"
+$oMarti.resources += $oResource
+
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBZip.mri.json"
+$oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
+Write-Host "ZIP marti definition file is $fileJson " -ForeGroundColor Green
+
+
+
+Write-Host "Now iterate through the local files with ZIP " -ForeGroundColor Green
 
 $oMarti = New-MartiChildItem -SourceFolder $localDirectory -UrlPath "./test" -Filter "BSBDirectory*" -LogPath ".\test\Logs" -ExtendAttributes
 $oMarti.title = "Local_BSB_data"

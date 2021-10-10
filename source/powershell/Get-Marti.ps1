@@ -64,13 +64,13 @@ function Get-SoftwareName {
 
 
 
-function Get-MartiItem
+function Get-MartChildResource
 {
     Param( 
-        [Parameter(Mandatory)][PSCustomObject] $MartiDefintiion,
+        [Parameter(Mandatory)][PSCustomObject] $Marti,
         [Parameter(Mandatory)][String] $Title,
-        [String] $DocumentName,
-        [String] $Format,
+        [String] $ResourceName,
+        [String] $Format = "*",
         [String] $LogPath
     
     ) 
@@ -80,12 +80,12 @@ function Get-MartiItem
     Write-Debug "Parameter: LogPath   Value: $LogPath "
     Open-Log
     Write-Log "Function 'Get-MartiItem' parameters follow"
-    Write-Log "Parameter: DocumentName   Value: $DocumentName "
-    Write-Log "Parameter: Filter   Value: $Filter "
+    Write-Log "Parameter: ResourceName   Value: $ResourceName "
+    Write-Log "Parameter: Format   Value: $Format "
     Write-Log ""
 
 
-    if ($null -eq $MartiDefintiion) {
+    if ($null -eq $Marti) {
         $Global:MartiErrorId = "MRI2101"
         $message = "No Marti definition supplied"
         Write-Log ($message + " " + $Global:MartiErrorId) 
@@ -94,7 +94,7 @@ function Get-MartiItem
     }
         
     
-    if ($null -eq $MartiDefintiion.resources -or $MartiDefintiion.resources.Count -lt 1) {
+    if ($null -eq $Marti.resources -or $Marti.resources.Count -lt 1) {
         $Global:MartiErrorId = "MRI2102"
         $message = "No documents listed"
         Write-Log ($message + " " + $Global:MartiErrorId) 
@@ -104,13 +104,13 @@ function Get-MartiItem
 
     [System.Collections.ArrayList]$lresource = @()
 
-    $MartiDefintiion.resources | ForEach-Object {
+    $Marti.resources | ForEach-Object {
 
-        if ($null -eq $Format -or $Format -eq "*" -or $Format -eq $_.format ) {
+        if ($Format -eq "*" -or $Format -eq $_.format ) {
             if ($Title -ne "*" -and $_.title -eq $Title) {
                 $lresource += $_
             } else {
-                if ($DocumentName -ne "*" -and $_.documentName -eq $DocumentName) {
+                if ($ResourceName -ne "*" -and $_.documentName -eq $ResourceName ) {
                     $lresource += $_
                 }
             }
@@ -122,3 +122,30 @@ function Get-MartiItem
     return $lresource
 }
 
+
+function Get-MartiResource {
+    Param (
+        # Marti definition
+        [Parameter(Mandatory)] [PSCustomObject] $Marti,
+        # Resource ID
+        [Parameter(Mandatory)] [String] $ResourceName
+    )
+
+    $script:LogPathName = $LogPath
+
+    Write-Debug "Parameter: LogPath   Value: $LogPath "
+    Open-Log
+    Write-Log "Function 'Get-MartiResource' parameters follow"
+    Write-Log "Parameter: ResourceName   Value: $ResourceName "
+    Write-Log ""
+
+    foreach ($item in $oMarti.resources) {
+        if ($item.uid -eq $ResourceName -or $item.documentName -eq $ResourceName){
+            Close-Log
+            return $item
+        }
+    }
+
+    Close-Log
+    return $null
+}
