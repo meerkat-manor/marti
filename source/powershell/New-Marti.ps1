@@ -115,6 +115,7 @@ Param(
     [String] $Filter ="*",
     [String] $UrlPath,
     [switch] $Recurse,
+    [switch] $ExtendAttributes,
     [switch] $ExcludeHash,
     [String] $LogPath
 
@@ -145,17 +146,14 @@ Param(
 
     Get-ChildItem $SourceFolder -Filter $Filter -Recurse:$Recurse -Force| Where-Object {!$_.PSIsContainer} | ForEach-Object {
 
-        Write-Log "Define file $_.FullName "
+        Write-Log "Define file $($_.FullName) "
         if ($ExcludeHash) {
             $hash = ""
         } else {
             $hash = (Get-FileHash -Path $_.FullName -Algorithm $hashAlgo).Hash
         }
 
-        [System.Collections.ArrayList]$lattribute = @()
-        if ($item.Extension.Substring(1) -eq "CSV") {
-            $lattribute = New-DefaultAttributes
-        }
+        $lattribute =  Get-MartiFileAttributes -Path $_.FullName -FileType $_.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
 
         $oResource = [PSCustomObject]@{
             title = $_.Name.Replace($_.Extension, "")
@@ -189,6 +187,7 @@ Param(
     }
     Write-Log "Captured $($lresource.Count) items"
     $oMarti.resources = $lresource
+
     Close-Log
 
     return $oMarti
@@ -234,118 +233,13 @@ Param(
     return $Attributes
 }
 
-function New-DefaultCsvAttributes {
-       
-    [System.Collections.ArrayList]$lattribute = @()
-
-    $oAttribute = [PSCustomObject]@{
-        category = "dataset"
-        name = "header"
-        function = "count"
-        comparison = "NA"
-        value = 0
-    }
-    $lattribute += $oAttribute
-    
-    $oAttribute = [PSCustomObject]@{
-        category = "dataset"
-        name = "footer"
-        function = "count"
-        comparison = "NA"
-        value = 0
-    }
-    $lattribute += $oAttribute
-    
-    $oAttribute = [PSCustomObject]@{
-        category = "format"
-        name = "separator"
-        function = "value"
-        comparison = "NA"
-        value = ","
-    }
-    $lattribute += $oAttribute
-    
-    $oAttribute = [PSCustomObject]@{
-        category = "format"
-        name = "columns"
-        function = "value"
-        comparison = "NA"
-        value = ","
-    }
-    $lattribute += $oAttribute
-
-    $oAttribute = [PSCustomObject]@{
-        category = "dataset"
-        name = "records"
-        function = "count"
-        comparison = "NA"
-        value = 0
-    }
-    $lattribute += $oAttribute
-    
-    $oAttribute = [PSCustomObject]@{
-        category = "dataset"
-        name = "columns"
-        function = "count"
-        comparison = "NA"
-        value = 0
-    }
-    $lattribute += $oAttribute
-    
-    return $lattribute
-}
-
-
-function New-DefaultJsonAttributes {
-       
-    [System.Collections.ArrayList]$lattribute = @()
-    
-    $oAttribute = [PSCustomObject]@{
-        category = "format"
-        name = "list"
-        function = "offset"
-        comparison = "NA"
-        value = ","
-    }
-    $lattribute += $oAttribute
-    
-    $oAttribute = [PSCustomObject]@{
-        category = "format"
-        name = "columns"
-        function = "value"
-        comparison = "NA"
-        value = ","
-    }
-    $lattribute += $oAttribute    
-
-    $oAttribute = [PSCustomObject]@{
-        category = "dataset"
-        name = "records"
-        function = "count"
-        comparison = "NA"
-        value = 0
-    }    
-    $lattribute += $oAttribute
-    
-    $oAttribute = [PSCustomObject]@{
-        category = "dataset"
-        name = "columns"
-        function = "count"
-        comparison = "NA"
-        value = 0
-    }
-    $lattribute += $oAttribute
-    
-    return $lattribute
-}
-
-
 function New-MartiItem
 {
 Param( 
     [Parameter(Mandatory)][String] $SourcePath,
     [String] $UrlPath = "",
     [switch] $ExcludeHash,
+    [switch] $ExtendAttributes,
     [String] $LogPath
 
 ) 
@@ -355,7 +249,7 @@ Param(
     Write-Debug "Parameter: LogPath   Value: $LogPath "
     Open-Log
     Write-Log "Function 'New-MartiItem' parameters follow"
-    Write-Log "Parameter: SourceFolder   Value: $SourceFolder "
+    Write-Log "Parameter: SourcePath   Value: $SourcePath "
     Write-Log "Parameter: ExcludeHash   Value: $ExcludeHash "
     Write-Log ""
 
@@ -375,20 +269,14 @@ Param(
 
         $item = Get-Item -Path $SourcePath -Force 
 
-        Write-Log "Define file $item.FullName "
+        Write-Log "Define file $($item.FullName) "
         if ($ExcludeHash) {
             $hash = ""
         } else {
             $hash = (Get-FileHash -Path $item.FullName -Algorithm $hashAlgo).Hash
         }
 
-        [System.Collections.ArrayList]$lattribute = @()
-        if ($item.Extension.Substring(1) -eq "CSV") {
-            $lattribute = New-DefaultCsvAttributes
-        }
-        if ($item.Extension.Substring(1) -eq "JSON") {
-            $lattribute = New-DefaultJsonAttributes
-        }
+        $lattribute =  Get-MartiFileAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
 
         $oResource = [PSCustomObject]@{ 
             title = $item.Name.Replace($item.Extension, "")
@@ -413,7 +301,11 @@ Param(
         }
 
         if ($null -ne $UrlPath -and $UrlPath -ne "") {
-            $oResource.url = Join-Path -Path $UrlPath -ChildPath $_.Name
+            if ($UrlPath[$UrlPath.Length-1] -eq "/" -or $UrlPath[$UrlPath.Length-1] -eq "\\") {
+                $oResource.url = $UrlPath.Replace("\\", "/") + "/" + $_.Name
+            } else {
+                $oResource.url = $UrlPath.Replace("\\", "/") + "/" + $_.Name
+            }
         }
 
         $lresource += $oResource
