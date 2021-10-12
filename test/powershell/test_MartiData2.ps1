@@ -7,7 +7,7 @@
 $bsbFile = ".\test\powershell\results\data\bsb.csv"
 
 Write-Host ">>>>>>Test case #1"
-$x = New-MartiItem -SourcePath $bsbFile -UrlPath "" -ExcludeHash -LogPath ".\test\powershell\results\Logs"
+$x = New-MartiResource -SourcePath $bsbFile -UrlPath "" -ExcludeHash -LogPath ".\test\powershell\results\Logs"
 
 Write-Host ">>>>>>Test case #2"
 $x.resources
@@ -25,7 +25,7 @@ $y
 $covidFile = ".\test\powershell\results\data\covid-case-locations-20210920-1315.json"
 
 Write-Host ">>>>>>Test case #5"
-$x = New-MartiItem -SourcePath $covidFile -UrlPath "" -ExcludeHash -LogPath ".\test\powershell\results\Logs"
+$x = New-MartiResource -SourcePath $covidFile -UrlPath "" -ExcludeHash -LogPath ".\test\powershell\results\Logs"
 
 Write-Host ">>>>>>Test case #6"
 $x.resources

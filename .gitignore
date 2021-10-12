@@ -12,3 +12,6 @@ buildNumber.properties
 
 test/powershell/results/
 docs/samples/powershell/test/
+
+docs/samples/python/test
+source/python/client/__pycache__

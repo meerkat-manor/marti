@@ -30,7 +30,7 @@ Param(
 
     Get-ChildItem $SourceFolder -Filter $Filter -Recurse:$Recurse -Force| Where-Object {!$_.PSIsContainer} | ForEach-Object {
 
-        $oResource = New-MartiItem -SourcePath $_.FullName -UrlPath $remoteDirectory -LogPath $LogPath -ExtendAttributes:$ExtendAttributes -ExcludeHash:$ExcludeHash
+        $oResource = New-MartiResource -SourcePath $_.FullName -UrlPath $remoteDirectory -LogPath $LogPath -ExtendAttributes:$ExtendAttributes -ExcludeHash:$ExcludeHash
 
         if ($null -ne $UrlPath -and $UrlPath -ne "") {
             $postfixName = $_.FullName.Replace($SourceFullName, "")

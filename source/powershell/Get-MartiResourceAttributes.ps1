@@ -228,7 +228,7 @@ function Set-AttributeValueNumber {
 }
 
 
-function Set-MartiFileAttributes {
+function Set-MartiResourceAttributes {
     Param (
         # File path
         [Parameter(Mandatory)] [String] $Path,

@@ -20,7 +20,7 @@ Write-Host "Get item Title: $($y.title)"
 Write-Host "Get item Url: $($y.url)"
 
 Write-Host "Test case #4"
-$oMarti = New-MartiItem -SourcePath ".\docs\ckan.md" -LogPath ".\test\powershell\results\Logs"
+$oMarti = New-MartiResource -SourcePath ".\docs\ckan.md" -LogPath ".\test\powershell\results\Logs"
 $oMarti.description = "Sample execution for ckan"
 
 $x = ConvertTo-Json -InputObject $oMarti
@@ -36,7 +36,7 @@ $x = ConvertTo-Html -InputObject $oMarti
 Set-Content -Path ".\test\powershell\results\marti_test02.mri.html" -Value $x
 
 Write-Host "Test case #5"
-$oMarti = New-MartiItem -SourcePath ".\docs\eror" -LogPath ".\test\powershell\results\Logs"
+$oMarti = New-MartiResource -SourcePath ".\docs\eror" -LogPath ".\test\powershell\results\Logs"
 $oMarti.description = "Sample execution with error"
 
 $x = ConvertTo-Json -InputObject $oMarti

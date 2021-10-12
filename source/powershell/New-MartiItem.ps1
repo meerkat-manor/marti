@@ -1,6 +1,5 @@
 
-function New-MartiItem
-{
+function New-MartiResource {
 Param( 
     [Parameter(Mandatory)][String] $SourcePath,
     [String] $UrlPath = "",
@@ -9,12 +8,14 @@ Param(
     [String] $LogPath
 
 ) 
+
     $Global:MartiErrorId = ""
     $script:LogPathName = $LogPath
  
     Write-Debug "Parameter: LogPath   Value: $LogPath "
     Open-Log
-    Write-Log "Function 'Add-MartiItem' parameters follow"
+    Write-Log "Function 'New-MartiResource' parameters follow"
+    Write-Log "Parameter: UrlPath   Value: $UrlPath "
     Write-Log "Parameter: SourcePath   Value: $SourcePath "
     Write-Log "Parameter: ExcludeHash   Value: $ExcludeHash "
     Write-Log ""
@@ -27,18 +28,12 @@ Param(
         Write-Log "Define file $($item.FullName) "
 
         if ($ExcludeHash) {
-            $hashAlgo = ""
-        }
-        else {
-            $hashAlgo = "SHA256"
-        }
-        if ($ExcludeHash) {
-            $hash = ""
+            $hash = $null
         } else {
-            $hash = (Get-FileHash -Path $item.FullName -Algorithm $hashAlgo).Hash
+            $hash = New-MartiHash -Algorithm "SHA256" -FilePath $item.FullName
         }
 
-        $lattribute =  Set-MartiFileAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
+        $lattribute =  Set-MartiResourceAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
 
         $oResource = [PSCustomObject]@{ 
             title = $item.Name.Replace($item.Extension, "")
@@ -50,14 +45,13 @@ Param(
             author = ""
             length = $item.Length
             hash = $hash
-            hashAlgo = $hashAlgo   
 
             description = ""
             url = ""
             version = $version
             format = $item.Extension.Substring(1)
-            compression = ""
-            encryption = ""
+            compression = $null
+            encryption = $null
 
             attributes = $lattribute
         }
@@ -83,3 +77,36 @@ Param(
 
 }
 
+function New-MartiHash{
+    Param( 
+        [Parameter(Mandatory)][String] $Algorithm,
+        [String] $FilePath
+        [String] $Value = ""
+    ) 
+
+    if ($Value  -eq "" -and $FilePath -ne "") {
+        $Value = (Get-FileHash -Path $FilePath -Algorithm $Algorithm).Hash
+    }
+
+    $oHash = [PSCustomObject]@{ 
+        algo = $Algorithm
+        value = $Value
+    }
+
+    return $oHash
+}
+    
+function New-Encryption{
+Param( 
+    [Parameter(Mandatory)][String] $Algorithm,
+    [String] $Value
+
+) 
+    
+    $oEncryption = [PSCustomObject]@{ 
+        algo = $Algorithm
+        value = $Value
+    }
+
+    return $oEncryption
+}
