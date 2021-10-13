@@ -1,12 +1,13 @@
 
-
 import ftplib 
 import os
 import json
 import sys
-  
+import csv
+
 sys.path.insert(0, "../../../source/python/client")
-from marti import *
+#from source.python.client.martiLQ import martiLQ
+from martiLQ import *
 
 def ftpList(host, path):
     
@@ -43,33 +44,51 @@ def ftpPull(host, file_remote, file_local):
                 os.remove(file_local)
 
 
-remote_host = 'bsb.hostedftp.com'
-remote_dir = '/~auspaynetftp/BSB/'
+remote_host = "bsb.hostedftp.com"
+remote_dir = "/~auspaynetftp/BSB/"
 
 print("Fetch sample file list")
 files = ftpList(remote_host, remote_dir)
 
+if not os.path.exists("./test"):
+    os.mkdir("./test")
+
 print("Fetch sample files")
 for file_name in files:
-    if file_name.startswith('BSBDirectory'):
-        if file_name.endswith('.csv') | file_name.endswith('.txt'):
+    if file_name.startswith("BSBDirectory"):
+        if file_name.endswith(".csv") | file_name.endswith(".txt"):
             file_remote = remote_dir + file_name
-            file_local = './test/' + file_name
-            ftpPull(remote_host, file_remote, file_local)
+            file_local = "./test/" + file_name
+#            ftpPull(remote_host, file_remote, file_local)
 
 print("Creating marti definition")
-oMarti = NewMartiDefinition()
+mlq = martiLQ()
+oMarti = mlq.NewMartiDefinition()
 
 for file_name in files:
-    if file_name.startswith('BSBDirectory'):
-        if file_name.endswith('.csv') | file_name.endswith('.txt'):
-            oResource = NewMartiResource(os.path.join("./test/", file_name), "", False, True, "./test/logs")
+    if file_name.startswith("BSBDirectory"):
+        if file_name.endswith(".csv") | file_name.endswith(".txt"):
+            oResource = mlq.NewMartiResource(os.path.join("./test/", file_name), "", False, True, "./test/logs")
             oMarti["resources"].append(oResource)
 
+mlq.CloseLog()
 print("Save marti definition")
 jd = json.dumps(oMarti, indent=5)
 
 jsonFile = open("./test/BSBDirectoryPlain.mri.json", "w")
 jsonFile.write(jd)
 jsonFile.close()
-print("Sample completed")
+print("Sample completed: SampleGenerateBsb.py")
+
+lqresults, testError = mlq.TestMartiDefinition(oMarti, "./test/BSBDirectoryPlain.mri.json")
+
+testfile = open("./test/LoadQualityTest01.csv", "w+", newline ="") 
+with testfile:     
+    lqwriter = csv.writer(testfile) 
+    lqwriter.writerows(lqresults) 
+
+if testError:
+    print("MISMATCH DETECTED")
+
+print("Test completed: SampleGenerateBsb.py")
+
