@@ -1,4 +1,176 @@
 
+function New-MartiResource {
+Param( 
+    [Parameter(Mandatory)][String] $SourcePath,
+    [String] $UrlPath = "",
+    [switch] $ExcludeHash,
+    [switch] $ExtendAttributes,
+    [String] $LogPath
+
+) 
+
+    $Global:MartiErrorId = ""
+    $script:LogPathName = $LogPath
+ 
+    Write-Debug "Parameter: LogPath   Value: $LogPath "
+    Open-Log
+    Write-Log "Function 'New-MartiResource' parameters follow"
+    Write-Log "Parameter: UrlPath   Value: $UrlPath "
+    Write-Log "Parameter: SourcePath   Value: $SourcePath "
+    Write-Log "Parameter: ExcludeHash   Value: $ExcludeHash "
+    Write-Log ""
+
+
+    if (Test-Path -Path $SourcePath -PathType Leaf) {
+       
+        $item = Get-Item -Path $SourcePath -Force 
+
+        Write-Log "Define file $($item.FullName) "
+
+        if ($ExcludeHash) {
+            $hash = $null
+        } else {
+            $hash = New-MartiHash -Algorithm "SHA256" -FilePath $item.FullName
+        }
+
+        $lattribute =  Set-MartiResourceAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
+
+        $oResource = [PSCustomObject]@{ 
+            title = $item.Name.Replace($item.Extension, "")
+            uid = (New-Guid).ToString()
+            documentName = $item.Name
+            issuedDate = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
+            modified = $item.LastWriteTime.ToString("yyyy-MM-ddTHH:mm:ss")
+            state = "active"
+            author = ""
+            length = $item.Length
+            hash = $hash
+
+            description = ""
+            url = ""
+            version = $version
+            format = $item.Extension.Substring(1)
+            compression = $null
+            encryption = $null
+
+            attributes = $lattribute
+        }
+
+        if ($null -ne $UrlPath -and $UrlPath -ne "") {
+            if ($UrlPath[$UrlPath.Length-1] -eq "/" -or $UrlPath[$UrlPath.Length-1] -eq "\\") {
+                $oResource.url = $UrlPath.Replace("\\", "/") + $item.Name
+            } else {
+                $oResource.url = $UrlPath.Replace("\\", "/") + "/" + $item.Name
+            }
+        }
+        
+    } else {
+        $Global:MartiErrorId = "MRI2001"
+        $message = "Document '$SourcePath' not found or is a folder"
+        Write-Log ($message + " " + $Global:MartiErrorId) 
+        Close-Log
+        throw $message
+    }
+    Close-Log
+
+    return $oResource
+
+}
+
+function New-MartiHash{
+    Param( 
+        [Parameter(Mandatory)][String] $Algorithm,
+        [String] $FilePath,
+        [String] $Value = ""
+    ) 
+
+    if ($Value  -eq "" -and $FilePath -ne "") {
+        $Value = (Get-FileHash -Path $FilePath -Algorithm $Algorithm).Hash
+    }
+
+    $oHash = [PSCustomObject]@{ 
+        algo = $Algorithm
+        value = $Value
+    }
+
+    return $oHash
+}
+    
+function New-Encryption{
+Param( 
+    [Parameter(Mandatory)][String] $Algorithm,
+    [String] $Value
+
+) 
+    
+    $oEncryption = [PSCustomObject]@{ 
+        algo = $Algorithm
+        value = $Value
+    }
+
+    return $oEncryption
+}
+
+
+
+function New-MartiChildItem
+{
+Param( 
+    [Parameter(Mandatory)][String] $SourceFolder,
+    [String] $Filter ="*",
+    [String] $UrlPath,
+    [switch] $Recurse,
+    [switch] $ExtendAttributes,
+    [switch] $ExcludeHash,
+    [String] $LogPath
+
+) 
+    $script:LogPathName = $LogPath
+
+    Write-Debug "Parameter: LogPath   Value: $LogPath "
+    Open-Log
+    Write-Log "Function 'New-MartiDefinition' parameters follow"
+    Write-Log "Parameter: SourceFolder   Value: $SourceFolder "
+    Write-Log "Parameter: Filter   Value: $Filter "
+    Write-Log "Parameter: Recurse   Value: $Recurse "
+    Write-Log "Parameter: ExtendAttributes   Value: $ExtendAttributes "
+    Write-Log "Parameter: ExcludeHash   Value: $ExcludeHash "
+    Write-Log ""
+
+    $oMarti = New-MartiDefinition
+    $lresource = $oMarti.resources
+
+    $SourceFullName = (Get-Item -Path $SourceFolder).FullName
+
+    Get-ChildItem $SourceFolder -Filter $Filter -Recurse:$Recurse -Force| Where-Object {!$_.PSIsContainer} | ForEach-Object {
+
+        $oResource = New-MartiResource -SourcePath $_.FullName -UrlPath $remoteDirectory -LogPath $LogPath -ExtendAttributes:$ExtendAttributes -ExcludeHash:$ExcludeHash
+
+        if ($null -ne $UrlPath -and $UrlPath -ne "") {
+            $postfixName = $_.FullName.Replace($SourceFullName, "")
+            if ($postfixName[0] -eq "/" -or $postfixName[0] -eq "`\" ){
+                $postfixName = $postfixName.Substring(1, ($postfixName.Length-1))
+            }
+            if ($UrlPath[$UrlPath.Length-1] -eq "/" -or $UrlPath[$UrlPath.Length-1] -eq "`\") {
+                $oResource.url = $UrlPath.Replace("`\", "/") + $postfixName.Replace("`\", "/")
+            } else {
+                $oResource.url = $UrlPath.Replace("`\", "/") + "/" + $postfixName.Replace("`\", "/")
+            }
+        }
+
+        $lresource += $oResource
+        
+    }
+    Write-Log "Captured $($lresource.Count) items"
+    $oMarti.resources = $lresource
+
+    Close-Log
+
+    return $oMarti
+
+}
+
+
 
 function New-DefaultCsvAttributes {
        
@@ -304,5 +476,6 @@ function Set-MartiResourceAttributes {
 
     return $lattribute
 }
+
 
 

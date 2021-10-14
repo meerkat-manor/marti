@@ -59,9 +59,9 @@ for file_name in files:
         if file_name.endswith(".csv") | file_name.endswith(".txt"):
             file_remote = remote_dir + file_name
             file_local = "./test/" + file_name
-#            ftpPull(remote_host, file_remote, file_local)
+            ftpPull(remote_host, file_remote, file_local)
 
-print("Creating marti definition")
+print("Creating martiLQ definition")
 mlq = martiLQ()
 oMarti = mlq.NewMartiDefinition()
 
@@ -72,15 +72,15 @@ for file_name in files:
             oMarti["resources"].append(oResource)
 
 mlq.CloseLog()
-print("Save marti definition")
+print("Save martiLQ definition")
 jd = json.dumps(oMarti, indent=5)
 
-jsonFile = open("./test/BSBDirectoryPlain.mri.json", "w")
+jsonFile = open("./test/BSBDirectoryPlain.mti", "w")
 jsonFile.write(jd)
 jsonFile.close()
 print("Sample completed: SampleGenerateBsb.py")
 
-lqresults, testError = mlq.TestMartiDefinition(oMarti, "./test/BSBDirectoryPlain.mri.json")
+lqresults, testError = mlq.TestMartiDefinition(oMarti, "./test/BSBDirectoryPlain.mti")
 
 testfile = open("./test/LoadQualityTest01.csv", "w+", newline ="") 
 with testfile:     

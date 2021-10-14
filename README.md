@@ -1,6 +1,6 @@
 # Marti
 
-**marti** stands for metadata reconcilation for transfer information.
+**martiLQ** stands for metadata reconcilation for transfer information, load quality.
 
 The objective is to provide transfer information for high volume data such as
 in files.  The files can be transferred via HTTPS, SFTP, message queue, 
@@ -15,9 +15,9 @@ it does not understand the data format.
 **Note**: The terms file and document are intended to be interchangeable 
 through out this documentation.
 
-**marti** is intended to provide minimum basic information on the transfer with  
+**martiLQ** is intended to provide minimum basic information on the transfer with  
 ability to include optional information.  The metadata reconcilation 
-transfer document being decscribed here wil be referred to as the [marti document](Marti.md)
+transfer document being decscribed here wil be referred to as the [martiLQ document](MartiLQ.md)
 throughout this documentation.
 
 The transfer information is supplied as a separate document which could be another file
@@ -39,8 +39,8 @@ information
 
 ## Transfer information
 
-The information in the **marti** document is summarised below. For more detailed
-information see [marti definition](marti.md)
+The information in the **martiLQ** document is summarised below. For more detailed
+information see [martiLQ definition](martiLQ.md)
 
 ### Mandatory information
 
@@ -61,6 +61,7 @@ The optional information is:
 * Contact point
 * Acces level
 * Rights
+* Batch
 * License
 * Spatial (*)
 * Temporal (*)

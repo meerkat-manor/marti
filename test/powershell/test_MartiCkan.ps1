@@ -7,7 +7,7 @@
 $ckan = Get-Content -Path ".\docs\samples\asic_ckan_api.json" -Raw
 $oMarti = ConvertFrom-Ckan -InputObject $ckan
 $x = ConvertTo-Json -InputObject $oMarti
-Set-Content -Path ".\test\powershell\results\marti_test05.mri.json" -Value $x
+Set-Content -Path ".\test\powershell\results\marti_test05.mti" -Value $x
 
 
 $covid_1 = Invoke-WebRequest "https://data.nsw.gov.au/data/api/3/action/package_show?id=793ac07d-a5f4-4851-835c-3f7158c19d15"
@@ -18,7 +18,7 @@ $oMarti.tags += "gov"
 $oMarti.tags += "nsw"
 $oMarti.publisher = "NSW government (Australia)"
 $x = ConvertTo-Json -InputObject $oMarti
-Set-Content -Path ".\test\powershell\results\marti_test06.mri.json" -Value $x
+Set-Content -Path ".\test\powershell\results\marti_test06.mti" -Value $x
 
 
 # cases
@@ -32,5 +32,5 @@ $oMarti.tags += "gov"
 $oMarti.tags += "nsw"
 $oMarti.publisher = "NSW government (Australia)"
 $x = ConvertTo-Json -InputObject $oMarti
-Set-Content -Path ".\test\powershell\results\marti_test07.mri.json" -Value $x
+Set-Content -Path ".\test\powershell\results\marti_test07.mti" -Value $x
 

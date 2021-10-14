@@ -1,6 +1,6 @@
 # Who is likely to use marti
 
-You are likely to find the **marti** framework relevant if you:
+You are likely to find the **martiLQ** framework relevant if you:
 
 1. Have many document exchanges
 2. Need to verify or reconcile the documents
@@ -24,7 +24,7 @@ Simple framework such as the above have limitations, such as:
 
 ## Framework Sidecar files
 
-The **marti** framework addresses the issues and limitations by using sidecar
+The **martiLQ** framework addresses the issues and limitations by using sidecar
 or shadow files. The [concept of sidecar files](https://en.wikipedia.org/wiki/Sidecar_file) is 
 not new and are commonly found associated to media file processing.
 

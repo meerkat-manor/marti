@@ -1,6 +1,6 @@
 # Why use marti
 
-**marti** is a framework for providing a degree of auditability and reconciliation of
+**martiLQ** is a framework for providing a degree of auditability and reconciliation of
 documents transferred between systems in an organisation and externally.  It does not intend
 define the format or content of the document.  It defines controls that can be used to:
 
@@ -11,7 +11,7 @@ define the format or content of the document.  It defines controls that can be u
 5. describe metadata including format, extract time
 6. link to further information
 
-You would use **marti** if any of the controls are a requirement for you.
+You would use **martiLQ** if any of the controls are a requirement for you.
 
 ## Documents
 
@@ -19,7 +19,7 @@ Documents in this context are digital storage objects such as operating system f
 cloud storage objects or blobs.  The document content has structure and contains multiple
 records.
 
-The **marti** framework is not intended to be used for single record transfers such as 
+The **martiLQ** framework is not intended to be used for single record transfers such as 
 in single web transactions.  It is for providing controls when moving large amounts of
 data as one event.  This data are commonly referred to as batch extracts and performed 
 at scheduled times such as end of day.

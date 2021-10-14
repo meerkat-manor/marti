@@ -1,10 +1,7 @@
 
-. ..\..\..\source\powershell\New-Marti.ps1
-. ..\..\..\source\powershell\New-MartiChildItem.ps1
-. ..\..\..\source\powershell\New-MartiResource.ps1
-. ..\..\..\source\powershell\Get-Marti.ps1
-. ..\..\..\source\powershell\Compress-Marti.ps1
-. ..\..\..\source\powershell\Get-MartiResourceAttributes.ps1
+. ..\..\..\source\powershell\MartiLQ.ps1
+. ..\..\..\source\powershell\MartiLQItem.ps1
+. ..\..\..\source\powershell\Compress-MartiLQ.ps1
 
 
 function PullFtpFile {
@@ -89,7 +86,7 @@ $fileList = ListFtpDirectory -Username "anonymous" -Password "anon@merebox.com" 
 Write-Host "File list size: $($fileList.count)" -ForegroundColor Gray
 
 
-Write-Host "Now iterate through the remote files and build remote marti list " -ForeGroundColor Green
+Write-Host "Now iterate through the remote files and build remote martiLQ list " -ForeGroundColor Green
 
 $oMarti = New-MartiDefinition
 $oMarti.title = "Remote_BSB_data"
@@ -101,7 +98,7 @@ $oMarti.theme = "payment"
 ForEach ($item in $fileList) {
     if ($item -ne "" -and $item.startswith("BSBDirectory")) {
         PullFtpFile -Username "anonymous" -Password "anon@merebox.com" -RemoteFile ($remoteDirectory + $item) -OutputPath (Join-Path -Path $localDirectory -ChildPath $item)
-        Write-Host "Add BSB $item file to Remote marti metadata sample " -ForeGroundColor Yellow
+        Write-Host "Add BSB $item file to Remote martiLQ metadata sample " -ForeGroundColor Yellow
         $oResource = New-MartiResource -SourcePath (Join-Path -Path $localDirectory -ChildPath $item) -UrlPath $remoteDirectory -LogPath ".\test\Logs" -ExtendAttributes
         if ($item.endswith(".txt")) {
             Set-AttributeValueNumber -Attributes $oResource.attributes -Key "header" -Category "dataset" -Function "count" -Value 1
@@ -116,13 +113,12 @@ ForEach ($item in $fileList) {
     }
 }
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBRemote.mri.json"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBRemote.mti"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
-Write-Host "Remote marti definition file is $fileJson " -ForeGroundColor Green
-Write-Host "Note that file has been given JSON extension for sample purposes" -ForeGroundColor Gray
+Write-Host "Remote martiLQ definition file is $fileJson " -ForeGroundColor Green
 
 
-Write-Host "Now iterate through the local files and build marti ZIP " -ForeGroundColor Green
+Write-Host "Now iterate through the local files and build martiLQ ZIP " -ForeGroundColor Green
 
 $oMarti = New-MartiDefinition
 $oMarti.title = "Zip_BSB_data"
@@ -139,7 +135,7 @@ if (Test-Path -Path $zipFile) {
 foreach($file in Get-ChildItem $localDirectory)
 {
     if ($file.Name.startswith("BSBDirectory") -and !($file.Name.EndsWith(".zip")) -and !($file.Name.EndsWith(".7z")) ) {
-        Write-Host "Add BSB file $file to ZIP marti metadata sample " -ForeGroundColor Yellow
+        Write-Host "Add BSB file $file to ZIP martiLQ metadata sample " -ForeGroundColor Yellow
         Compress-Archive -Path $file.FullName -DestinationPath $zipFile -Update
         $oResource = New-MartiResource -SourcePath $file.FullName -UrlPath $localDirectory -LogPath ".\test\Logs" -ExtendAttributes
         if ($file.Extension -eq ".txt") {
@@ -159,10 +155,9 @@ $oResource = New-MartiResource -SourcePath $zipFile -UrlPath $localDirectory -Lo
 Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algorithm" -Value "WINZIP"
 $oMarti.resources += $oResource
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBZip.mri.json"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBZip.mti"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
-Write-Host "ZIP marti definition file is $fileJson " -ForeGroundColor Green
-Write-Host "Note that file has been given JSON extension for sample purposes" -ForeGroundColor Gray
+Write-Host "ZIP martiLQ definition file is $fileJson " -ForeGroundColor Green
 
 
 
@@ -175,10 +170,9 @@ $oMarti.contactPoint = "meerkat@merebox.com"
 $oMarti.landingPage = "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/samples/powershell/Invoke-BSBSample.ps1"
 $oMarti.theme = "payment"
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBLocal.mri.json"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBLocal.mti"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
-Write-Host "Local marti definition file is $fileJson " -ForeGroundColor Green
-Write-Host "Note that file has been given JSON extension for sample purposes" -ForeGroundColor Gray
+Write-Host "Local martiLQ definition file is $fileJson " -ForeGroundColor Green
 
 
 Write-Host "Now create an encrypted 7ZIP file with asymmetric password protection" -ForeGroundColor Green
@@ -198,7 +192,7 @@ if (Test-Path -Path $zipFile) {
 foreach($file in Get-ChildItem $localDirectory)
 {
     if ($file.Name.startswith("BSBDirectory") -and !($file.Name.EndsWith(".zip")) -and !($file.Name.EndsWith(".7z")) ) {
-        Write-Host "Add BSB file $file to 7ZIP marti metadata sample " -ForeGroundColor Yellow
+        Write-Host "Add BSB file $file to 7ZIP martiLQ metadata sample " -ForeGroundColor Yellow
         if (Test-Path -Path $zipFile) {
             Compress-7Zip -Path $file.FullName -ArchiveFileName $zipFile -Format SevenZip -Append 
         } else {
@@ -220,7 +214,7 @@ foreach($file in Get-ChildItem $localDirectory)
 }
 
 $noticeFile = Join-Path -Path  $localDirectory -ChildPath "README.txt"
-Set-Content -Path $noticeFile -Value "Generated by marti Samples"
+Set-Content -Path $noticeFile -Value "Generated by martiLQ Samples"
 $oResource = New-MartiResource -SourcePath $noticeFile -UrlPath $localDirectory -LogPath ".\test\Logs"
 $oMarti.resources += $oResource
 
@@ -233,10 +227,9 @@ $oResource.encryption = New-Encryption -Algorithm "Passphrase" -Value $secret
 Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algorithm" -Value "7ZIP"
 $oMarti.resources += $oResource
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBSecure.mri.json"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBSecure.mti"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
-Write-Host "Secure 7ZIP marti definition file is $fileJson " -ForeGroundColor Green
-Write-Host "Note that file has been given JSON extension for sample purposes" -ForeGroundColor Gray
+Write-Host "Secure 7ZIP martiLQ definition file is $fileJson " -ForeGroundColor Green
 
 
 Write-Host "Sample execution completed" -ForeGroundColor Green

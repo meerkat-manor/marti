@@ -16,7 +16,7 @@ function Compare-MartiResource {
     
     if ($null -eq $Resource) {
         $Global:MartiErrorId = "MRI2201"
-        $message = "No Marti resource definition supplied"
+        $message = "No resource definition supplied"
         Write-Log ($message + " " + $Global:MartiErrorId) 
         Close-Log
         throw $message

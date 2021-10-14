@@ -14,7 +14,7 @@ class martiLQ:
 
     gLogPathName = ""
     gSoftwareVersion = "0.0.1"
-    gdefault_metaFile = "##marti##.mri"
+    gdefault_metaFile = "##marti##.mti"
 
     gMartiErrorId = ""
     gLogOpen = False
@@ -126,7 +126,7 @@ class martiLQ:
             "rights": "Restricted",
             "license": "",
             "state": "active",
-
+            "batch": 1,
             "describedBy": "",
             "landingPage": "",
             "theme": "", 
@@ -157,6 +157,7 @@ class martiLQ:
         
             item = os.path.basename(SourcePath)
             self.WriteLog("Define file {}".format(SourcePath))
+            HashAlgorithm = "SHA256"
 
             try:
                 mtime = os.path.getmtime(SourcePath)
@@ -167,7 +168,7 @@ class martiLQ:
             if ExcludeHash:
                 hash = None
             else:
-                hash = self.NewMartiHash(Algorithm="SHA256", FilePath=SourcePath, Value="")
+                hash = self.NewMartiHash(Algorithm=HashAlgorithm, FilePath=SourcePath, Value="")
 
             lattribute = self.SetMartiResourceAttributes(SourcePath, os.path.splitext(SourcePath)[1][1:], ExtendAttributes)
 
@@ -561,7 +562,7 @@ class martiLQ:
 
         return errorCount
 
-    def TestMartiDefinition(self, oMarti, LQSourcePath, LogPath =""):
+    def TestMartiDefinition(self, LQSourcePath, oMarti = None, LogPath =""):
 
         self.gMartiErrorId = ""
         self.gLogPathName = LogPath

@@ -1,6 +1,6 @@
 # Quality definition
 
-The **marti** definition allows for the inclusion of a load quality 
+The **martiLQ** definition allows for the inclusion of a load quality 
 definition.  This load quality definition is intended to be
 able to be applied universally with common tools.  As such not 
 all needs are covered.

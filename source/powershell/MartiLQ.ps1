@@ -2,7 +2,7 @@
 $script:LogPathName = ""
 $script:SoftwareVersion = "0.0.1"
 
-$global:default_metaFile = "##marti##.mri"
+$global:default_metaFile = "##marti##.mti"
 
 function Get-LogName {
 
@@ -94,7 +94,7 @@ function New-MartiDefinition
         rights = "Restricted"
         license = ""
         state = "active"
-
+        batch = 1
         describedBy = ""
         landingPage = ""
         theme =""
@@ -145,3 +145,90 @@ Param(
     return $Attributes
 }
 
+
+
+function Get-MartChildResource
+{
+    Param( 
+        [Parameter(Mandatory)][PSCustomObject] $Marti,
+        [Parameter(Mandatory)][String] $Title,
+        [String] $ResourceName,
+        [String] $Format = "*",
+        [String] $LogPath
+    
+    ) 
+
+    $script:LogPathName = $LogPath
+
+    Write-Debug "Parameter: LogPath   Value: $LogPath "
+    Open-Log
+    Write-Log "Function 'Get-MartiItem' parameters follow"
+    Write-Log "Parameter: ResourceName   Value: $ResourceName "
+    Write-Log "Parameter: Format   Value: $Format "
+    Write-Log ""
+
+
+    if ($null -eq $Marti) {
+        $Global:MartiErrorId = "MRI2101"
+        $message = "No definition supplied"
+        Write-Log ($message + " " + $Global:MartiErrorId) 
+        Close-Log
+        throw $message
+    }
+        
+    
+    if ($null -eq $Marti.resources -or $Marti.resources.Count -lt 1) {
+        $Global:MartiErrorId = "MRI2102"
+        $message = "No documents listed"
+        Write-Log ($message + " " + $Global:MartiErrorId) 
+        Close-Log
+        throw $message
+    }
+
+    [System.Collections.ArrayList]$lresource = @()
+
+    $Marti.resources | ForEach-Object {
+
+        if ($Format -eq "*" -or $Format -eq $_.format ) {
+            if ($Title -ne "*" -and $_.title -eq $Title) {
+                $lresource += $_
+            } else {
+                if ($ResourceName -ne "*" -and $_.documentName -eq $ResourceName ) {
+                    $lresource += $_
+                }
+            }
+        }
+
+    }
+
+    Close-Log
+    return $lresource
+}
+
+
+function Get-MartiResource {
+    Param (
+        # Marti definition
+        [Parameter(Mandatory)] [PSCustomObject] $Marti,
+        # Resource ID
+        [Parameter(Mandatory)] [String] $ResourceName
+    )
+
+    $script:LogPathName = $LogPath
+
+    Write-Debug "Parameter: LogPath   Value: $LogPath "
+    Open-Log
+    Write-Log "Function 'Get-MartiResource' parameters follow"
+    Write-Log "Parameter: ResourceName   Value: $ResourceName "
+    Write-Log ""
+
+    foreach ($item in $oMarti.resources) {
+        if ($item.uid -eq $ResourceName -or $item.documentName -eq $ResourceName){
+            Close-Log
+            return $item
+        }
+    }
+
+    Close-Log
+    return $null
+}

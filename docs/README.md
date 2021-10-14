@@ -1,8 +1,8 @@
 # Documentation
 
-**marti** stands for metadata reconcilation for transfer information.
+**martiLQ** stands for metadata reconcilation for transfer information.
 
-Before starting with **marti** it is advisable to understand if it is right for
+Before starting with **martiLQ** it is advisable to understand if it is right for
 your organisation's needs.  Information is available in a number of short 
 documents.
 
@@ -13,12 +13,12 @@ can adjust if they resonate with your circumstances,
 
 ## Index
 
-1. [What is marti](what.md)
-2. [Who would use marti](who.md)
-3. [Why you would use marti](why.md)
-4. [When would you start using marti](when.md)
+1. [What is martiLQ](what.md)
+2. [Who would use martiLQ](who.md)
+3. [Why you would use martiLQ](why.md)
+4. [When would you start using martiLQ](when.md)
 5. [Load quality metrics support](quality.md)
-6. [Comparison of marti definition](comparison.md)
+6. [Comparison of martiLQ definition](comparison.md)
 7. [References](references.md)
 
-[!INCLUDE [marti High Level Definition](../marti.md)]
+[!INCLUDE [martiLQ High Level Definition](../martiLQ.md)]

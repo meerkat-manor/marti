@@ -8,7 +8,7 @@ such as end of day.
 Some files may expand to multiple files if they are
 compressed with a utility such as WinZIP or 7ZIP.  In the situation
 where a ZIP file expands to multiple documents, then the expectation is
-that the ZIP file contains a **marti** document describing its contents.
+that the ZIP file contains a **martiLQ** document describing its contents.
 
 The elements in the distribution section are:
 
@@ -41,15 +41,15 @@ The following are optional in the distribution section.
 ## Compression
 
 Files can be compressed using a utility.  A single compressed file can contain
-multiple files.  The **marti** definition document applies to the compressed file 
+multiple files.  The **martiLQ** definition document applies to the compressed file 
 and not to the contents, which could be multiple files.
 
-In the case of a compressed files, there should be a **marti** definition document in the
+In the case of a compressed files, there should be a **martiLQ** definition document in the
 compressed file.  
 
 Compression of files always occur before encryption.
 
-### Marti definition for Compressed File
+### martiLQ definition for Compressed File
 
 For a compressed file that is not encrypted, the distribution definition will be:
 
