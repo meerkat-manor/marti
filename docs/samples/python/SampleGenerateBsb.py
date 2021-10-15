@@ -29,10 +29,9 @@ def ftpPull(host, file_remote, file_local):
                 
         try:
             ftp.login()  
-            ftp.sendcmd('TYPE I') 
             
-            with open(file_local, 'w') as fl:
-                res = ftp.retrlines('RETR ' + file_remote, fl.write)
+            with open(file_local, 'wb') as fl:
+                res = ftp.retrbinary(f"RETR {file_remote}", fl.write)
                 if not res.startswith('226 Transfer complete'):
                     print('Download failed')
                     if os.path.isfile(file_local):
@@ -59,7 +58,7 @@ for file_name in files:
         if file_name.endswith(".csv") | file_name.endswith(".txt"):
             file_remote = remote_dir + file_name
             file_local = "./test/" + file_name
-            ftpPull(remote_host, file_remote, file_local)
+#            ftpPull(remote_host, file_remote, file_local)
 
 print("Creating martiLQ definition")
 mlq = martiLQ()
@@ -80,7 +79,7 @@ jsonFile.write(jd)
 jsonFile.close()
 print("Sample completed: SampleGenerateBsb.py")
 
-lqresults, testError = mlq.TestMartiDefinition(oMarti, "./test/BSBDirectoryPlain.mti")
+lqresults, testError = mlq.TestMartiDefinition("./test/BSBDirectoryPlain.mti")
 
 testfile = open("./test/LoadQualityTest01.csv", "w+", newline ="") 
 with testfile:     

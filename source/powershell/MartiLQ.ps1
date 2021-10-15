@@ -94,7 +94,7 @@ function New-MartiDefinition
         rights = "Restricted"
         license = ""
         state = "active"
-        batch = 1
+        batch = 1.0
         describedBy = ""
         landingPage = ""
         theme =""

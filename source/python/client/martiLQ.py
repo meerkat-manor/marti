@@ -126,7 +126,7 @@ class martiLQ:
             "rights": "Restricted",
             "license": "",
             "state": "active",
-            "batch": 1,
+            "batch": 1.0,
             "describedBy": "",
             "landingPage": "",
             "theme": "", 
@@ -168,7 +168,7 @@ class martiLQ:
             if ExcludeHash:
                 hash = None
             else:
-                hash = self.NewMartiHash(Algorithm=HashAlgorithm, FilePath=SourcePath, Value="")
+                hash = self.NewMartiLQHash(Algorithm=HashAlgorithm, FilePath=SourcePath, Value="")
 
             lattribute = self.SetMartiResourceAttributes(SourcePath, os.path.splitext(SourcePath)[1][1:], ExtendAttributes)
 
@@ -211,7 +211,7 @@ class martiLQ:
 
 
 
-    def NewMartiHash(self, Algorithm, FilePath, Value=""):
+    def NewMartiLQHash(self, Algorithm, FilePath, Value=""):
         
         if Value  == "" and FilePath != "":
             if Algorithm == "SHA256":
@@ -450,7 +450,7 @@ class martiLQ:
     def SetAttributeValueNumber(self, Attributes,Category,Key,Function,Value,Comparison = "EQ"):
 
         for item in Attributes:
-        
+
             if item["category"] == Category and item["name"] == Key and item["function"] == Function:
                 if item["comparison"] == "NA" or item["comparison"] == Comparison:
                     item["comparison"] = Comparison
@@ -472,7 +472,7 @@ class martiLQ:
         return
 
 
-    def SetMartiResourceAttributes(self, Path,FileType,ExtendedAttributes):
+    def SetMartiResourceAttributes(self, PathFile, FileType, ExtendedAttributes):
 
         lattribute = None
 
@@ -483,35 +483,40 @@ class martiLQ:
                 delimiter = ","
                 rowCount = 0
                 colCount = 0
-                # csvData = Import-Csv $Path -Delimiter $delimiter 
-                # foreach ($datum in $csvData) {
-                #     $cc = (Get-Member -InputObject $datum -type NoteProperty).count
-                #     if ($colCount -lt $cc) {
-                #         $colCount = $cc
-                #     }
-                #     $rowCount += 1
-                # }
-                self.SetAttributeValueNumber(lattribute, "records", "dataset", "count", rowCount)
-                self.SetAttributeValueNumber(lattribute, "columns", "dataset", "count", colCount)
+
+                #TODO check import
+                import csv
+
+                with open(PathFile, 'r') as csvfile:
+                    datareader = csv.reader(csvfile, delimiter=",")
+                    for row in datareader:
+                        if len(row) > colCount:
+                            colCount = len(row)
+                        rowCount = rowCount + 1
+
+                self.SetAttributeValueNumber(lattribute, Category="dataset", Key="records", Function="count", Value=rowCount)
+                self.SetAttributeValueNumber(lattribute, Category="dataset", Key="columns", Function="count", Value=colCount)
 
 
         if FileType == "txt":
             lattribute = self.NewDefaultCsvAttributes()
 
             if ExtendedAttributes:
-                delimiter = "`t"
                 rowCount = 0
                 colCount = 0
-                # $csvData = Import-Csv $Path -Delimiter $delimiter 
-                # foreach ($datum in $csvData) {
-                #     $cc = (Get-Member -InputObject $datum -type NoteProperty).count
-                #     if ($colCount -lt $cc) {
-                #         $colCount = $cc
-                #     }
-                #     $rowCount += 1
-                # }
-                self.SetAttributeValueNumber(lattribute, "records", "dataset", "count", rowCount)
-                self.SetAttributeValueNumber(lattribute, "columns", "dataset", "count", colCount)
+
+                #TODO check import
+                import csv
+
+                with open(PathFile, 'r') as csvfile:
+                    datareader = csv.reader(csvfile, delimiter="\t")
+                    for row in datareader:
+                        if len(row) > colCount:
+                            colCount = len(row)
+                        rowCount = rowCount + 1
+
+                self.SetAttributeValueNumber(lattribute, Category="dataset", Key="records", Function="count", Value=rowCount)
+                self.SetAttributeValueNumber(lattribute, Category="dataset", Key="columns", Function="count", Value=colCount)
 
 
         if FileType == "json":
@@ -521,10 +526,7 @@ class martiLQ:
         if FileType == "zip":
             lattribute = self.NewDefaultZipAttributes("ZIP")
             if ExtendedAttributes:
-                # $shell = New-Object -Com Shell.Application
-                # $zipFile = $shell.NameSpace($Path)
-                # $items = $zipFile.Items()
-                self.SetAttributeValueNumber(lattribute, "files", "dataset", "count", -1)
+                self.SetAttributeValueNumber(lattribute, "dataset", "files", "count", -1)
 
         if FileType == "7z":
             lattribute = self.NewDefaultZipAttributes("7Z")
