@@ -8,47 +8,172 @@ import json
 import datetime
 import getpass
 import hashlib
-
+import glob
+from configparser import ConfigParser
+import requests
+import mimetypes
 
 class martiLQ:
 
-    gLogPathName = ""
-    gSoftwareVersion = "0.0.1"
-    gdefault_metaFile = "##marti##.mti"
+    _SoftwareVersion = "0.0.1"
+    _default_metaFile = "##marti##.mti"
 
-    gMartiErrorId = ""
-    gLogOpen = False
+    _oSoftware = {
+        "extension": "software",
+        "softwareName": "MARTILQREFERENCE",
+        "author": "Meerkat@merebox.com",
+        "version": "0.0.1"
+    }
 
-    oMartiDefinition = None
 
-    def __init__(self):
-        self.gLogOpen = False
+    _MartiErrorId = ""
+    _LogOpen = False
 
-    def Get(self):
-        return self.oMartiDefinition
+    _oMartiDefinition = None
 
-    def Close(self):
-        if self.gLogOpen:
-            self.CloseLog()
-        self.gLogOpen = False
+    _oConfiguration = None
+
 
     def GetSoftwareName(self):
         return "MARTILQREFERENCE"
+
+    def __init__(self):
+        self._LogOpen = False
+        
+        _oSoftware = {
+            "extension": "software",
+            "softwareName": self.GetSoftwareName(),
+            "author": "Meerkat@merebox.com",
+            "version": self._SoftwareVersion
+        }
+
+        self._oConfiguration = {
+            "softwareName": self.GetSoftwareName(),
+            "author": "Meerkat@merebox.com",
+            "version": self._SoftwareVersion,
+
+            "logPath": None,
+
+            "state": "active",
+            "accessLevel": "Confidential",
+            "rights": "Restricted",
+
+            "hashAlgorithm": "SHA256",
+            "signKey_File": None,
+            "signKey_Password": None,
+
+            "loaded": False
+        }
+
+    def LoadConfig(self, ConfigPath=None):
+
+        config_object = ConfigParser()
+        if not ConfigPath is None:
+            if os.path.exists(ConfigPath):
+                config_object.read(ConfigPath)
+            else:
+                self.WriteLog("Configuration path '{}' does not exist".format(ConfigPath))
+                raise Exception("Configuration path '{}' does not exist".format(ConfigPath))
+        else:
+            # Look in default location and name
+            home = os.path.expanduser('~')
+            if os.path.exists(os.path.join(home, ".martilq/martilq.ini")): 
+                ConfigPath = os.path.join(home, ".martilq/martilq.ini")
+            if os.path.exists("martilq.ini"): 
+                ConfigPath = "martilq.ini"
+            if not ConfigPath is None:
+              self.WriteLog("Usig configuration path '{}'".format(ConfigPath))
+              config_object.read(ConfigPath)
+
+        if config_object.has_section("Resources"):
+            items = config_object["Resource"]
+            if not items is None:
+                config_attr = ["accessLevel", "rights", "state"]
+                for x in config_attr:
+                    if not items[x] is None and not items[x] == "":
+                        self._oConfiguration[x] = items[x]
+
+        if config_object.has_section("Hash"):
+            items = config_object["Hash"]    
+            if not items is None:
+                config_attr = ["hashAlgorithm", "signKey_File", "signKey_Password"]
+                for x in config_attr:
+                    if not items[x] is None and not items[x] == "":
+                        self._oConfiguration[x] = items[x]
+
+        # Now check environmental values
+        self._oConfiguration["signKey_File"] = os.getenv("MARTILQ_SIGNKEY_FILE", self._oConfiguration["signKey_File"])
+        self._oConfiguration["signKey_Password"] = os.getenv("MARTILQ_SIGNKEY_PASSWORD", self._oConfiguration["signKey_Password"])
+        self._oConfiguration["logPath"] = os.getenv("MARTILQ_LOGPATH", self._oConfiguration["logPath"])
+
+        self.WriteLog("Configuration load processed")
+
+    def Set(self, MartiLQ):
+        self._oMartiDefinition = MartiLQ
+
+    def Get(self):
+        return self._oMartiDefinition
+
+    def Save(self, JsonPath):
+        jsonFile = open(JsonPath, "w")
+        jsonFile.write(json.dumps(self._oMartiDefinition, indent=5))
+        jsonFile.close()
+
+    def Load(self, JsonPath):
+
+        self._MartiErrorId = ""
+
+        self.OpenLog()
+        self.WriteLog("Function 'Load' parameters follow")
+        self.WriteLog("Parameter: SourcePath   Value: {}".format(JsonPath))
+        self.WriteLog("")
+
+        if os.path.exists(JsonPath):
+            self.WriteLog("Overwriting existing definition")
+        else:
+            if not os.path.exists(os.path.dirname(JsonPath)):
+                self.WriteLog("Parent folder does not exist")
+                raise Exception("Parent folder '{}' does not exist".format(os.path.dirname(JsonPath)))
+
+        if not self._oMartiDefinition is None:
+            self.WriteLog("Existing definition overwritten")
+
+        jsonFile = open(JsonPath, "r")
+        self._oMartiDefinition = json.load(jsonFile)
+        jsonFile.close()
+
+
+    def SetConfig(self, Key=None, Value=None):
+
+        if not Key is None:
+            self._oConfiguration[Key] = Value
+
+    def GetConfig(self, Key=None):
+
+        if not Key is None:
+            return self._oConfiguration[Key] 
+        else:
+            return None
+        
+    def Close(self):
+        if self._LogOpen:
+            self.CloseLog()
+        self._LogOpen = False
 
     def GetLogName(self):
 
         today = datetime.datetime.today() 
         dateToday = today.strftime("%Y-%m-%d") 
         
-        if None ==  self.gLogPathName or self.gLogPathName == "":
+        if None ==  self._oConfiguration["logPath"] or self._oConfiguration["logPath"] == "":
             return None
 
-        if not os.path.exists(self.gLogPathName):
-            os.mkdir(self.gLogPathName)
+        if not os.path.exists(self._oConfiguration["logPath"]):
+            os.mkdir(self._oConfiguration["logPath"])
         
         logName = self.GetSoftwareName() + "_" + dateToday + ".log"
 
-        return os.path.join(self.gLogPathName, logName)
+        return os.path.join(self._oConfiguration["logPath"], logName)
 
 
     def WriteLog(self, LogEntry):
@@ -75,55 +200,48 @@ class martiLQ:
 
     def OpenLog(self):
 
-        if not self.gLogOpen:
+        if not self._LogOpen:
             today = datetime.datetime.today() 
             dateToday = today.strftime("%Y-%m-%d") 
             self.WriteLog("***********************************************************************************")
             self.WriteLog("*   Start of processing: {}".format(dateToday))
             self.WriteLog("***********************************************************************************")
-        self.gLogOpen = True
+        self._LogOpen = True
 
     def CloseLog(self):
 
-        if self.gLogOpen:
+        if self._LogOpen:
             today = datetime.datetime.today() 
             dateToday = today.strftime("%Y-%m-%d") 
             self.WriteLog("***********************************************************************************")
             self.WriteLog("*   End of processing: {}".format(dateToday))
             self.WriteLog("***********************************************************************************")
-        self.gLogOpen = False
+        self._LogOpen = False
 
     def NewMartiDefinition(self):
 
         today = datetime.datetime.today() 
         dateToday = today.strftime("%Y-%m-%d") 
 
-        oSoftware = {
-            "extension": "software",
-            "softwareName": self.GetSoftwareName(),
-            "author": "Meerkat@merebox.com",
-            "version": self.gSoftwareVersion
-        }
-
         publisher = getpass.getuser()
 
         lcustom = []
-        lcustom.append(oSoftware)
+        lcustom.append(self._oSoftware)
 
         lresource = []
 
-        self.oMartiDefinition = {
+        self._oMartiDefinition = {
+            "content-type": "application/vnd.martilq.json",
             "title": "",
             "uid": str(uuid.uuid4()),
-            "resources": lresource,
 
             "description": "",
             "modified": dateToday,
-            "tags": ["document", self.GetSoftwareName()],
             "publisher": publisher,
             "contactPoint": "",
-            "accessLevel": "Confidential",
-            "rights": "Restricted",
+            "accessLevel": self.GetConfig("accessLevel"),
+            "rights": self.GetConfig("rights"),
+            "tags": [],
             "license": "",
             "state": "active",
             "batch": 1.0,
@@ -131,23 +249,54 @@ class martiLQ:
             "landingPage": "",
             "theme": "", 
 
+            "resources": lresource,
             "custom": lcustom
         }
 
-        return self.oMartiDefinition
+        return self._oMartiDefinition
 
 
+    def NewMartiChildItem(self, SourceFolder, UrlPath=None, Recurse=True, ExtendAttributes=True, ExcludeHash=False, Filter ="*"):
 
-    def NewMartiResource(self, SourcePath, UrlPath, ExcludeHash, ExtendAttributes, LogPath): 
+        SourceFullName = os.path.abspath(SourceFolder)
+
+        for fullName in glob.iglob(SourceFullName, recursive=Recurse):
+            if os.path.isfile(fullName):
+                oResource = self.NewMartiLQResource(SourcePath=fullName, UrlPath=UrlPath, ExtendAttributes=ExtendAttributes, ExcludeHash=ExcludeHash)
+                self._oMartiDefinition["resources"].append(oResource)
+
+
+    def GetContentType(self, SourcePath):
+
+        ext = None
+
+        # Some overrides
+        match = str(os.path.splitext(SourcePath)[1][1:]).lower()
+        if (ext is None or ext == "") and match == "csv":
+            ext = "text/csv"
+
+        if ext is None or ext == "":
+            ext, _ = mimetypes.guess_type(SourcePath, strict=True)
+
+        if ext is None or ext == "":
+            match = str(os.path.splitext(SourcePath)[1][1:]).lower()
+            if match == "md":
+                ext = "application/markdown"
+
+        if ext is None or ext == "":
+            ext = "application/vnd.unknown." + os.path.splitext(SourcePath)[1][1:]
+
+        return ext
+
+    def NewMartiLQResource(self, SourcePath, UrlPath, ExcludeHash, ExtendAttributes): 
 
         today = datetime.datetime.today() 
-        dateToday = today.strftime("%Y-%m-%d") 
+        dateToday = today.strftime("%Y-%m-%dT%H:%M:%S") 
 
-        self.gMartiErrorId = ""
-        self.gLogPathName = LogPath
+        self._MartiErrorId = ""
 
         self.OpenLog()
-        self.WriteLog("Function 'NewMartiResource' parameters follow")
+        self.WriteLog("Function 'NewMartiLQResource' parameters follow")
         self.WriteLog("Parameter: SourcePath   Value: {}".format(SourcePath))
         self.WriteLog("Parameter: UrlPath   Value: {}".format(UrlPath))
         self.WriteLog("Parameter: ExcludeHash   Value: {}".format(ExcludeHash))
@@ -157,20 +306,20 @@ class martiLQ:
         
             item = os.path.basename(SourcePath)
             self.WriteLog("Define file {}".format(SourcePath))
-            HashAlgorithm = "SHA256"
+            HashAlgorithm = self.GetConfig("hashAlgorithm")
 
             try:
                 mtime = os.path.getmtime(SourcePath)
             except OSError:
                 mtime = 0
-            last_modified_date = datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%d %H:%M:%S")
+            last_modified_date = datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%dT%H:%M:%S")
 
             if ExcludeHash:
                 hash = None
             else:
-                hash = self.NewMartiLQHash(Algorithm=HashAlgorithm, FilePath=SourcePath, Value="")
+                hash = self.NewMartiLQHash(Algorithm=HashAlgorithm, FilePath=SourcePath, Value="", Sign=self.GetConfig("signKey_File"))
 
-            lattribute = self.SetMartiResourceAttributes(SourcePath, os.path.splitext(SourcePath)[1][1:], ExtendAttributes)
+            lattribute = self.SetMartiLQResourceAttributes(SourcePath, str(os.path.splitext(SourcePath)[1][1:]).lower(), ExtendAttributes)
 
             oResource = { 
                 "title": item.replace(os.path.splitext(SourcePath)[1], ""),
@@ -178,15 +327,15 @@ class martiLQ:
                 "documentName": item,
                 "issuedDate": dateToday,
                 "modified": last_modified_date,
-                "state": "active",
-                "author": "",
+                "state": self.GetConfig("state"),
+                "author": self.GetConfig("author"),
                 "length": os.path.getsize(SourcePath),
                 "hash": hash,
 
                 "description": "",
                 "url": "",
-                "version": self.gSoftwareVersion,
-                "format": os.path.splitext(SourcePath)[1][1:],
+                "version": "",
+                "content-type": self.GetContentType(SourcePath),
                 "compression": None,
                 "encryption": None,
 
@@ -194,7 +343,7 @@ class martiLQ:
             }
 
             if None != UrlPath and UrlPath != "":
-                if UrlPath[UrlPath.Length-1] == "/" or UrlPath[UrlPath.Length-1] == "\\":
+                if UrlPath[len(UrlPath)-1] == "/" or UrlPath[len(UrlPath)-1] == "\\":
                     oResource["url"] = UrlPath.replace("\\", "/") + item
                 else:
                     oResource["url"] = UrlPath.replace("\\", "/") + "/" + item
@@ -202,41 +351,75 @@ class martiLQ:
             self.WriteLog("Complete file {}".format(SourcePath))
             
         else:
-            self.gMartiErrorId = "MRI2001"
+            self._MartiErrorId = "MRI2001"
             message = "Document '{}' not found or is a folder".format(SourcePath)
-            self.WriteLog(message + " " + self.gMartiErrorId) 
+            self.WriteLog(message + " " + self._MartiErrorId) 
             raise Exception(message)
         
         return oResource
 
 
 
-    def NewMartiLQHash(self, Algorithm, FilePath, Value=""):
+    def NewMartiLQHash(self, Algorithm, FilePath, Value="", Sign=""):
         
-        if Value  == "" and FilePath != "":
-            if Algorithm == "SHA256":
-                sha_hash = hashlib.sha256()
-                with open(FilePath,"rb") as fh:
-                    for byte_block in iter(lambda: fh.read(4096),b""):
-                        sha_hash.update(byte_block)
-                    Value = sha_hash.hexdigest()
-            if Algorithm == "SHA512":
-                sha_hash = hashlib.sha512()
-                with open(FilePath,"rb") as fh:
-                    for byte_block in iter(lambda: fh.read(4096),b""):
-                        sha_hash.update(byte_block)
-                    Value = sha_hash.hexdigest()
-            if Algorithm == "MD5":
-                sha_hash = hashlib.md5()
-                with open(FilePath,"rb") as fh:
-                    for byte_block in iter(lambda: fh.read(4096),b""):
-                        sha_hash.update(byte_block)
-                    Value = sha_hash.hexdigest()
+        try:
+            signed = False
+            if Value  == "" and FilePath != "":
 
-        oHash = { 
-            "algo": Algorithm,
-            "value": Value
-        }
+                if not Sign is None and not Sign == "" and not os.path.exists(Sign):
+                    self.WriteLog("Sign file '{}' not found".format(Sign))
+                    Sign = ""
+
+                if Sign is None or Sign == "":
+
+                    if Algorithm == "SHA256":
+                        sha_hash = hashlib.sha256()
+                        with open(FilePath,"rb") as fh:
+                            for byte_block in iter(lambda: fh.read(4096),b""):
+                                sha_hash.update(byte_block)
+                            Value = sha_hash.hexdigest()
+                    if Algorithm == "SHA512":
+                        sha_hash = hashlib.sha512()
+                        with open(FilePath,"rb") as fh:
+                            for byte_block in iter(lambda: fh.read(4096),b""):
+                                sha_hash.update(byte_block)
+                            Value = sha_hash.hexdigest()
+                    if Algorithm == "MD5":
+                        sha_hash = hashlib.md5()
+                        with open(FilePath,"rb") as fh:
+                            for byte_block in iter(lambda: fh.read(4096),b""):
+                                sha_hash.update(byte_block)
+                            Value = sha_hash.hexdigest()
+                
+                else:
+                    
+                    import OpenSSL
+                    from OpenSSL import crypto
+                    import base64
+
+                    private_key_file = open(Sign, "r")
+                    privkey = private_key_file.read()
+                    private_key_file.close()
+                    password = self.GetConfig("sigenKey_Password")
+
+                    if privkey.startswith('-----BEGIN '):
+                        pkey = crypto.load_privatekey(crypto.FILETYPE_PEM, privkey, password.encode('utf-8'))
+                    else:
+                        pkey = crypto.load_pkcs12(privkey, password).get_privatekey()
+                    with open(FilePath,"rb") as fh:
+                        sign = OpenSSL.crypto.sign(pkey, fh.read(), Algorithm) 
+                        Value = (base64.b64encode(sign)).decode('utf-8')
+                        signed = True
+
+            oHash = { 
+                "algo": Algorithm,
+                "value": Value,
+                "signed": signed
+            }
+
+        except Exception as e:
+            self.WriteLog("Hash error for file {}: {}".format(FilePath, str(e)))
+            raise e
 
         return oHash
         
@@ -249,10 +432,6 @@ class martiLQ:
         }
 
         return oEncryption
-
-
-
-
 
 
     def SetMartiAttribute(self, Attributes, ACategory, AName, AFunction, Comparison, Value):
@@ -396,7 +575,7 @@ class martiLQ:
         oAttribute = {
             "category": "format",
             "name": "compression",
-            "function": "algorithm",
+            "function": "algo",
             "comparison": "NA",
             "value": CompressionType
         }
@@ -405,7 +584,7 @@ class martiLQ:
         oAttribute = {
             "category": "format",
             "name": "encryption",
-            "function": "algorithm",
+            "function": "algo",
             "comparison": "NA",
             "value": Encryption
         }
@@ -423,7 +602,7 @@ class martiLQ:
         return lattribute
 
 
-    def SetAttributeValueString(self, Attributes,Category,Key,Function,Value,Comparison = "EQ"):
+    def SetAttributeValueString(self, Attributes, Category, Key, Function, Value, Comparison="EQ"):
 
         for item in Attributes:
         
@@ -447,7 +626,7 @@ class martiLQ:
         return
 
 
-    def SetAttributeValueNumber(self, Attributes,Category,Key,Function,Value,Comparison = "EQ"):
+    def SetAttributeValueNumber(self, Attributes, Category, Key, Function, Value, Comparison = "EQ"):
 
         for item in Attributes:
 
@@ -472,7 +651,7 @@ class martiLQ:
         return
 
 
-    def SetMartiResourceAttributes(self, PathFile, FileType, ExtendedAttributes):
+    def SetMartiLQResourceAttributes(self, PathFile, FileType, ExtendedAttributes):
 
         lattribute = None
 
@@ -526,16 +705,93 @@ class martiLQ:
         if FileType == "zip":
             lattribute = self.NewDefaultZipAttributes("ZIP")
             if ExtendedAttributes:
-                self.SetAttributeValueNumber(lattribute, "dataset", "files", "count", -1)
+                self.SetAttributeValueNumber(lattribute, "dataset", "files", "count", 0, Comparison="NA")
 
         if FileType == "7z":
             lattribute = self.NewDefaultZipAttributes("7Z")
+            if ExtendedAttributes:
+                self.SetAttributeValueNumber(lattribute, "dataset", "files", "count", 0, Comparison="NA")
 
         if lattribute == None:
             lattribute = []
         
 
         return lattribute
+
+    def FtpPull(self, host, file_remote, file_local):
+
+        with ftplib.FTP(host) as ftp:
+                    
+            try:
+                ftp.login()  
+                
+                with open(file_local, 'wb') as fl:
+                    res = ftp.retrbinary(f"RETR {file_remote}", fl.write)
+                    if not res.startswith('226 Transfer complete'):
+                        print('Download failed')
+                        if os.path.isfile(file_local):
+                            os.remove(file_local)          
+
+            except ftplib.all_errors as e:
+                print('FTP error:', e) 
+                if os.path.isfile(file_local):
+                    os.remove(file_local)
+
+
+    def Fetch(self, TargetPath):
+
+        if TargetPath is None or TargetPath == "":
+            self.WriteLog("Target path is missing from fetch")
+            raise Exception("Target path is missing from fetch")
+
+        if self._oMartiDefinition is None:
+            self.WriteLog("No defintion loaded")
+            raise Exception("No defintion loaded")
+
+        if len(self._oMartiDefinition["resources"]) < 1:
+            self.WriteLog("No resources in defintion")
+            raise Exception("No resources in defintion")
+
+        fetched_files = [] 
+        fetch_error = []
+
+        for resource in self._oMartiDefinition["resources"]:
+
+            if not resource["url"] is None and not resource["url"] == "":
+                method = str(resource["url"].split(":", 2)[0]).lower()
+                #print("Method of fetch {} for {}".format(method, resource["url"]))
+                matched = False
+                if method == "ftp":
+                    matched = True
+                    parts = resource["url"].split("/", 3)
+                    host = parts[2]
+                    file_remote = parts[3]
+                    self.FtpPull(host, file_remote, os.path.join(TargetPath, resource["documentName"]))
+                    fetched_files.append(os.path.join(TargetPath, resource["documentName"]))
+
+                if method == "http" or method == "https":
+                    matched = True
+                    response = requests.get(resource["url"])
+                    if not response.status_code == 200:
+                        self.WriteLog("HTP fetch failed with code {} for '{}'".format(response.status_code, resource["url"]))
+                        print("HTP fetch failed with code {} for '{}'".format(response.status_code, resource["url"]))
+                        fetch_error.append(resource["url"])
+                    else:
+                        with open(os.path.join(TargetPath, resource["documentName"]),'wb') as fh:
+                            fh.write(response.content)
+                        fetched_files.append(os.path.join(TargetPath, resource["documentName"]))
+
+                if method == "file":
+                    pass
+
+                if not matched:
+                    fetch_error.append(resource["documentName"])
+
+            else:
+                fetch_error.append(resource["documentName"])
+
+        return fetched_files, fetch_error
+
 
     def TestAttributeDefinition(self, oTestResults, documentName, localR, remoteR):
 
@@ -564,57 +820,88 @@ class martiLQ:
 
         return errorCount
 
-    def TestMartiDefinition(self, LQSourcePath, oMarti = None, LogPath =""):
+    def TestMartiDefinition(self, SourcePath, Sign=None):
 
-        self.gMartiErrorId = ""
-        self.gLogPathName = LogPath
+        self._MartiErrorId = ""
 
         self.OpenLog()
         self.WriteLog("Function 'TestMartiDefinition' parameters follow")
-        self.WriteLog("Parameter: oMarti         Value: {}".format(oMarti))
-        self.WriteLog("Parameter: LQSourcePath   Value: {}".format(LQSourcePath))
+        self.WriteLog("Parameter: SourcePath   Value: {}".format(SourcePath))
         self.WriteLog("")
 
-        if oMarti is None:
-            oMarti = self.oMartiDefinition
-
-        if oMarti is None:
+        if self._oMartiDefinition is None:
             pass
 
-        if not os.path.exists(LQSourcePath):
+        if not os.path.exists(SourcePath):
             pass    
 
-        jsonFile = open(LQSourcePath, "r")
+        jsonFile = open(SourcePath, "r")
         lq = json.load(jsonFile)
         jsonFile.close()
 
-        testError = False
+        testError = 0
         oTestResults = []
 
         otest = ["ResourceName", "Level", "Metric", "Matches", "LocalCalculation", "SuppliedValue" ]
         oTestResults.append(otest)
 
-        otest = ["", "Batch", "Resource count", (len(oMarti["resources"]) == len(lq["resources"])), len(oMarti["resources"]), len(lq["resources"]) ]
+        otest = ["", "Batch", "Resource count", (len(self._oMartiDefinition["resources"]) == len(lq["resources"])), len(self._oMartiDefinition["resources"]), len(lq["resources"]) ]
         oTestResults.append(otest)
 
-        for resource in oMarti["resources"]:
+        for resource in self._oMartiDefinition["resources"]:
 
             for retarget in lq["resources"]:
                 if resource["documentName"] == retarget["documentName"]:
 
-                    testError = testError or resource["hash"]["value"] != retarget["hash"]["value"]
-                    otest = [resource["documentName"], "Resource", "Hash", (resource["hash"]["value"] == retarget["hash"]["value"]), resource["hash"]["value"], retarget["hash"]["value"] ]
-                    oTestResults.append(otest)
+                    if retarget["hash"]["signed"]:
+                        # Need to verify the hash
+                        if Sign is None:
+                            Sign = self.GetConfig("signKey_file")
 
-                    testError = testError or resource["length"] != retarget["length"]
+                        if Sign is None:
+                            self.WriteLog("No Sign Key specified so Hash check cannot be performed for signed content")
+                        else:
+                            try:
+                                import OpenSSL
+                                from OpenSSL import crypto
+                                import base64
+                            except ImportError:
+                                self.WriteLog("Import error in signed verification")
+
+                            pub_key_file = open(Sign, "r")
+                            pubkey = pub_key_file.read()
+                            pub_key_file.close()
+
+                            x509 = crypto.X509()
+                            x509.set_pubkey(pubkey)
+
+                            try:
+                                crypto.verify(x509, retarget["hash"]["value"], resource["hash"]["value"], retarget["hash"]["algo"])
+                                otest = [resource["documentName"], "Resource", "Hash",False, resource["hash"]["value"], retarget["hash"]["value"] ]
+                            except:
+                                testError = testError + 1
+                                self.WriteLog("Error in verification for {}".format(resource["documentName"]))
+                                otest = [resource["documentName"], "Resource", "Hash", True, resource["hash"]["value"], retarget["hash"]["value"] ]
+                        
+                        oTestResults.append(otest)
+
+                        pass
+                    else:
+                        if not resource["hash"]["value"] == retarget["hash"]["value"]:
+                            testError = testError + 1
+                        otest = [resource["documentName"], "Resource", "Hash", (resource["hash"]["value"] == retarget["hash"]["value"]), resource["hash"]["value"], retarget["hash"]["value"] ]
+                        oTestResults.append(otest)
+
+                    if not resource["length"] == retarget["length"]:
+                        testError = testError + 1
                     otest = [resource["documentName"], "Resource", "Length", (resource["length"] == retarget["length"]), resource["length"], retarget["length"] ]
                     oTestResults.append(otest)
 
                     errorAttrCount = self.TestAttributeDefinition(oTestResults, resource["documentName"], resource["attributes"], retarget["attributes"])
-
-                    if errorAttrCount > 0:
-                        testError = True
+                    testError = testError + errorAttrCount
 
                     break
+
+        self.WriteLog("TestMartiDefinition function completed with {} errors".format(testError))
 
         return oTestResults, testError

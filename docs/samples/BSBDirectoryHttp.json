@@ -1,0 +1,223 @@
+{
+     "content-type": "application/vnd.martilq.json",
+     "title": "SampleFetchBSB",
+     "uid": "08e22a4d-5a11-4b19-9172-feb36601009e",
+     "description": "",
+     "modified": "2021-10-23",
+     "publisher": "meerkat",
+     "contactPoint": "",
+     "accessLevel": "Public",
+     "rights": "Publish",
+     "tags": ["BSB", "Australia"],
+     "license": "",
+     "state": "active",
+     "batch": 1.0,
+     "describedBy": "",
+     "landingPage": "",
+     "theme": "",
+     "resources": [
+          {
+               "title": "BSBDirectoryAug21-305",
+               "uid": "59f1c10e-a71b-45a4-9205-2b651cf04304",
+               "documentName": "BSBDirectoryAug21-305.csv",
+               "issuedDate": "2021-10-23T18:37:58",
+               "modified": "2021-10-23T18:37:46",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1352016,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "26e40760989ff8a314cda70628c38b66d0d565ea8ad677b81b83780e33984104",
+                    "signed": false
+               },
+               "description": "",
+               "url": "http://apnedata.merebox.com.s3.ap-southeast-2.amazonaws.com/au/bsb/BSBDirectoryAug21-305.csv",
+               "version": "",
+               "content-type": "text/csv",
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15055
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectoryJul21-304",
+               "uid": "4f57b82a-6b6a-4612-8d4e-67289b7795e1",
+               "documentName": "BSBDirectoryJul21-304.csv",
+               "issuedDate": "2021-10-23T18:37:58",
+               "modified": "2021-10-23T18:37:51",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1351065,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "5306b8baaafaf60600b645f3514dde3f654ac2b0bdbae96b0d0501b18488b1b5",
+                    "signed": false
+               },
+               "description": "",
+               "url": "http://apnedata.merebox.com.s3.ap-southeast-2.amazonaws.com/au/bsb/BSBDirectoryJul21-304.csv",
+               "version": "",
+               "content-type": "text/csv",
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15044
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectorySep21-306",
+               "uid": "08d11601-54a6-4fb0-b694-e2d2c2a7eb32",
+               "documentName": "BSBDirectorySep21-306.csv",
+               "issuedDate": "2021-10-23T18:37:58",
+               "modified": "2021-10-23T18:37:55",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1351281,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "4f5c97799f6006247fad64f9a5acc425e79f31342cbbbdaaba2995af16ac56b4",
+                    "signed": false
+               },
+               "description": "",
+               "url": "http://apnedata.merebox.com.s3.ap-southeast-2.amazonaws.com/au/bsb/BSBDirectorySep21-306.csv",
+               "version": "",
+               "content-type": "text/csv",
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15050
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          }
+     ],
+     "custom": [
+          {
+               "extension": "software",
+               "softwareName": "MARTILQREFERENCE",
+               "author": "Meerkat@merebox.com",
+               "version": "0.0.1"
+          }
+     ]
+}

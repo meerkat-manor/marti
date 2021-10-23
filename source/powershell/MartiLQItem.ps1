@@ -144,7 +144,7 @@ Param(
 
     Get-ChildItem $SourceFolder -Filter $Filter -Recurse:$Recurse -Force| Where-Object {!$_.PSIsContainer} | ForEach-Object {
 
-        $oResource = New-MartiResource -SourcePath $_.FullName -UrlPath $remoteDirectory -LogPath $LogPath -ExtendAttributes:$ExtendAttributes -ExcludeHash:$ExcludeHash
+        $oResource = New-MartiResource -SourcePath $_.FullName -UrlPath $UrlPath -LogPath $LogPath -ExtendAttributes:$ExtendAttributes -ExcludeHash:$ExcludeHash
 
         if ($null -ne $UrlPath -and $UrlPath -ne "") {
             $postfixName = $_.FullName.Replace($SourceFullName, "")
@@ -289,7 +289,7 @@ function New-DefaultZipAttributes {
     $oAttribute = [PSCustomObject]@{
         category = "format"
         name = "compression"
-        function = "algorithm"
+        function = "algo"
         comparison = "NA"
         value = $CompressionType
     }
@@ -298,7 +298,7 @@ function New-DefaultZipAttributes {
     $oAttribute = [PSCustomObject]@{
         category = "format"
         name = "encryption"
-        function = "algorithm"
+        function = "algo"
         comparison = "NA"
         value = $Encryption
     }

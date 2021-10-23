@@ -4,14 +4,9 @@ import os
 import json
 import sys
 import csv
-import zipfile
-
 
 sys.path.insert(0, "../../../source/python/client")
 from martiLQ import *
-
-ftpFetch = True
-os.environ["MARTILQ_LOGPATH"] = "./test/logs"
 
 def ftpList(host, path):
     
@@ -62,8 +57,7 @@ for file_name in files:
         if file_name.endswith(".csv") | file_name.endswith(".txt"):
             file_remote = remote_dir + file_name
             file_local = "./test/" + file_name
-            if ftpFetch:
-                ftpPull(remote_host, file_remote, file_local)
+            ftpPull(remote_host, file_remote, file_local)
 
 print("Creating martiLQ definition")
 mlq = martiLQ()
@@ -72,56 +66,16 @@ oMarti = mlq.NewMartiDefinition()
 for file_name in files:
     if file_name.startswith("BSBDirectory"):
         if file_name.endswith(".csv") | file_name.endswith(".txt"):
-            oResource = mlq.NewMartiLQResource(os.path.join("./test/", file_name), "", False, True)
+            oResource = mlq.NewMartiLQResource(os.path.join("./test/", file_name), "", False, True, "./test/logs")
             oMarti["resources"].append(oResource)
 
 mlq.CloseLog()
-
-
 print("Save martiLQ definition")
+jd = json.dumps(oMarti, indent=5)
+
 jsonFile = open("./test/BSBDirectoryPlain.mti", "w")
-jsonFile.write(json.dumps(oMarti, indent=5))
+jsonFile.write(jd)
 jsonFile.close()
-print("Base sample mti written: BSBDirectoryPlain.mti")
-
-
-print("Creating martiLQ ZIP file")
-zipFileName = "BSBDirectory.zip"
-fileZipCount = 0
-
-mlq = martiLQ()
-oMarti = mlq.NewMartiDefinition()
-with zipfile.ZipFile("./test/" + zipFileName, "w", compression=zipfile.ZIP_DEFLATED) as zipObj:
-    for file_name in files:
-        if file_name.startswith("BSBDirectory"):
-            if file_name.endswith(".csv") | file_name.endswith(".txt"):
-                file_remote = remote_dir + file_name
-                file_local = "./test/" + file_name
-                if ftpFetch:
-                    ftpPull(remote_host, file_remote, file_local)
-                zipObj.write(file_local, file_name)
-                fileZipCount = fileZipCount + 1
-                oResource = mlq.NewMartiLQResource(os.path.join("./test/", file_name), "", False, True)
-                oResource["url"] = "@"+zipFileName + "/" + file_name
-                oMarti["resources"].append(oResource)
-            
-
-oResource = mlq.NewMartiLQResource(os.path.join("./test/", zipFileName), "", False, True)
-oResource["url"] = "./test/" + zipFileName
-mlq.SetAttributeValueString(Attributes=oResource["attributes"], Key="compression", Category="format", Function="algo", Value="WINZIP")
-mlq.SetAttributeValueNumber(Attributes=oResource["attributes"], Key="files", Category="dataset", Function="count", Value=fileZipCount)
-oMarti["resources"].append(oResource)
-
-mlq.CloseLog()
-
-print("Save martiLQ ZIP definition")
-jsonFile = open("./test/MartiLQ_BSBZip.mti", "w")
-jsonFile.write(json.dumps(oMarti, indent=5))
-jsonFile.close()
-print("ZIP sample mti written: MartiLQ_BSBZip.mti")
-
-
-
 print("Sample completed: SampleGenerateBsb.py")
 
 lqresults, testError = mlq.TestMartiDefinition("./test/BSBDirectoryPlain.mti")

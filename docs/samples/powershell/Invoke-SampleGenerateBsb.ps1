@@ -152,7 +152,7 @@ foreach($file in Get-ChildItem $localDirectory)
     }
 }
 $oResource = New-MartiResource -SourcePath $zipFile -UrlPath $localDirectory -LogPath ".\test\Logs" -ExtendAttributes
-Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algorithm" -Value "WINZIP"
+Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algo" -Value "WINZIP"
 $oMarti.resources += $oResource
 
 $fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBZip.mti"
@@ -224,7 +224,7 @@ Compress-7Zip -Path $noticeFile -ArchiveFileName $zipFile -Append -Password $sec
 $oResource = New-MartiResource -SourcePath $zipFile -UrlPath $localDirectory -LogPath ".\test\Logs" -ExtendAttributes
 $oResource.compression = "7ZIP"
 $oResource.encryption = New-Encryption -Algorithm "Passphrase" -Value $secret
-Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algorithm" -Value "7ZIP"
+Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algo" -Value "7ZIP"
 $oMarti.resources += $oResource
 
 $fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBSecure.mti"

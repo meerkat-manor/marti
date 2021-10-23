@@ -161,7 +161,7 @@ $oResource.encryption = New-Encryption -Algorithm "PKI" -Value $($encryptedSecre
 
 Write-Debug "Secret: $secret"
 
-Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algorithm" -Value "7ZIP"
+Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algo" -Value "7ZIP"
 $oMarti.resources += $oResource
 
 $fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSB7ZipPKI.mti"

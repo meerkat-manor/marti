@@ -1,6 +1,6 @@
 
 
-. .\source\powershell\New-Marti.ps1
+. .\source\powershell\MartiLQ.ps1
 . .\source\powershell\ConvertFrom-Ckan.ps1
 
 
@@ -23,7 +23,6 @@ Set-Content -Path ".\test\powershell\results\marti_test06.mti" -Value $x
 
 # cases
 $covid19 =  "https://data.nsw.gov.au/data/api/3/action/package_show?id=3dc5dc39-40b4-4ee9-8ec6-2d862a916dcf"
-#Invoke-WebRequest $covid19 -Method GET -OutFile ".\test\powershell\results\data\nsw_covid19.csv"
 $covid_2 = Invoke-WebRequest $covid19
 $oMarti = ConvertFrom-Ckan -InputObject $covid_2
 $oMarti.description = "This data has been converted from NSW CKAN data source with URL '$covid19'"
