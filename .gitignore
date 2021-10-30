@@ -15,3 +15,5 @@ docs/samples/powershell/test/
 
 docs/samples/python/test
 source/python/client/__pycache__
+
+source/marti/source/golang/client/src/test

@@ -34,6 +34,7 @@ Param(
         }
 
         $lattribute =  Set-MartiResourceAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
+        $expires = (Get-Date).AddYears(7)
 
         $oResource = [PSCustomObject]@{ 
             title = $item.Name.Replace($item.Extension, "")
@@ -41,6 +42,7 @@ Param(
             documentName = $item.Name
             issuedDate = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
             modified = $item.LastWriteTime.ToString("yyyy-MM-ddTHH:mm:ss")
+            expires = $expires -f "yyyy-MM-ddTHH:mm:ss"
             state = "active"
             author = ""
             length = $item.Length

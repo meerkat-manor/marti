@@ -85,8 +85,16 @@ class martiLQ:
               self.WriteLog("Usig configuration path '{}'".format(ConfigPath))
               config_object.read(ConfigPath)
 
+        if config_object.has_section("General"):
+            items = config_object["General"]
+            if not items is None:
+                config_attr = ["logPath"]
+                for x in config_attr:
+                    if not items[x] is None and not items[x] == "":
+                        self._oConfiguration[x] = items[x]
+
         if config_object.has_section("Resources"):
-            items = config_object["Resource"]
+            items = config_object["Resources"]
             if not items is None:
                 config_attr = ["accessLevel", "rights", "state"]
                 for x in config_attr:
@@ -255,6 +263,25 @@ class martiLQ:
 
         return self._oMartiDefinition
 
+    def Temporal(self):
+
+        oTemporal = {
+            "extension": "temporal",
+            "businessDate": "",
+            "runDate": ""
+        }
+
+        return oTemporal
+
+    def Spatial(self):
+
+        oSpatial = {
+            "country": "",
+            "region": "",
+            "town": "",
+        }
+
+        return oSpatial
 
     def NewMartiChildItem(self, SourceFolder, UrlPath=None, Recurse=True, ExtendAttributes=True, ExcludeHash=False, Filter ="*"):
 
@@ -327,6 +354,7 @@ class martiLQ:
                 "documentName": item,
                 "issuedDate": dateToday,
                 "modified": last_modified_date,
+                "expires": "",
                 "state": self.GetConfig("state"),
                 "author": self.GetConfig("author"),
                 "length": os.path.getsize(SourcePath),
@@ -336,6 +364,7 @@ class martiLQ:
                 "url": "",
                 "version": "",
                 "content-type": self.GetContentType(SourcePath),
+                "encoding": None,
                 "compression": None,
                 "encryption": None,
 
@@ -436,18 +465,14 @@ class martiLQ:
 
     def SetMartiAttribute(self, Attributes, ACategory, AName, AFunction, Comparison, Value):
 
-        matched = False
-    
         for attr in Attributes:
 
             if attr["category"] == ACategory and attr["name"] == AName and attr["function"] == AFunction:
-                matched = True
                 attr["comparison"] = Comparison
                 attr["value"] = Value
+                return Attributes
             
 
-        if not matched:
-            
             oAttribute = {
                 "category": ACategory,
                 "name": AName,

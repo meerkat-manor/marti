@@ -81,6 +81,7 @@ function New-MartiDefinition
     [System.Collections.ArrayList]$lresource = @()
 
     $oMarti = [PSCustomObject]@{
+        "content-type" = "application/vnd.martilq.json"
         title = ""
         uid = (New-Guid).ToString()
         resources = $lresource

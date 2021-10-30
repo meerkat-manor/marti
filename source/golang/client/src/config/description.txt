@@ -1,0 +1,5 @@
+
+You can include more details of the MartiLQ defintion
+by placing content in a text file and then
+loading the contents into the JSON file before
+save.
