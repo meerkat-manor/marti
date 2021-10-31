@@ -45,8 +45,8 @@ func TestMarti_DirectoryA(t *testing.T) {
 	currentDirectory, _ := os.Getwd()
 	SourcePath := currentDirectory
 	Recursive := false
-	TargetPath := "../test/test_martilq_directoryA.json"
-	ProcessDirectory("", SourcePath, Recursive, TargetPath) 
+	DefPath := "../test/test_martilq_directoryA.json"
+	ProcessFilePath("", SourcePath, Recursive, DefPath, "") 
 
 }
 
@@ -55,7 +55,7 @@ func TestMarti_DirectoryB(t *testing.T) {
 	currentDirectory, _ := os.Getwd()
 	SourcePath := currentDirectory
 	Recursive := false
-	TargetPath := "../test/test_martilq_directoryB.json"
-	ProcessDirectory("../config/martilq.ini", SourcePath, Recursive, TargetPath) 
+	DefPath := "../test/test_martilq_directoryB.json"
+	ProcessFilePath("../config/martilq.ini", SourcePath, Recursive, DefPath, "") 
 
 }

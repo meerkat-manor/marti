@@ -4,7 +4,6 @@ import (
 	"testing"
 	"strconv"
 	"time"
-	"fmt"
 )
 
 func TestAttr_Zip(t *testing.T) {
@@ -38,7 +37,6 @@ func TestAttr_TemporalA(t *testing.T) {
 	endDate := time.Now().AddDate(0,0,-1)
 
 	a := NewDefaultTemporalAttributes(businessDate, runDate, false, startDate, endDate)
-	fmt.Println(a)
 	if len(a) != 2 {
 		t.Error("Arrays size not 2: " + strconv.Itoa(len(a)))
 	}
@@ -47,7 +45,6 @@ func TestAttr_TemporalA(t *testing.T) {
 	}
 
 	a = NewDefaultTemporalAttributes(businessDate, runDate, true, startDate, endDate)
-	fmt.Println(a)
 	if len(a) != 4 {
 		t.Error("Arrays size not 4: " + strconv.Itoa(len(a)))
 	}

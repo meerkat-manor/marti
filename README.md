@@ -40,7 +40,7 @@ information
 ## Transfer information
 
 The information in the **martiLQ** document is summarised below. For more detailed
-information see [martiLQ definition](martiLQ.md)
+information see [martiLQ definition](/docs/source/martiLQ.md)
 
 ### Mandatory information
 
@@ -48,7 +48,7 @@ The mandatory information is:
 
 * Title
 * Unique identifier
-* Distribution list - See Distribution section summary below or detailed document [Distribution](docs/distribution.md)
+* Resource list - See Resource section summary below or detailed document [Resource](docs/source/resource.md)
 
 ### Optional information
 
@@ -75,11 +75,11 @@ The optional information is:
 The information supplied can be extended by party agreement and there
 are place holders in the defintion.
 
-### Distribution 
+### Resource 
 
-The distribution section is intended to allow multiple data files to be
-grouped together.  The distribution section can be repeated, but at least 
-one must be included.  If the distribution is repeated it will commonly 
+The resource section is intended to allow multiple data files to be
+grouped together.  The resource section can be repeated, but at least 
+one must be included.  If the resource is repeated it will commonly 
 be for definiting multiple formats of the same data or batching of
 different data together from the same extract process.
 
@@ -92,9 +92,9 @@ different data together from the same extract process.
 * Hash of document - The hash of the document, which can be blank especially for large documents
 * Hash algorithm
 
-### Distribution optional
+### Resource optional
 
-The following are some of the optional items in the distribution section.  See [Distribution](docs/distribution.md)
+The following are some of the optional items in the resource section.  See [Resource](docs/source/resources.md)
 for more details
 
 * Description

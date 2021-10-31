@@ -11,9 +11,13 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 test/powershell/results/
-docs/samples/powershell/test/
 
-docs/samples/python/test
+docs/source/samples/powershell/test/
+docs/source/samples/python/test
+
+docs/build
+
 source/python/client/__pycache__
 
-source/marti/source/golang/client/src/test
+source/golang/client/src/test
+

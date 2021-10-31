@@ -34,10 +34,10 @@ Samples exist on CKAN integration.
 ## Magda and martiLQ
 
 Another source of data is [Magda](https://magda.io/) which has API metadata
-definitions.  Magda is more about data fedaration and as such provides
+definitions.  Magda is more about data federation and as such provides
 functionality on finding data sources and describing the contents.
 
 The Magda software is able to generate APIs and data content.  This does not 
 address the needs of data processing pipeline when reconciliation is required.
 
-If you have Magda data sources then synergies exist between Magda and marti.
+If you have Magda data sources then synergies exist between Magda and martiLQ.

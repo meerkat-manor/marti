@@ -21,4 +21,4 @@ can adjust if they resonate with your circumstances,
 6. [Comparison of martiLQ definition](comparison.md)
 7. [References](references.md)
 
-[!INCLUDE [martiLQ High Level Definition](../martiLQ.md)]
+[!INCLUDE [martiLQ High Level Definition](martiLQ.md)]

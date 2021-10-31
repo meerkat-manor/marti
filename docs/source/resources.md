@@ -1,6 +1,6 @@
-# Distribution definition
+# Resources definition
 
-The distrubution section defines the files that are grouped
+The resources section defines the files that are grouped
 together by association.  This association is not defined but can
 include different formats of the same data or a common batch extract 
 such as end of day.
@@ -10,7 +10,7 @@ compressed with a utility such as WinZIP or 7ZIP.  In the situation
 where a ZIP file expands to multiple documents, then the expectation is
 that the ZIP file contains a **martiLQ** document describing its contents.
 
-The elements in the distribution section are:
+The elements in the resource section are:
 
 * Title
 * Document name - Commonly being absolute or relative file name.
@@ -20,8 +20,9 @@ The elements in the distribution section are:
 * Size of file - The file size in bytes
 * Hash of file - The hash of the file, which can be blank especially for large files
 * Hash algorithm
+* Attributes - List of attributes associated with the document
 
-The following are optional in the distribution section.
+The following are optional in the resource section.
 
 * Identifier
 * Description
@@ -29,8 +30,7 @@ The following are optional in the distribution section.
 * Version - File version.  The same file could be updated or this might denote the next version
     of a regular report.  For example a daily extract will have the version number incremented
     every day and provide a new URL.  The previous file can be retained.
-* Format - if not specified then the consumer will in all likelihood use the file extension / mime type
-* Media Type
+* Content type - if not specified then the consumer will in all likelihood use the file extension / mime type
 * Expiry Date - The date and time that this file expires and can be removed from the download URL
     location.  This is not the file retention period as might be required for archiving.
 * Described By - A link to the metadata describing this file data and format

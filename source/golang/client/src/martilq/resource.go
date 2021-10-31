@@ -11,15 +11,15 @@ import (
 
 type Resource struct {
 	Title string `json:"title"`
-	Uid string `'json:"uid"`
-	DocumentName string `json:"documentName`
+	Uid string `json:"uid"`
+	DocumentName string `json:"documentName"`
 	IssueDate time.Time `json:"issueDate"`
 	Modified time.Time `json:"modified"`
 	Expires time.Time `json:"expires"`
 	State string `json:"state"`
 	Author string `json:"author"`
 	Length int64 `json:"length"`
-	Hash hash
+	Hash hash `json:"hash"`
 
 	Description string `json:"description"`
 	Url string `json:"url"`
@@ -28,6 +28,7 @@ type Resource struct {
 	Encoding string `json:"encoding"`
 	Compression string `json:"compression"`
 	Encryption string `json:"encryption"`
+	DescribedBy string `json:"describedBy"`
 
 	Attributes []Attribute `json:"attributes"`
 }
@@ -59,6 +60,11 @@ func NewMartiLQResource(config configuration, sourcePath string, urlPath string,
 		}
 	}
 
+
+	if config.dataPath != "" {
+
+	}
+
 	u := uuid.New()
 	r.Uid = u.String()
 
@@ -68,7 +74,7 @@ func NewMartiLQResource(config configuration, sourcePath string, urlPath string,
 	r.Encoding = config.encoding
 
 	r.DocumentName = stats.Name()
-	if config.title == "documentName" {
+	if config.title == "{{documentName}}" {
 		r.Title = r.DocumentName
 	}
 	r.IssueDate = time.Now()

@@ -20,6 +20,8 @@ type configuration struct {
 	softwareName string
 
 	logPath string
+	tempPath string
+	dataPath string
 
 	publisher string
 	contactPoint string
@@ -33,6 +35,7 @@ type configuration struct {
 
 	title string
 	author string
+	urlPrefix string
 	state string
 	version string
 	expires string
@@ -50,6 +53,9 @@ type configuration struct {
 
 	loaded bool
 	configPath string
+
+	temporal oTemporal
+	spatial oSpatial
 }
 
 
@@ -63,7 +69,7 @@ func NewConfiguration() configuration {
 
 	c.softwareName = GetSoftwareName()
 
-	c.title = "documentName"
+	c.title = "{{documentName}}"
 	c.state = "active"
 	c.accessLevel = "Confidential"
 	c.rights = "Restricted"
@@ -71,9 +77,13 @@ func NewConfiguration() configuration {
 	c.encoding = cEncoding
 	c.batchInc = 0.001
 
+	c.urlPrefix = "file://"
 	c.hash = true
 	c.hashAlgorithm = "SHA256" 
 	c.loaded = false
+
+	c.spatial = GetSpatial()
+	c.temporal = GetTemporal()
 
 	configPath := findIni()
 	if configPath != "" {
@@ -130,6 +140,8 @@ func (c *configuration) SaveConfig(ConfigPath string) bool {
 	cfgini, _ := ini.LooseLoad("./martilq.ini")
 		
 	cfgini.Section("General").Key("logPath").SetValue (c.logPath)
+	cfgini.Section("General").Key("tempPath").SetValue (c.tempPath)
+	cfgini.Section("General").Key("dataPath").SetValue (c.dataPath)
 
 	cfgini.Section("MartiLQ").Key("tags").SetValue(c.tags)
 	cfgini.Section("MartiLQ").Key("publisher").SetValue(c.publisher)
@@ -146,6 +158,7 @@ func (c *configuration) SaveConfig(ConfigPath string) bool {
 	cfgini.Section("Resources").Key("expires").SetValue (c.expires)
 	cfgini.Section("Resources").Key("encoding").SetValue (c.encoding)
 	cfgini.Section("Resources").Key("version").SetValue (c.version)
+	cfgini.Section("Resources").Key("urlPrefix").SetValue (c.urlPrefix)
 	
 	cfgini.Section("Hash").Key("hashAlgorithm").SetValue (c.hashAlgorithm)
 	cfgini.Section("Hash").Key("signKey_File").SetValue (c.signKey_File)
@@ -161,6 +174,13 @@ func (c *configuration) SaveConfig(ConfigPath string) bool {
 		WriteLog(fmt.Sprintf("Error saving to '%v'" , ConfigPath))
 		return false
 	}
+
+	res := c.spatial.SaveSpatial(ConfigPath)
+	res = c.temporal.SaveTemporal(ConfigPath)
+	if res {
+
+	}
+
 	return true
 }
 
@@ -191,6 +211,8 @@ func (c *configuration) LoadConfig(ConfigPath string) bool {
 		}
 		
 		c.logPath = cfgini.Section("General").Key("logPath").MustString(c.logPath)
+		c.tempPath = cfgini.Section("General").Key("tempPath").MustString(c.tempPath)
+		c.dataPath = cfgini.Section("General").Key("dataPath").MustString(c.dataPath)
 
 		c.tags = cfgini.Section("MartiLQ").Key("tags").MustString(c.tags)
 		c.accessLevel = cfgini.Section("MartiLQ").Key("accessLevel").MustString(c.accessLevel)
@@ -201,11 +223,12 @@ func (c *configuration) LoadConfig(ConfigPath string) bool {
 		c.contactPoint = cfgini.Section("MartiLQ").Key("contactPoint").MustString(c.contactPoint)
 		c.theme= cfgini.Section("MartiLQ").Key("theme").MustString(c.theme)
 
-		c.author = cfgini.Section("Resources").Key("title").MustString(c.title)
+		c.title = cfgini.Section("Resources").Key("title").MustString(c.title)
 		c.author = cfgini.Section("Resources").Key("author").MustString(c.author)
 		c.state = cfgini.Section("Resources").Key("state").MustString(c.state)
 		c.expires = cfgini.Section("Resources").Key("expires").MustString(c.expires)
 		c.encoding = cfgini.Section("Resources").Key("encoding").MustString(c.encoding)
+		c.urlPrefix = cfgini.Section("Resources").Key("urlPrefix").MustString(c.urlPrefix)
 		
 		c.hashAlgorithm = cfgini.Section("Hash").Key("hashAlgorithm").MustString(c.hashAlgorithm)
 		c.signKey_File = cfgini.Section("Hash").Key("signKey_File").MustString(c.signKey_File)
@@ -219,7 +242,9 @@ func (c *configuration) LoadConfig(ConfigPath string) bool {
 		c.proxyUser = cfgini.Section("Network").Key("proxyUser").MustString(c.proxyUser)
 		c.proxyCredential = cfgini.Section("Network").Key("proxyCredential").MustString(c.proxyCredential)
 	
-		WriteLog(fmt.Sprintf("Loaded config file: %v", ConfigPath))
+		c.spatial, _ = LoadSpatial(ConfigPath)
+		c.temporal, _ = LoadTemporal(ConfigPath)
+
 		c.configPath = ConfigPath
 	}
 

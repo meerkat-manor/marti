@@ -1,8 +1,8 @@
-# Who is likely to use marti
+# Who is likely to use martiLQ
 
 You are likely to find the **martiLQ** framework relevant if you:
 
-1. Have many document exchanges
+1. Have many document exchanges, such as End of Day batches
 2. Need to verify or reconcile the documents
 
 ## Data exchanges
@@ -33,8 +33,6 @@ in Mac OS X HFS.  The Microsoft NTFS supports Alternate Data Streams to achieve 
 Unfortunately this information is not transferrable to other systems. 
 
 The proposition is to define a format for the sidecare file and provide common library tools that
-can be be used on multiple platforms when exchanging documents / files.
-
-See also:
-1. [When to use the framework](when.md)
-2. [What the framework contains](what.md)
+can be be used on multiple platforms when exchanging documents / files.  Multiple documents can be 
+defined in a singel **martiLQ** definition which adds to efficiency and productivity if used 
+for End of Day or similar batches - or even single file transfers.

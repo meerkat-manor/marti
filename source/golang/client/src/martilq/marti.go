@@ -55,10 +55,6 @@ func NewMarti() Marti {
 
 	software := GetSoftware()
 	m.Custom = append(m.Custom, software)
-	spatial := GetSpatial()
-	m.Custom = append(m.Custom, spatial)
-	temporal := GetTemporal()
-	m.Custom = append(m.Custom, temporal)
 
 	m.config = NewConfiguration()
 
@@ -104,6 +100,16 @@ func (m *Marti) LoadConfig(ConfigPath string) {
 		if m.config.batch[0] == '@' {
 			_, err := os.Stat(m.config.batch[1:])
 			if os.IsNotExist(err) {
+				// See if we can locate it in Config INI directory
+				_, fileb := filepath.Split(m.config.batch[1:])
+				dirc, _ := filepath.Split(ConfigPath)
+				_, err := os.Stat(dirc + fileb)
+				if err == nil {
+					m.config.batch = "@" + dirc + fileb
+				}
+			}
+			_, err = os.Stat(m.config.batch[1:])
+			if os.IsNotExist(err) {
 				WriteLog(fmt.Sprintf("Batch file '%v' does not exist" , m.config.batch))		
 			} else {
 				readFile, err := os.Open(m.config.batch[1:])
@@ -120,6 +126,15 @@ func (m *Marti) LoadConfig(ConfigPath string) {
 		} else {
 			m.Batch, _ = strconv.ParseFloat(m.config.batch, 10)
 		}
+	}
+
+	if m.config.spatial.enabled == true {
+		spatial := m.config.spatial
+		m.Custom = append(m.Custom, spatial)
+	}
+	if m.config.temporal.enabled == true {
+		temporal := m.config.temporal
+		m.Custom = append(m.Custom, temporal)
 	}
 
 }
@@ -169,40 +184,74 @@ func (m *Marti) Save(pathFile string) bool {
 }
 
 
-func ProcessDirectory(ConfigPath string, SourcePath string, Recursive bool, TargetPath string) Marti {
+func ProcessFilePath(ConfigPath string, SourcePath string, Recursive bool, UrlPrefix string, DefinitionPath string) Marti {
 
 	m := NewMarti()
 
-	_, err := os.Stat(TargetPath)
-	if err == nil {
-		m, err = Load(m.config, TargetPath)
-		if err != nil {
-			panic("Unable to load existing MartiLQ defintion: " + TargetPath)
+	if DefinitionPath != "" {
+		_, err := os.Stat(DefinitionPath)
+		if err == nil {
+			m, err = Load(m.config, DefinitionPath)
+			if err != nil {
+				panic("Unable to load existing MartiLQ definition: " + DefinitionPath)
+			}
+			// Update the batch number, minor version
+			m.Batch = math.Round((m.Batch + m.config.batchInc)/m.config.batchInc)*m.config.batchInc
+			m.config.LoadConfig(ConfigPath)
+		}  else {
+			if ConfigPath != "" {
+				m.LoadConfig(ConfigPath)
+			}	
 		}
-		// Update the batch number, minor version
-		m.Batch = math.Round((m.Batch + m.config.batchInc)/m.config.batchInc)*m.config.batchInc
-		m.config.LoadConfig(ConfigPath)
 	} else {
 		if ConfigPath != "" {
 			m.LoadConfig(ConfigPath)
 		}
 	}
 
-	filepath.Walk(SourcePath, func(path string, info os.FileInfo, err error) error {
-        if err != nil {
-            log.Fatalf(err.Error())
-        }
-		if info.IsDir() {
-			if Recursive {
+	fileStat, err := os.Stat(SourcePath)
+	if err != nil {
+		panic("Source path does not exist or is inaccessible: " + SourcePath)
+	} else {
 
-			}
-		} else {
-			url := "file://"+info.Name()
-			m.AddResource(info.Name(), path, url) 
+		if UrlPrefix == "" {
+			UrlPrefix = m.config.urlPrefix
 		}
-        return nil
-    })
+		if UrlPrefix == "" {
+			UrlPrefix = "file://"
+		}
+
+		if fileStat.IsDir() {
+
+			filepath.Walk(SourcePath, func(path string, info os.FileInfo, err error) error {
+				if err != nil {
+					log.Fatalf(err.Error())
+				}
+				if info.IsDir() {
+					if Recursive {
+
+					}
+				} else {
+					url := UrlPrefix+info.Name()
+					m.AddResource(info.Name(), path, url) 
+				}
+				return nil
+			})
+		} else {
+			url := UrlPrefix+fileStat.Name()
+			m.AddResource(fileStat.Name(), SourcePath, url) 
+		}
+	}
 
 	return m
 
+}
+
+
+func ReconcileFilePath(ConfigPath string, SourcePath string, Recursive bool, DefinitionPath string, OutputPath string) Marti {
+
+	m := NewMarti()
+
+
+	return m
 }
