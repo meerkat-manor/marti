@@ -30,7 +30,6 @@ assist in reconciling the document contents once received.  Refer to the
 [source programming folders](source/) for more details or [Tools](tools.md) for more general 
 information
 
-[!div class="op_single_selector"]
 - [Java](source/java/README.md)
 - [golang](source/golang/README.md)
 - [python](source/python/README.md)
