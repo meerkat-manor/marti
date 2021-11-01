@@ -13,7 +13,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-
+from recommonmark.parser import CommonMarkParser
 
 # -- Project information -----------------------------------------------------
 
@@ -43,11 +43,12 @@ exclude_patterns = [
     'samples/powershell/test/*',  
     ]
 
-source_suffix = {
-    '.rst': 'restructuredtext',
-    '.txt': 'restructuredtext',
-    '.md': 'markdown',
+source_parsers = {
+    '.md': CommonMarkParser
 }
+
+source_suffix = ['.rst', '.md']
+
 
 # -- Options for HTML output -------------------------------------------------
 

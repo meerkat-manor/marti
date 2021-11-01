@@ -1,4 +1,5 @@
-# CKAN definition
+CKAN definition
+===============
 
 The **martiLQ** has used similar terms and structures that are found in the 
 CKAN API describing the resources.  This similarity allows for simple mapping of values

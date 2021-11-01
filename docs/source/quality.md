@@ -1,11 +1,13 @@
-# Quality definition
+Quality definition
+==================
 
 The **martiLQ** definition allows for the inclusion of load quality 
 definitions.  The load quality definition is intended to be
 able to be applied universally with common tools.  Not 
 all needs are covered with the base definition but can be extended.
 
-## Defined load quality metrics
+Defined load quality metrics
+----------------------------
 
 * Sequential batch number - This is a decimal number defined at the **martiLQ** definition
    and applies to all resources.  The integer portion is for new batches and the fraction
@@ -17,7 +19,8 @@ all needs are covered with the base definition but can be extended.
    on the number of primary segments under root.  JSON records can be counted in a similar way.
    The headers or trailling records are not counted
 
-## Addresses deficiencies 
+Addresses deficiencies 
+----------------------
 
 The **martiLQ** objective is to address deficiencies with alternative 
 data load quality approaches such as:
@@ -29,7 +32,8 @@ data load quality approaches such as:
  * securing the data
  * adding footers to the data, requiring custom file handlers
 
-## Extending load quality metrics 
+Extending load quality metrics 
+------------------------------
 
 **martLQ** framewokr and importantly is open to extension so that extra
 load metrics appropriate to the situation can be included.

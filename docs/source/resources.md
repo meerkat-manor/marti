@@ -1,4 +1,5 @@
-# Resources definition
+Resources definition
+====================
 
 The resources section defines the files that are grouped
 together by association.  This association is not defined but can
@@ -38,7 +39,8 @@ The following are optional in the resource section.
 * Encryption - Type of encryption used if any
 
 
-## Compression
+Compression
+-----------
 
 Files can be compressed using a utility.  A single compressed file can contain
 multiple files.  The **martiLQ** definition document applies to the compressed file 
@@ -49,7 +51,8 @@ compressed file.
 
 Compression of files always occur before encryption.
 
-### martiLQ definition for Compressed File
+martiLQ definition for Compressed File
+++++++++++++++++++++++++++++++++++++++
 
 For a compressed file that is not encrypted, the distribution definition will be:
 
@@ -68,7 +71,8 @@ The reason for this approach is it allows a generic tool to be deployed to
 check the validity of the contents without unpacking the received /fetched
 file.  That is you can perform load quality pipeline processing.
 
-## Encryption
+Encryption
+----------
 
 The encryption of content is always applied after compression not before, if
 you are not using the compression tool native encryption.  WinZIP and 7ZIP

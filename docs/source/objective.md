@@ -1,4 +1,5 @@
-# MartiLQ objective
+MartiLQ objective
+=================
 
 The objective of **martLQ** is to define a simle standard for
 capturing the data files being transferred.  It is not for 

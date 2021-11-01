@@ -1,4 +1,5 @@
-# What is marti
+What is marti
+=============
 
 The foundation pillar for the **martiLQ** framework is the [martiLQ document](martiLQ.md) 
 that defines the reconciliation and other metadata of the document / file being transferred.

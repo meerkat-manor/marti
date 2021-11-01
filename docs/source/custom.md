@@ -1,4 +1,5 @@
-# Custom Definition
+Custom Definition
+=================
 
 The custome definition section allows the inclusion of extensions
 to the standard.  To demonstrate the inclusion, there are three

@@ -1,11 +1,13 @@
-# Who is likely to use martiLQ
+Who is likely to use martiLQ
+============================
 
 You are likely to find the **martiLQ** framework relevant if you:
 
 1. Have many document exchanges, such as End of Day batches
 2. Need to verify or reconcile the documents
 
-## Data exchanges
+Data exchanges
+--------------
 
 If you are creating or receiving many documents or files on a regular basis
 then you probably have some framework defined.  The framework may be as simple as:
@@ -22,7 +24,8 @@ Simple framework such as the above have limitations, such as:
 * Lower automation prospects and alignment to DataSecOps
 * Poor fit to web applications (they tend to be designed for FTP and LAN)
 
-## Framework Sidecar files
+Framework Sidecar files
+-----------------------
 
 The **martiLQ** framework addresses the issues and limitations by using sidecar
 or shadow files. The [concept of sidecar files](https://en.wikipedia.org/wiki/Sidecar_file) is 

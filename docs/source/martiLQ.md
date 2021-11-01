@@ -1,4 +1,5 @@
-# MartiLQ document
+MartiLQ document
+================
 
 The metadata reconciliation transfer information is referred
 to as the **martiLQ** document throughout this documentation.
@@ -6,9 +7,8 @@ to as the **martiLQ** document throughout this documentation.
 The **martiLQ** document can be part of a message or a file
 in its own right. The definition is curently a Json file.
 
-
-
-### Mandatory information
+Mandatory information
+---------------------
 
 The mandatory information is:
 
@@ -16,7 +16,8 @@ The mandatory information is:
 * Unique identifier
 * Resource list - See Resource section summary below or detailed document [Resource](resources.md)
 
-### Optional information
+Optional information
+++++++++++++++++++++
 
 The optional information is:
 
@@ -36,12 +37,14 @@ The optional information is:
 * Custom list - List of custom entries, one being the **martiLQ** software details
   see [custom](custom.md)
 
-### Information extension
+Information extension
++++++++++++++++++++++
 
 The information supplied can be extended by party agreement and there
 are place holders in the defintion.
 
-### Resource 
+Resource 
+--------
 
 The resource section is a list of documents or files that are to be grouped
 together are listed under the same **martiLQ** definition.
@@ -59,7 +62,8 @@ items:
 * Size of document - The document size in bytes
 * URL - This can be ``file://``, ``https://``, ``ftp://``, etc resource location
 
-### Resource optional
+Resource optional
++++++++++++++++++
 
 The following are some of the optional items in the resource section.  See [Resource](resources.md)
 for more details

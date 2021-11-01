@@ -1,4 +1,5 @@
-# Comparison of martiLQ document definition
+Comparison of martiLQ document definition
+=========================================
 
 The use of metadata definitions is not unique and examples
 exist in many different situations.  Some are standard and open
@@ -22,7 +23,8 @@ a CKAN source into a **martiLQ** document definition and then process the data
 through the pipeline as you would for any other data file that had a
 **martiLQ** document definition.
 
-## Benefit of CKAN and martiLQ
+Benefit of CKAN and martiLQ
+---------------------------
 
 The CKAN is excellent at defining the data source details but it lacks information
 for load quality.  If you have CKAN deployed in your organisation and wish
@@ -31,7 +33,8 @@ CKAN and marti.
 
 Samples exist on CKAN integration.
 
-## Magda and martiLQ
+Magda and martiLQ
+-----------------
 
 Another source of data is [Magda](https://magda.io/) which has API metadata
 definitions.  Magda is more about data federation and as such provides

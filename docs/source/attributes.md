@@ -1,11 +1,13 @@
-# Attribute definition
+Attribute definition
+====================
 
 A Resource can list attributes related to the document / file.
 
 An attribute is a generic definition and conventions are 
 observed in the definitions that are captured here.
 
-## Attribute definition 
+Attribute definition 
+--------------------
 
 The Attribute consists of:
 
