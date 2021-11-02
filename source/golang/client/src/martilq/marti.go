@@ -210,6 +210,7 @@ func ProcessFilePath(ConfigPath string, SourcePath string, Recursive bool, UrlPr
 	}
 
 	fileStat, err := os.Stat(SourcePath)
+	fileAbs, err :=filepath.Abs(SourcePath)
 	if err != nil {
 		panic("Source path does not exist or is inaccessible: " + SourcePath)
 	} else {
@@ -222,24 +223,27 @@ func ProcessFilePath(ConfigPath string, SourcePath string, Recursive bool, UrlPr
 		}
 
 		if fileStat.IsDir() {
+			diffCheck := fileAbs+string(os.PathSeparator)
 
-			filepath.Walk(SourcePath, func(path string, info os.FileInfo, err error) error {
+			filepath.Walk(fileAbs, func(path string, info os.FileInfo, err error) error {
 				if err != nil {
 					log.Fatalf(err.Error())
 				}
-				if info.IsDir() {
-					if Recursive {
-
+				if info.IsDir() == false {
+					diff := strings.Replace(path, diffCheck, "", -1)
+					if Recursive || diff == info.Name() {
+						url := UrlPrefix+strings.Replace(diff, "\\", "/", -1)
+						if UrlPrefix[0:6] == "file://" || UrlPrefix[0:1] == "\\\\" {
+							url = UrlPrefix+diff
+						}
+						m.AddResource(info.Name(), path, url) 
 					}
-				} else {
-					url := UrlPrefix+info.Name()
-					m.AddResource(info.Name(), path, url) 
 				}
 				return nil
 			})
 		} else {
 			url := UrlPrefix+fileStat.Name()
-			m.AddResource(fileStat.Name(), SourcePath, url) 
+			m.AddResource(fileStat.Name(), fileAbs, url) 
 		}
 	}
 

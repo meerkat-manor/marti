@@ -1,0 +1,28 @@
+site_name: martiLQ
+site_url: https://martilq.readthedocs.com/
+
+docs_dir: source
+nav:
+    - Home: README.md
+    - martiLQ: martiLQ.md
+    - Why: why.md
+    - What: what.md
+    - When: when.md
+    - Who: who.md
+    - Resource: resources.md
+    - Attributes: attributes.md
+    - Custom: custom.md
+    - Quality: quality.md
+    - Samples: samples\json\README.md
+    - Comparison: comparison.md
+    - CKAN: ckan.md
+    - MAGDA: magda.md
+    - References: references.md
+
+theme: readthedocs
+extra_css:
+  - stylesheets/extra.css
+
+site_author: meerkat
+
+repo_url: https://github.com/meerkat-manor/marti/

@@ -17,6 +17,7 @@ type Parameters struct {
 	task string
 	sourcePath string
 	recursive bool
+	update bool
 	urlPrefix string
 	configPath string
 	definitionPath string
@@ -98,6 +99,17 @@ func loadArguments(args []string) {
 			}
 		}	
 
+
+		
+		if args[ix] == "-R" ||  args[ix] == "--recursive" {
+			matched = true
+			params.recursive = true
+		}	
+		
+		if args[ix] == "--update" {
+			matched = true
+			params.update = true
+		}	
 
 
 		if args[ix] == "--title" {
@@ -225,6 +237,11 @@ func main () {
 			}
 			if params.definitionPath == "" {
 				panic("Missing 'output' parameter")
+			}
+
+			_, err := os.Stat(params.definitionPath)
+			if err == nil && params.update == false {
+				panic("MartiLQ document '"+ params.definitionPath+"' already exists and update not specified")
 			}
 
 			m := martilq.ProcessFilePath(params.configPath, params.sourcePath, params.recursive, params.urlPrefix, params.definitionPath )

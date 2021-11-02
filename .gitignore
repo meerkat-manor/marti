@@ -22,3 +22,5 @@ source/python/client/__pycache__
 source/golang/client/src/test
 source/golang/client/src/martilq_client*
 source/golang/client/src/*.exe
+
+docs/site/

@@ -1,12 +1,11 @@
-What is marti
-=============
+# What is marti
 
 The foundation pillar for the **martiLQ** framework is the [martiLQ document](martiLQ.md) 
 that defines the reconciliation and other metadata of the document / file being transferred.
 
 A definition, while fundamental, benefits from having tools that can create, read and 
 interpret the definition.  The **martiLQ** framework is about providing those tools
-and a ecosystem that can be added to.
+and an ecosystem that can be added to.
 
 The majority of the effort in creating **martiLQ** is in the tools.  There are tools
 for various programming languages and situations.  As many programming languages

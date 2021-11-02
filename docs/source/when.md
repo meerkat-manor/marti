@@ -1,5 +1,4 @@
-When would you use martiLQ
-==========================
+# When would you use martiLQ
 
 You are likely to start using the **martiLQ** framework when:
 
@@ -12,8 +11,7 @@ If you already have a standard and it works for you, and you have no upcoming (l
 initiative that would benefit from the framework, then stick with what you have.  The benefits
 of the framework are unlikely to weigh in your framework.
 
-Read the material
------------------
+## Read the material
 
 Please read the material before jumping in and make sure the **martiLQ** framework will
 provide you with the expected benefits.  Implementing the framework and then changing 
