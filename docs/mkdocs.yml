@@ -13,7 +13,7 @@ nav:
     - Attributes: attributes.md
     - Custom: custom.md
     - Quality: quality.md
-    - Samples: samples\json\README.md
+    - Samples: samples/json/README.md
     - Comparison: comparison.md
     - CKAN: ckan.md
     - MAGDA: magda.md
