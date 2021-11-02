@@ -4,26 +4,31 @@ The sample **martiLQ** document below has been generated
 using the client GOLANG program and including all files
 in a directory.
 
-The source is the project folder /docs/source and is recursive
-to include child folders and documents.
+The source is the project folder ``/docs/source`` and 
+does not include child folders and documents.
 
+GOLANG program arguments are :
+```
+-t GEN -m test_Sample03.json -c GEN002.ini -s docs/source/ --title "GEN003" --description "Directory example"
+```
 
 ```json
 {
     "content-type": "application/vnd.martilq.json",
-    "title": "GEN003",
-    "uid": "67152b70-368e-4186-ab06-398f4c98a079",
+    "title": "GEN002",
+    "uid": "a4cb9d10-4d87-455b-87ec-64003147b0cd",
     "description": "Directory example",
-    "modified": "2021-11-02T23:48:07.0787735+11:00",
+    "modified": "2021-11-03T07:27:54.5640625+11:00",
     "publisher": "meerkat@merebox.com",
     "contactPoint": "Your friendly Meerkat",
     "accessLevel": "Confidential",
     "rights": "Public",
     "tags": [
-        "sample"
+        "sample",
+        "docs"
     ],
     "license": "MIT",
-    "state": "expired",
+    "state": "active",
     "batch": 1.001,
     "describedBy": "",
     "landingPage": "",
@@ -31,12 +36,12 @@ to include child folders and documents.
     "resources": [
         {
             "title": "README.md",
-            "uid": "e32b8a62-5571-41a5-beba-071844a80082",
+            "uid": "53402a88-54b0-4f84-ab9b-ac0849508dae",
             "documentName": "README.md",
-            "issueDate": "2021-11-02T23:48:07.0480017+11:00",
+            "issueDate": "2021-11-03T07:27:54.5559943+11:00",
             "modified": "2021-11-01T22:33:07.3888826+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 1566,
             "hash": {
@@ -45,7 +50,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/README.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/README.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -64,12 +69,12 @@ to include child folders and documents.
         },
         {
             "title": "attributes.md",
-            "uid": "2d431e9b-9906-44bc-8b0b-6746ca9e5c4c",
+            "uid": "bcd1c22d-bd8c-48c4-905c-965378096ae3",
             "documentName": "attributes.md",
-            "issueDate": "2021-11-02T23:48:07.0497323+11:00",
+            "issueDate": "2021-11-03T07:27:54.5571766+11:00",
             "modified": "2021-11-01T22:56:49.7231238+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 1204,
             "hash": {
@@ -78,7 +83,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/attributes.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/attributes.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -97,12 +102,12 @@ to include child folders and documents.
         },
         {
             "title": "ckan.md",
-            "uid": "4141a67a-dcb3-4b0c-b819-66555d0699b4",
+            "uid": "b60f40ae-7b8c-4bc0-8557-1e2302855c23",
             "documentName": "ckan.md",
-            "issueDate": "2021-11-02T23:48:07.0509128+11:00",
+            "issueDate": "2021-11-03T07:27:54.5571766+11:00",
             "modified": "2021-11-01T22:59:14.8560535+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 613,
             "hash": {
@@ -111,7 +116,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/ckan.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/ckan.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -130,12 +135,12 @@ to include child folders and documents.
         },
         {
             "title": "comparison.md",
-            "uid": "b76ca118-b01e-4f26-9395-c5c07051d0e2",
+            "uid": "0e22fcc3-cbfd-44b5-b624-cb6fca47a7f3",
             "documentName": "comparison.md",
-            "issueDate": "2021-11-02T23:48:07.0521334+11:00",
+            "issueDate": "2021-11-03T07:27:54.5577439+11:00",
             "modified": "2021-11-01T14:27:20.7769396+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 1974,
             "hash": {
@@ -144,7 +149,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/comparison.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/comparison.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -163,12 +168,12 @@ to include child folders and documents.
         },
         {
             "title": "custom.md",
-            "uid": "e6829ac7-e0bd-413b-b035-2cf2aee1da5d",
+            "uid": "df10237f-2aab-4c9c-9f46-72dfa21d6288",
             "documentName": "custom.md",
-            "issueDate": "2021-11-02T23:48:07.0532497+11:00",
+            "issueDate": "2021-11-03T07:27:54.5577439+11:00",
             "modified": "2021-11-01T13:52:22.4420815+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 397,
             "hash": {
@@ -177,7 +182,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/custom.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/custom.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -196,12 +201,12 @@ to include child folders and documents.
         },
         {
             "title": "magda.md",
-            "uid": "39879fe6-3525-4152-9b93-acf20aefd683",
+            "uid": "3d9e5091-cd7d-4def-a0ec-ccf3b22bf508",
             "documentName": "magda.md",
-            "issueDate": "2021-11-02T23:48:07.0554587+11:00",
+            "issueDate": "2021-11-03T07:27:54.5588975+11:00",
             "modified": "2021-11-01T14:26:31.8900363+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 120,
             "hash": {
@@ -210,7 +215,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/magda.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/magda.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -229,12 +234,12 @@ to include child folders and documents.
         },
         {
             "title": "martiLQ.md",
-            "uid": "d259ef9f-38a4-4af2-bfdb-baa29e5ea8c9",
+            "uid": "c8bce28c-a1f5-4bed-a51f-8e5e860a279a",
             "documentName": "martiLQ.md",
-            "issueDate": "2021-11-02T23:48:07.0569604+11:00",
+            "issueDate": "2021-11-03T07:27:54.5588975+11:00",
             "modified": "2021-11-02T22:57:00.0061831+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 6046,
             "hash": {
@@ -243,7 +248,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/martiLQ.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/martiLQ.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -262,12 +267,12 @@ to include child folders and documents.
         },
         {
             "title": "quality.md",
-            "uid": "08966d7f-3f6b-4187-9fb8-432fa78cb43d",
+            "uid": "fdada2e4-4207-453c-8fe9-7c9ba3c30be6",
             "documentName": "quality.md",
-            "issueDate": "2021-11-02T23:48:07.0581721+11:00",
+            "issueDate": "2021-11-03T07:27:54.5594721+11:00",
             "modified": "2021-11-01T22:43:35.410177+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 2019,
             "hash": {
@@ -276,7 +281,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/quality.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/quality.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -295,12 +300,12 @@ to include child folders and documents.
         },
         {
             "title": "references.md",
-            "uid": "842066e0-2e81-487b-9f48-0df972aa6f12",
+            "uid": "efdda457-2fe5-4b74-90b5-1853a4903224",
             "documentName": "references.md",
-            "issueDate": "2021-11-02T23:48:07.0593388+11:00",
+            "issueDate": "2021-11-03T07:27:54.5594721+11:00",
             "modified": "2021-11-01T23:25:15.048493+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 722,
             "hash": {
@@ -309,7 +314,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/references.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/references.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -328,12 +333,12 @@ to include child folders and documents.
         },
         {
             "title": "resources.md",
-            "uid": "21659556-bf8b-486e-868f-c739f3f9cee8",
+            "uid": "6eaf4fcf-f224-40ec-acdd-d12b4efa5093",
             "documentName": "resources.md",
-            "issueDate": "2021-11-02T23:48:07.0604619+11:00",
+            "issueDate": "2021-11-03T07:27:54.5600473+11:00",
             "modified": "2021-11-01T23:23:55.517501+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 4646,
             "hash": {
@@ -342,7 +347,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/resources.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/resources.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -361,12 +366,12 @@ to include child folders and documents.
         },
         {
             "title": "what.md",
-            "uid": "60b0ddad-d860-415e-a3da-4fdfb9d7dc91",
+            "uid": "8d7c2730-072a-4dc7-9522-c04b1ae9805f",
             "documentName": "what.md",
-            "issueDate": "2021-11-02T23:48:07.0638034+11:00",
+            "issueDate": "2021-11-03T07:27:54.5623504+11:00",
             "modified": "2021-11-01T23:22:55.6854301+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 864,
             "hash": {
@@ -375,7 +380,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/what.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/what.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -394,12 +399,12 @@ to include child folders and documents.
         },
         {
             "title": "when.md",
-            "uid": "add6d143-e602-4066-b804-3ce7fc1214e4",
+            "uid": "c7b95fe2-a795-4961-92a1-93aa8ad3893d",
             "documentName": "when.md",
-            "issueDate": "2021-11-02T23:48:07.0650335+11:00",
+            "issueDate": "2021-11-03T07:27:54.5629261+11:00",
             "modified": "2021-11-01T23:22:49.8615445+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 1106,
             "hash": {
@@ -408,7 +413,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/when.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/when.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -427,12 +432,12 @@ to include child folders and documents.
         },
         {
             "title": "who.md",
-            "uid": "f281360b-b9ed-4485-b0d7-20f92a677085",
+            "uid": "95aeabd7-cb54-471f-a060-05ecece85d17",
             "documentName": "who.md",
-            "issueDate": "2021-11-02T23:48:07.0748937+11:00",
+            "issueDate": "2021-11-03T07:27:54.563489+11:00",
             "modified": "2021-11-01T14:28:37.7765182+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 1943,
             "hash": {
@@ -441,7 +446,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/who.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/who.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -460,12 +465,12 @@ to include child folders and documents.
         },
         {
             "title": "why.md",
-            "uid": "f4e8b691-3117-4864-a4a9-24737b7fcad0",
+            "uid": "aef75a78-b2a2-44ec-b9dd-ccf821ceb879",
             "documentName": "why.md",
-            "issueDate": "2021-11-02T23:48:07.0771793+11:00",
+            "issueDate": "2021-11-03T07:27:54.563489+11:00",
             "modified": "2021-11-01T14:29:02.7419541+11:00",
-            "expires": "2023-11-02T00:00:00+11:00",
-            "state": "expired",
+            "expires": "2021-11-10T00:00:00+11:00",
+            "state": "active",
             "author": "Hive",
             "length": 1614,
             "hash": {
@@ -474,7 +479,7 @@ to include child folders and documents.
                 "signed": false
             },
             "description": "",
-            "url": "http://localhost/martilq/why.md",
+            "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/why.md",
             "version": "",
             "content-type": "",
             "encoding": "UTF-8",
@@ -498,17 +503,6 @@ to include child folders and documents.
             "softwareName": "MARTILQREFERENCE",
             "author": "Meerkat@merebox.com",
             "version": "0.0.1"
-        },
-        {
-            "extension": "spatial",
-            "country": "Netherland",
-            "region": "",
-            "town": "Amsterdam"
-        },
-        {
-            "extension": "temporal",
-            "businessDate": "2021-11-01T00:00:00+11:00",
-            "runDate": "2021-11-02T00:00:00+11:00"
         }
     ]
 }
