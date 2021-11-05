@@ -113,7 +113,7 @@ ForEach ($item in $fileList) {
     }
 }
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBRemote.mti"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBRemote.json"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
 Write-Host "Remote martiLQ definition file is $fileJson " -ForeGroundColor Green
 
@@ -155,7 +155,7 @@ $oResource = New-MartiResource -SourcePath $zipFile -UrlPath $localDirectory -Lo
 Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algo" -Value "WINZIP"
 $oMarti.resources += $oResource
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBZip.mti"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBZip.json"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
 Write-Host "ZIP martiLQ definition file is $fileJson " -ForeGroundColor Green
 
@@ -170,7 +170,7 @@ $oMarti.contactPoint = "meerkat@merebox.com"
 $oMarti.landingPage = "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/samples/powershell/Invoke-BSBSample.ps1"
 $oMarti.theme = "payment"
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBLocal.mti"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBLocal.json"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
 Write-Host "Local martiLQ definition file is $fileJson " -ForeGroundColor Green
 
@@ -227,7 +227,7 @@ $oResource.encryption = New-Encryption -Algorithm "Passphrase" -Value $secret
 Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algo" -Value "7ZIP"
 $oMarti.resources += $oResource
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBSecure.mti"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSBSecure.json"
 $oMarti | ConvertTo-Json -depth 100 | Out-File $fileJson
 Write-Host "Secure 7ZIP martiLQ definition file is $fileJson " -ForeGroundColor Green
 

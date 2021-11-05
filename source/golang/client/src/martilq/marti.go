@@ -16,6 +16,7 @@ import (
 	"bufio"
 	"log"
 	"reflect"
+	"regexp"
 )
 
 
@@ -140,13 +141,12 @@ func (m *Marti) LoadConfig(ConfigPath string) {
 }
 
 
-func (m *Marti) AddResource(Title string, SourcePath string, Url string) (Resource, error) {
+func (m *Marti) AddResource(SourcePath string, Url string) (Resource, error) {
 
 	r, err := NewMartiLQResource(m.config, SourcePath, Url, false, true)
 	if err != nil {
 		return r, errors.New("Error in adding resource: "+SourcePath)
 	}
-	r.Title = Title
 	
 	// Find if we already have the resource
 	// This can occur if we are reloading
@@ -184,7 +184,7 @@ func (m *Marti) Save(pathFile string) bool {
 }
 
 
-func ProcessFilePath(ConfigPath string, SourcePath string, Recursive bool, UrlPrefix string, DefinitionPath string) Marti {
+func ProcessFilePath(ConfigPath string, SourcePath string, Filter string, Recursive bool, UrlPrefix string, DefinitionPath string) Marti {
 
 	m := NewMarti()
 
@@ -228,22 +228,36 @@ func ProcessFilePath(ConfigPath string, SourcePath string, Recursive bool, UrlPr
 			filepath.Walk(fileAbs, func(path string, info os.FileInfo, err error) error {
 				if err != nil {
 					log.Fatalf(err.Error())
+					return nil
 				}
 				if info.IsDir() == false {
 					diff := strings.Replace(path, diffCheck, "", -1)
 					if Recursive || diff == info.Name() {
-						url := UrlPrefix+strings.Replace(diff, "\\", "/", -1)
-						if UrlPrefix[0:6] == "file://" || UrlPrefix[0:1] == "\\\\" {
-							url = UrlPrefix+diff
+
+						found := true 
+						if Filter != "" {
+							found, err = regexp.MatchString(Filter, info.Name())
+							if err != nil {
+								log.Fatal(err)
+							} 
 						}
-						m.AddResource(info.Name(), path, url) 
+
+						if found {
+							url := UrlPrefix+strings.Replace(diff, "\\", "/", -1)
+							if UrlPrefix[0:6] == "file://" || UrlPrefix[0:1] == "\\\\" {
+								url = UrlPrefix+diff
+							}
+							m.AddResource(path, url) 
+						}
+					} else {
+						return filepath.SkipDir
 					}
 				}
 				return nil
 			})
 		} else {
 			url := UrlPrefix+fileStat.Name()
-			m.AddResource(fileStat.Name(), fileAbs, url) 
+			m.AddResource(fileAbs, url) 
 		}
 	}
 

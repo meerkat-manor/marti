@@ -1,5 +1,6 @@
-site_name: martiLQ
+site_name: martiLQ Framework
 site_url: https://martilq.readthedocs.com/
+
 
 docs_dir: source
 nav:
@@ -13,7 +14,8 @@ nav:
     - Attributes: attributes.md
     - Custom: custom.md
     - Quality: quality.md
-    - Samples: samples/json/README.md
+    - Samples Code: samples/README.md
+    - Samples JSON: samples/json/README.md
     - Comparison: comparison.md
     - CKAN: ckan.md
     - MAGDA: magda.md

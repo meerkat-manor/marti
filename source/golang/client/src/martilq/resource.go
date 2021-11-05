@@ -2,10 +2,16 @@ package martilq
 
 import (
 	"github.com/google/uuid"
+	"encoding/csv"
 	"os"
+	"io"
+	"strings"
 	"time"
+	"fmt"
 	"log"
 	"errors"
+	"mime"
+	"strconv"
 )
 
 
@@ -42,7 +48,7 @@ func NewResource(config configuration) Resource {
 	r.IssueDate = time.Now()
 	r.State = config.state
 	r.Author  = config.author
-	r.Expires = config.ExpireDate()
+	r.Expires = config.ExpireDate("")
 	r.Encoding = config.encoding
 
 	return r
@@ -70,13 +76,26 @@ func NewMartiLQResource(config configuration, sourcePath string, urlPath string,
 
 	r.State = config.state
 	r.Author  = config.author
-	r.Expires = config.ExpireDate()
+	r.Expires = config.ExpireDate(sourcePath)
+	if time.Now().Before(r.Expires) && r.State == "expired" {
+		r.State = "active"
+	}
 	r.Encoding = config.encoding
 
 	r.DocumentName = stats.Name()
-	if config.title == "{{documentName}}" {
+	switch config.title {
+	case "{{documentName.ext}}":
 		r.Title = r.DocumentName
+	case "{{documentName}}":
+		parts := strings.Split(r.DocumentName, ".")
+		r.Title = strings.Replace(r.DocumentName, ("."+parts[len(parts)-1]), "",-1)
+	case "{{print}}":
+		fmt.Println("r: "+ r.Title)
+		r.Title = r.DocumentName
+	default:
+		r.Title = config.title
 	}
+
 	r.IssueDate = time.Now()
 	r.Modified = stats.ModTime()
 	r.Url = urlPath
@@ -86,7 +105,46 @@ func NewMartiLQResource(config configuration, sourcePath string, urlPath string,
 		r.Hash = h
 	}
 
-	r.Attributes = NewDefaultExtensionAttributes(sourcePath, extendAttributes)
+	parts := strings.Split(sourcePath,".")
+	extension := parts[len(parts)-1]
+
+	r.Content_Type = mime.TypeByExtension("."+extension)
+	records := 0
+	columns := -1
+
+	switch extension {
+	case "csv":
+		r.Attributes = NewDefaultCsvAttributes(true, ",")
+
+		f_csv, err := os.Open(sourcePath)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		rdr := csv.NewReader(f_csv)	
+		for {
+			record, err := rdr.Read()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				log.Fatal(err)
+			}
+			records = records + 1
+			if len(record) > columns {
+				columns = len(record)
+			}
+		}
+		f_csv.Close()
+
+	default:
+		r.Attributes = NewDefaultExtensionAttributes(sourcePath, extendAttributes)
+	}
+
+	if columns > 0 {
+		r.Attributes =  SetMartiAttribute(r.Attributes, "dataset", "columns", "count", "EQ" , strconv.Itoa(columns))
+		r.Attributes =  SetMartiAttribute(r.Attributes, "dataset", "records", "count", "EQ" , strconv.Itoa(records))
+	}
 
 	return r, nil
 }

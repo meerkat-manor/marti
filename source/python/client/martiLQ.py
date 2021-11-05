@@ -16,7 +16,7 @@ import mimetypes
 class martiLQ:
 
     _SoftwareVersion = "0.0.1"
-    _default_metaFile = "##marti##.mti"
+    _default_metaFile = "##marti##.json"
 
     _oSoftware = {
         "extension": "software",
@@ -870,7 +870,7 @@ class martiLQ:
         otest = ["ResourceName", "Level", "Metric", "Matches", "LocalCalculation", "SuppliedValue" ]
         oTestResults.append(otest)
 
-        otest = ["", "Batch", "Resource count", (len(self._oMartiDefinition["resources"]) == len(lq["resources"])), len(self._oMartiDefinition["resources"]), len(lq["resources"]) ]
+        otest = ["@", "Batch", "Resource count", (len(self._oMartiDefinition["resources"]) == len(lq["resources"])), len(self._oMartiDefinition["resources"]), len(lq["resources"]) ]
         oTestResults.append(otest)
 
         for resource in self._oMartiDefinition["resources"]:

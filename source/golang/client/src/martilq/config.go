@@ -3,6 +3,7 @@ package martilq
 import (
 	"fmt"
 	"gopkg.in/ini.v1"
+	"log"
 	"os"
 	"time"
 	"strings"
@@ -13,8 +14,8 @@ const cSoftwareName = "MARTILQREFERENCE"
 const cSoftwareAuthor = "Meerkat@merebox.com"
 const cSoftwareVersion = "0.0.1"
 const cIniFileName = "martilq.ini"
-const cExpires = "7:0:0"
-const cEncoding = "UTF-8"
+const cExpires = "t:7:0:0"
+const cEncoding = ""
 
 type configuration struct {
 	softwareName string
@@ -270,36 +271,79 @@ func Loadenv(key string, default_value string ) string {
 }
 
 
-func (c *configuration) ExpireDate( ) time.Time {
+func (c *configuration) ExpireDate(sourcePath string ) time.Time {
 
 	var expires time.Time
 
 	lExpires := strings.Split(c.expires,":")
-	if len(lExpires) != 3 && len(lExpires) != 6 {
+	if len(lExpires) != 4 && len(lExpires) != 7 {
 		panic("Expires value '"+ c.expires +"' is invalid")
 	}
 
+	base := lExpires[0]
+	if sourcePath == "" && base == "m" {
+		base = "t"
+	}
+
+	modified := time.Now()
+	if base == "m" {
+		stats, err := os.Stat(sourcePath)
+		if err != nil {
+			if os.IsNotExist(err) {
+				log.Printf("'" + sourcePath + "' file does not exist for Expiry.")
+				base = "t"
+			}
+		} else {
+			modified = stats.ModTime()
+		}
+	}
 
 	var lExpire [3]int 
-	lex, _ := strconv.Atoi(lExpires[0])
+	lex, _ := strconv.Atoi(lExpires[1])
 	lExpire[0] = lex
-	lex, _ =strconv.Atoi(lExpires[1])
-	lExpire[1] = lex
 	lex, _ =strconv.Atoi(lExpires[2])
+	lExpire[1] = lex
+	lex, _ =strconv.Atoi(lExpires[3])
 	lExpire[2] = lex
 
-	if len(lExpires) > 3 {
+	if len(lExpires) > 4 {
 		var lExpireD [3]int
-		lex, _ := strconv.Atoi(lExpires[3])
+		lex, _ := strconv.Atoi(lExpires[4])
 		lExpireD[0] = lex
-		lex, _ =strconv.Atoi(lExpires[4])
-		lExpireD[1] = lex
 		lex, _ =strconv.Atoi(lExpires[5])
+		lExpireD[1] = lex
+		lex, _ =strconv.Atoi(lExpires[6])
 		lExpireD[2] = lex
-		expires = time.Now().AddDate(lExpire[0],lExpire[1],lExpire[2]).Add(time.Hour * time.Duration(lExpireD[0])).Add(time.Minute * time.Duration(lExpireD[1])).Add(time.Second * time.Duration(lExpireD[2]))
+		
+		switch base {
+		case "m":
+			expires = modified.AddDate(lExpire[0],lExpire[1],lExpire[2]).Add(time.Hour * time.Duration(lExpireD[0])).Add(time.Minute * time.Duration(lExpireD[1])).Add(time.Second * time.Duration(lExpireD[2]))	
+		case "r":
+			expires = c.temporal.RunDate.AddDate(lExpire[0],lExpire[1],lExpire[2]).Add(time.Hour * time.Duration(lExpireD[0])).Add(time.Minute * time.Duration(lExpireD[1])).Add(time.Second * time.Duration(lExpireD[2]))			
+		case "b":
+			expires = c.temporal.BusinessDate.AddDate(lExpire[0],lExpire[1],lExpire[2]).Add(time.Hour * time.Duration(lExpireD[0])).Add(time.Minute * time.Duration(lExpireD[1])).Add(time.Second * time.Duration(lExpireD[2]))			
+		case "t":
+			fallthrough
+		default:			
+			expires = time.Now().AddDate(lExpire[0],lExpire[1],lExpire[2]).Add(time.Hour * time.Duration(lExpireD[0])).Add(time.Minute * time.Duration(lExpireD[1])).Add(time.Second * time.Duration(lExpireD[2]))			
+		}
 	} else {
-		expires = time.Now().AddDate(lExpire[0],lExpire[1],lExpire[2])
-		expires = time.Date(expires.Year(), expires.Month(), expires.Day(), 0, 0, 0, 0, time.Local)
+		switch base {
+		case "m":
+			expires = modified.AddDate(lExpire[0],lExpire[1],lExpire[2])
+			expires = time.Date(expires.Year(), expires.Month(), expires.Day(), 0, 0, 0, 0, time.Local)
+		case "r":
+			expires = c.temporal.RunDate.AddDate(lExpire[0],lExpire[1],lExpire[2])
+			expires = time.Date(expires.Year(), expires.Month(), expires.Day(), 0, 0, 0, 0, time.Local)
+		case "b":
+			expires = c.temporal.BusinessDate.AddDate(lExpire[0],lExpire[1],lExpire[2])
+			expires = time.Date(expires.Year(), expires.Month(), expires.Day(), 0, 0, 0, 0, time.Local)
+		case "t":
+			fallthrough
+		default:			
+			expires = time.Now().AddDate(lExpire[0],lExpire[1],lExpire[2])
+			expires = time.Date(expires.Year(), expires.Month(), expires.Day(), 0, 0, 0, 0, time.Local)
+		}
 	}
 
 	return expires

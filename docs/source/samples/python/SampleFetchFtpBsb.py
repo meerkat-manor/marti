@@ -3,7 +3,7 @@ import os
 import sys
 import csv
 
-sys.path.insert(0, "../../../source/python/client")
+sys.path.insert(0, "../../../../source/python/client")
 from martiLQ import *
 
 test_directory = "./test/fetch_ftp"

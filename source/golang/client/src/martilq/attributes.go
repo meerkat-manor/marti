@@ -6,6 +6,7 @@ import (
 	"io"
 	"bytes"
 	"strconv"
+	"log"
 )
 
 // These are predefined categories, custom ones can be added
@@ -160,19 +161,37 @@ func NewDefaultTemporalAttributes(businessDate time.Time, runDate time.Time, dur
 }
 
 
-func SetMartiAttribute(Attributes []Attribute, ACategory string, AName string, AFunction string, Comparison string , Value string) {
+func RemoveMartiAttribute(Attributes []Attribute, ACategory string, AName string, AFunction string, Comparison string , Value string) []Attribute  {
+
+	for ix := 0; ix< len(Attributes); ix++ {
+		attr := Attributes[ix]
+		if attr.Category == ACategory && attr.Name == AName && attr.Function == AFunction && attr.Comparison == Comparison {
+			copy(Attributes[ix:], Attributes[ix+1:]) 
+			Attributes[len(Attributes)-1] = Attribute{}     
+			return Attributes[:len(Attributes)-1]     
+		}
+	}
+
+	log.Fatal("No matching record found")
+	return Attributes
+}
+
+func SetMartiAttribute(Attributes []Attribute, ACategory string, AName string, AFunction string, Comparison string , Value string) []Attribute  {
 
 	for ix := 0; ix< len(Attributes); ix++ {
 		attr := Attributes[ix]
 		if attr.Category == ACategory && attr.Name == AName && attr.Function == AFunction {
-			Attributes[ix].Comparison = Comparison
-			Attributes[ix].Value = Value
-			return
+			if attr.Comparison == Comparison || attr.Comparison == "NA" {
+				Attributes[ix].Comparison = Comparison
+				Attributes[ix].Value = Value
+				return Attributes
+			}
 		}
 	}
 
 	oAttribute := Attribute { ACategory, AName, AFunction, Comparison, Value }	
 	Attributes = append(Attributes, oAttribute)
 
+	return Attributes
 }
 

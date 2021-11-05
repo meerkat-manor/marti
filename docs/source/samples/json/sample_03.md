@@ -12,6 +12,8 @@ GOLANG program arguments are :
 -t GEN -m test_Sample03.json -c GEN002.ini -s docs/source/ --title "GEN003" --description "Directory example"
 ```
 
+The **martiLQ** document
+
 ```json
 {
     "content-type": "application/vnd.martilq.json",

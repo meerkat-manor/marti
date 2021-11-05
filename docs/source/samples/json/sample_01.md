@@ -10,6 +10,8 @@ GOLANG program arguments are :
 -t GEN -m test_Sample01.json -s docs/source/martiLQ.md --title "GEN001" --description "Simple example with no config"
 ```
 
+The **martiLQ** document
+
 ```json
 {
     "content-type": "application/vnd.martilq.json",

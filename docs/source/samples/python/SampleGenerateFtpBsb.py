@@ -7,7 +7,7 @@ import csv
 import zipfile
 
 
-sys.path.insert(0, "../../../source/python/client")
+sys.path.insert(0, "../../../../source/python/client")
 from martiLQ import *
 
 ftpFetch = True
@@ -53,15 +53,16 @@ remote_dir = "/~auspaynetftp/BSB/"
 print("Fetch sample file list")
 files = ftpList(remote_host, remote_dir)
 
-if not os.path.exists("./test"):
-    os.mkdir("./test")
+test_dir = "./test/ftp"
+if not os.path.exists(test_dir):
+    os.mkdir(test_dir)
 
 print("Fetch sample files")
 for file_name in files:
     if file_name.startswith("BSBDirectory"):
         if file_name.endswith(".csv") | file_name.endswith(".txt"):
             file_remote = remote_dir + file_name
-            file_local = "./test/" + file_name
+            file_local = os.path.join(test_dir, file_name)
             if ftpFetch:
                 ftpPull(remote_host, file_remote, file_local)
 
@@ -72,17 +73,17 @@ oMarti = mlq.NewMartiDefinition()
 for file_name in files:
     if file_name.startswith("BSBDirectory"):
         if file_name.endswith(".csv") | file_name.endswith(".txt"):
-            oResource = mlq.NewMartiLQResource(os.path.join("./test/", file_name), "", False, True)
+            oResource = mlq.NewMartiLQResource(os.path.join(test_dir, file_name), "", False, True)
             oMarti["resources"].append(oResource)
 
 mlq.CloseLog()
 
 
 print("Save martiLQ definition")
-jsonFile = open("./test/BSBDirectoryPlain.mti", "w")
+jsonFile = open(os.path.join(test_dir, "BSBDirectoryPlain.json"), "w")
 jsonFile.write(json.dumps(oMarti, indent=5))
 jsonFile.close()
-print("Base sample mti written: BSBDirectoryPlain.mti")
+print("Base sample JSON written: BSBDirectoryPlain.json")
 
 
 print("Creating martiLQ ZIP file")
@@ -91,23 +92,23 @@ fileZipCount = 0
 
 mlq = martiLQ()
 oMarti = mlq.NewMartiDefinition()
-with zipfile.ZipFile("./test/" + zipFileName, "w", compression=zipfile.ZIP_DEFLATED) as zipObj:
+with zipfile.ZipFile(os.path.join(test_dir, zipFileName), "w", compression=zipfile.ZIP_DEFLATED) as zipObj:
     for file_name in files:
         if file_name.startswith("BSBDirectory"):
             if file_name.endswith(".csv") | file_name.endswith(".txt"):
                 file_remote = remote_dir + file_name
-                file_local = "./test/" + file_name
+                file_local = os.path.join(test_dir, file_name)
                 if ftpFetch:
                     ftpPull(remote_host, file_remote, file_local)
                 zipObj.write(file_local, file_name)
                 fileZipCount = fileZipCount + 1
-                oResource = mlq.NewMartiLQResource(os.path.join("./test/", file_name), "", False, True)
+                oResource = mlq.NewMartiLQResource(os.path.join(test_dir, file_name), "", False, True)
                 oResource["url"] = "@"+zipFileName + "/" + file_name
                 oMarti["resources"].append(oResource)
             
 
-oResource = mlq.NewMartiLQResource(os.path.join("./test/", zipFileName), "", False, True)
-oResource["url"] = "./test/" + zipFileName
+oResource = mlq.NewMartiLQResource(os.path.join(test_dir, zipFileName), "", False, True)
+oResource["url"] = os.path.join(test_dir, zipFileName)
 mlq.SetAttributeValueString(Attributes=oResource["attributes"], Key="compression", Category="format", Function="algo", Value="WINZIP")
 mlq.SetAttributeValueNumber(Attributes=oResource["attributes"], Key="files", Category="dataset", Function="count", Value=fileZipCount)
 oMarti["resources"].append(oResource)
@@ -115,18 +116,18 @@ oMarti["resources"].append(oResource)
 mlq.CloseLog()
 
 print("Save martiLQ ZIP definition")
-jsonFile = open("./test/MartiLQ_BSBZip.mti", "w")
+jsonFile = open(os.path.join(test_dir, "MartiLQ_BSBZip.json"), "w")
 jsonFile.write(json.dumps(oMarti, indent=5))
 jsonFile.close()
-print("ZIP sample mti written: MartiLQ_BSBZip.mti")
+print("ZIP sample JSON written: MartiLQ_BSBZip.json")
 
 
 
 print("Sample completed: SampleGenerateBsb.py")
 
-lqresults, testError = mlq.TestMartiDefinition("./test/BSBDirectoryPlain.mti")
+lqresults, testError = mlq.TestMartiDefinition(os.path.join(test_dir, "BSBDirectoryPlain.json"))
 
-testfile = open("./test/LoadQualityTest01.csv", "w+", newline ="") 
+testfile = open(os.path.join(test_dir, "LoadQualityTest01.csv"), "w+", newline ="") 
 with testfile:     
     lqwriter = csv.writer(testfile) 
     lqwriter.writerows(lqresults) 
@@ -134,5 +135,5 @@ with testfile:
 if testError:
     print("MISMATCH DETECTED")
 
-print("Test completed: SampleGenerateBsb.py")
+print("Test completed: SampleGenerateFtpBsb.py")
 

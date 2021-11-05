@@ -164,7 +164,7 @@ Write-Debug "Secret: $secret"
 Set-AttributeValueString -Attributes $oResource.attributes -Key "compression" -Category "format" -Function "algo" -Value "7ZIP"
 $oMarti.resources += $oResource
 
-$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSB7ZipPKI.mti"
+$fileJson = Join-Path -Path $localDirectory -ChildPath "MartiBSB7ZipPKI.json"
 $oMarti | ConvertTo-Json -depth 50 | Out-File $fileJson
 Write-Host "7ZIP martiLQ definition file is $fileJson " -ForeGroundColor Green
 

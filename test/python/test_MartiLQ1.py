@@ -20,17 +20,17 @@ mlq.NewMartiChildItem(SourceFolder= "./docs/*", UrlPath="./docs" , ExcludeHash=F
 oMarti["description"] = "Sample execution #1"
 
 print("Save martiLQ definition #1")
-mlq.Save("./test/python/results/DocsPlain1.mti")
+mlq.Save("./test/python/results/DocsPlain1.json")
 
 print("Save martiLQ definition #2")
 oMarti["description"] = "Sample execution #2"
-jsonFile = open("./test/python/results/DocsPlain2.mti", "w")
+jsonFile = open("./test/python/results/DocsPlain2.json", "w")
 jsonFile.write(json.dumps(oMarti, indent=5))
 jsonFile.close()
-print("Base sample mti written: DocsPlain2.mti")
+print("Base sample JSON written: DocsPlain2.json")
 
 print("Load martiLQ definition #1")
-mlq.Load("./test/python/results/DocsPlain1.mti")
+mlq.Load("./test/python/results/DocsPlain1.json")
 oMarti = mlq.Get()
 print("Definition description is: {}".format(oMarti["description"]))
 
