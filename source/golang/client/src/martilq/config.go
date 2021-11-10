@@ -20,6 +20,8 @@ const cEncoding = ""
 type configuration struct {
 	softwareName string
 
+	dateFormat string
+	dateTimeFormat string
 	logPath string
 	tempPath string
 	dataPath string
@@ -41,6 +43,8 @@ type configuration struct {
 	version string
 	expires string
 	encoding string
+	compression string
+	describedBy string
 
 	hash bool
 	hashAlgorithm string
@@ -70,12 +74,17 @@ func NewConfiguration() configuration {
 
 	c.softwareName = GetSoftwareName()
 
+	c.dateFormat = "2006-01-02"
+	c.dateTimeFormat = "2006-01-02T15:04:05-0700"
+
 	c.title = "{{documentName}}"
 	c.state = "active"
 	c.accessLevel = "Confidential"
 	c.rights = "Restricted"
 	c.expires = cExpires
 	c.encoding = cEncoding
+	c.compression = ""
+	c.describedBy = ""
 	c.batchInc = 0.001
 
 	c.urlPrefix = "file://"
@@ -143,6 +152,8 @@ func (c *configuration) SaveConfig(ConfigPath string) bool {
 	cfgini.Section("General").Key("logPath").SetValue (c.logPath)
 	cfgini.Section("General").Key("tempPath").SetValue (c.tempPath)
 	cfgini.Section("General").Key("dataPath").SetValue (c.dataPath)
+	cfgini.Section("General").Key("dateFormat").SetValue (c.datdateFormataPath)
+	cfgini.Section("General").Key("dateTimeFormat").SetValue (c.dateTimeFormat)
 
 	cfgini.Section("MartiLQ").Key("tags").SetValue(c.tags)
 	cfgini.Section("MartiLQ").Key("publisher").SetValue(c.publisher)
@@ -158,6 +169,7 @@ func (c *configuration) SaveConfig(ConfigPath string) bool {
 	cfgini.Section("Resources").Key("state").SetValue (c.state)
 	cfgini.Section("Resources").Key("expires").SetValue (c.expires)
 	cfgini.Section("Resources").Key("encoding").SetValue (c.encoding)
+	cfgini.Section("Resources").Key("compression").SetValue (c.compression)
 	cfgini.Section("Resources").Key("version").SetValue (c.version)
 	cfgini.Section("Resources").Key("urlPrefix").SetValue (c.urlPrefix)
 	
@@ -214,6 +226,8 @@ func (c *configuration) LoadConfig(ConfigPath string) bool {
 		c.logPath = cfgini.Section("General").Key("logPath").MustString(c.logPath)
 		c.tempPath = cfgini.Section("General").Key("tempPath").MustString(c.tempPath)
 		c.dataPath = cfgini.Section("General").Key("dataPath").MustString(c.dataPath)
+		c.dateFormat = cfgini.Section("General").Key("dateFormat").MustString(c.dateFormat)
+		c.dateTimeFormat = cfgini.Section("General").Key("dateTimeFormat").MustString(c.dateTimeFormat)
 
 		c.tags = cfgini.Section("MartiLQ").Key("tags").MustString(c.tags)
 		c.accessLevel = cfgini.Section("MartiLQ").Key("accessLevel").MustString(c.accessLevel)
@@ -229,6 +243,7 @@ func (c *configuration) LoadConfig(ConfigPath string) bool {
 		c.state = cfgini.Section("Resources").Key("state").MustString(c.state)
 		c.expires = cfgini.Section("Resources").Key("expires").MustString(c.expires)
 		c.encoding = cfgini.Section("Resources").Key("encoding").MustString(c.encoding)
+		c.compression = cfgini.Section("Resources").Key("compression").MustString(c.compression)
 		c.urlPrefix = cfgini.Section("Resources").Key("urlPrefix").MustString(c.urlPrefix)
 		
 		c.hashAlgorithm = cfgini.Section("Hash").Key("hashAlgorithm").MustString(c.hashAlgorithm)

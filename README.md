@@ -36,6 +36,9 @@ information
 - [powershell](source/powershell/README.md)
 - [docker](source/docker/README.md)
 
+See [samples](samples.md) for sample / test cases you can execute.  This can help you
+understand what can be processed, generated and reconciled.
+
 ## Transfer information
 
 The information in the **martiLQ** document is summarised below. For more detailed

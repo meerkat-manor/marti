@@ -93,6 +93,7 @@ function New-MartiHash{
     $oHash = [PSCustomObject]@{ 
         algo = $Algorithm
         value = $Value
+        signed = $false
     }
 
     return $oHash

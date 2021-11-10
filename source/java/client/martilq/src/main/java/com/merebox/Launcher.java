@@ -18,7 +18,7 @@ public final class Launcher {
             MartiLQ m = new MartiLQ();
             m.title = args[0];
         
-            String fileName = "C:/Users/meerkat/source/marti/docs/samples/powershell/test/BSBDirectoryJul21-304.csv";
+            String fileName = "./docs/samples/powershell/test/BSBDirectoryJul21-304.csv";
             Resource re = new Resource(fileName);
             Attribute at = new Attribute();
             at.category = "cat";

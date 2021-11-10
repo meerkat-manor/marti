@@ -27,7 +27,7 @@ type Marti struct {
 	Uid string `json:"uid"`
 
 	Description string `json:"description"`
-	Modified time.Time `json:"modified"`
+	Modified string `json:"modified"`
 	Publisher string `json:"publisher"`
 	ContactPoint string `json:"contactPoint"`
 	AccessLevel string `json:"accessLevel"`
@@ -58,6 +58,7 @@ func NewMarti() Marti {
 	m.Custom = append(m.Custom, software)
 
 	m.config = NewConfiguration()
+	m.Modified = time.Now().Format(m.config.dateTimeFormat)
 
 	return m
 }
@@ -90,6 +91,7 @@ func (m *Marti) LoadConfig(ConfigPath string) {
 	m.Publisher = m.config.publisher
 	m.ContactPoint = m.config.contactPoint
 	m.AccessLevel = m.config.accessLevel
+	m.Modified = time.Now().Format(m.config.dateTimeFormat)
 	m.State = m.config.state
 	m.Rights = m.config.rights
 	if m.config.tags != "" {
@@ -184,7 +186,7 @@ func (m *Marti) Save(pathFile string) bool {
 }
 
 
-func ProcessFilePath(ConfigPath string, SourcePath string, Filter string, Recursive bool, UrlPrefix string, DefinitionPath string) Marti {
+func Make(ConfigPath string, SourcePath string, Filter string, Recursive bool, UrlPrefix string, DefinitionPath string) Marti {
 
 	m := NewMarti()
 

@@ -5,7 +5,6 @@ import (
 	"os"
 	"strings"
 	"merebox.com/martilq"
-	"time"
 	"io/ioutil"
 )
 
@@ -31,10 +30,6 @@ type Parameters struct {
 }
 
 var params Parameters
-
-// go run . -- -t INIT -c ./test/my_martilq.ini 
-// go run . -- -t GEN -o ./test/test_martilq_directoryC.json -c ./config/martilq.ini -s ./martilq
-// go run . -- -t GEN -o ./test/test_martilq_directoryC.json -c ./config/martilq.ini -s ./martilq --title "Sample run of GEN" --description "@./config/description.txt"
 
 
 func loadArguments(args []string) {
@@ -151,15 +146,6 @@ func loadArguments(args []string) {
 			}
 		}
 
-		if args[ix] == "--landing" {
-			matched = true
-			if ix < maxArgs {
-				ix = ix + 1
-				params.landing = args[ix]
-			} else {
-				panic("Missing parameter for LANDING")
-			}
-		}
 
 		if !matched && args[ix] != "--" {
 			fmt.Println("Unrecognised command line argument: " + args[ix])
@@ -173,8 +159,8 @@ func loadArguments(args []string) {
 func printHelp() {
 
 	fmt.Println("")
-	fmt.Println("\t   marticli_client ")
-	fmt.Println("\t   =============== ")
+	fmt.Println("\t   martilqcli_client ")
+	fmt.Println("\t   =======++======== ")
 	fmt.Println("")
 	fmt.Println("\tThis program is intended as a simple reference implementation")
 	fmt.Println("\tin Go of the MartiLQ framework.  It is does not provide all")
@@ -186,15 +172,16 @@ func printHelp() {
 	fmt.Println(" -h or --help : Display this help")
 	fmt.Println(" -t or --task : Execute a predefined task which are")
 	fmt.Println("           INIT initialise a new configuration file")
-	fmt.Println("           GEN generate a MartiLQ definition file")
+	fmt.Println("           MAKE make a MartiLQ definition file")
+	fmt.Println("           GET resources based on MartiLQ definition file")
 	fmt.Println("           RECON reconicile a MartiLQ definition file")
 	fmt.Println(" -c or --config : Configuration file used by all tasks")
 	fmt.Println("           This is the file written by the INIT task")
 	fmt.Println(" -s or --source : Source directory or file to build MartiLQ definition")
-	fmt.Println("           This is used by the GEN and RECON task")
+	fmt.Println("           This is used by the MAKE and RECON task")
 	fmt.Println(" -m or --martilq : MartiLQ definition file")
-	fmt.Println("           This is used by the GEN and RECON task")
-	fmt.Println("           The GEN task generates the file while")
+	fmt.Println("           This is used by the MAKE and RECON task")
+	fmt.Println("           The MAKE task makes the file while")
 	fmt.Println("           RECON task reads the file")
 	fmt.Println(" -o or --output : Output file")
 	fmt.Println("           This is used by the RECON task")
@@ -202,13 +189,16 @@ func printHelp() {
 	fmt.Println("")
 	fmt.Println(" --title : Title for the MartiLQ. Think of this as")
 	fmt.Println("           the job name")
-	fmt.Println("           This is used by the GEN task")
+	fmt.Println("           This is used by the MAKE task")
 	fmt.Println(" --description : Description for the MartiLQ. This can be text")
 	fmt.Println("           or a pointer to a file when the @ prefix is used")
-	fmt.Println("           This is used by the GEN task")
-	fmt.Println(" --landing : Landing page for the defintion in the MartiLQ")
-	fmt.Println("           This is best if it is a URL")
-	fmt.Println("           This is used by the GEN task")
+	fmt.Println("           This is used by the MAKE task")
+	fmt.Println(" --Update : Update existing definition otherwise fail it exists already")
+	fmt.Println("           This is used by the MAKE task")
+	fmt.Println(" --filter : File filter")
+	fmt.Println("           This is used by the MAKE task")
+	fmt.Println(" -R or --recursive : Recursively process child folders")
+	fmt.Println("           This is used by the MAKE task")
 
 	fmt.Println("")
 
@@ -233,6 +223,11 @@ func main () {
 				panic("Missing 'config' parameter")
 			}
 
+			_, err := os.Stat(params.configPath)
+			if err == nil {
+				panic("MartiLQ configuration file '"+ params.configPath+"' already exists")
+			}
+
 			c := martilq.NewConfiguration()
 			if c.SaveConfig(params.configPath) != true {
 				panic("Configuration not saved to: "+ params.configPath)
@@ -241,7 +236,7 @@ func main () {
 			matched = true
 		}
 
-		if params.task == "GEN" {
+		if params.task == "MAKE" {
 
 			if params.sourcePath == "" {
 				panic("Missing 'source' parameter")
@@ -255,22 +250,24 @@ func main () {
 				panic("MartiLQ document '"+ params.definitionPath+"' already exists and update not specified")
 			}
 
-			m := martilq.ProcessFilePath(params.configPath, params.sourcePath, params.filter, params.recursive, params.urlPrefix, params.definitionPath )
+			m := martilq.Make(params.configPath, params.sourcePath, params.filter, params.recursive, params.urlPrefix, params.definitionPath )
 			if params.title != "" {
 				m.Title = params.title
-			}
-			if params.landing != "" {
-				m.LandingPage = params.landing
 			}
 			if params.description != "" {
 				m.Description = params.description
 			}
-			m.Modified = time.Now()
 			m.Save(params.definitionPath)
 
 			fmt.Println("Created MARTILQ definition: " + params.definitionPath)
 			matched = true
 		}
+
+		if params.task == "GET" {
+			fmt.Println("ET task not implemented")
+			matched = true
+		}
+
 
 		if params.task == "RECON" {
 

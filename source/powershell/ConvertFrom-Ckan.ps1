@@ -17,7 +17,6 @@ Param(
     $oMarti.license = $oCkan.result.license_id
     $oMarti.description = $oCkan.result.notes
     
-    $hashAlgo = "SHA256"
     $version = "1.1.0"
     
     [System.Collections.ArrayList]$lresource = @()
@@ -31,6 +30,8 @@ Param(
             $name = ""
         }
 
+        $hash = New-MartiHash -Algorithm "SHA256" -FilePath "" -Value $_.hash
+
         $oResource = [PSCustomObject]@{ 
             title = $_.name
             uid = $_.id
@@ -40,8 +41,7 @@ Param(
             state = $_.state
             author = $oCkan.result.author
             length = $_.size
-            hash = $_.hash
-            hashAlgo = $hashAlgo   
+            hash = $hash
 
             description = $_.description
             url = $_.url

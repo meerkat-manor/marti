@@ -79,15 +79,16 @@ function New-MartiDefinition
     $lcustom += $oSoftware
 
     [System.Collections.ArrayList]$lresource = @()
-
+    
     $oMarti = [PSCustomObject]@{
         "content-type" = "application/vnd.martilq.json"
         title = ""
         uid = (New-Guid).ToString()
-        resources = $lresource
 
         description = ""
+        issued = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
         modified = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
+        expires = ""
         tags = @( "document", "marti")
         publisher = $publisher
         contactPoint = ""
@@ -100,6 +101,7 @@ function New-MartiDefinition
         landingPage = ""
         theme =""
 
+        resources = $lresource
         custom = $lCustom
     }
 

@@ -19,9 +19,9 @@ type Resource struct {
 	Title string `json:"title"`
 	Uid string `json:"uid"`
 	DocumentName string `json:"documentName"`
-	IssueDate time.Time `json:"issueDate"`
-	Modified time.Time `json:"modified"`
-	Expires time.Time `json:"expires"`
+	IssueDate string `json:"issueDate"`
+	Modified string `json:"modified"`
+	Expires string `json:"expires"`
 	State string `json:"state"`
 	Author string `json:"author"`
 	Length int64 `json:"length"`
@@ -45,11 +45,13 @@ func NewResource(config configuration) Resource {
 	u := uuid.New()
 	r.Uid = u.String()
 
-	r.IssueDate = time.Now()
+	r.IssueDate = time.Now().Format(config.dateTimeFormat)
 	r.State = config.state
 	r.Author  = config.author
-	r.Expires = config.ExpireDate("")
+	r.Expires = config.ExpireDate("").Format(config.dateTimeFormat)
 	r.Encoding = config.encoding
+	r.Compression = config.compression
+	r.DescribedBy = config.describedBy
 
 	return r
 }
@@ -76,11 +78,13 @@ func NewMartiLQResource(config configuration, sourcePath string, urlPath string,
 
 	r.State = config.state
 	r.Author  = config.author
-	r.Expires = config.ExpireDate(sourcePath)
-	if time.Now().Before(r.Expires) && r.State == "expired" {
+	r.Expires = config.ExpireDate(sourcePath).Format(config.dateTimeFormat)
+	if time.Now().Before(config.ExpireDate(sourcePath)) && r.State == "expired" {
 		r.State = "active"
 	}
 	r.Encoding = config.encoding
+	r.Compression = config.compression
+	r.DescribedBy = config.describedBy
 
 	r.DocumentName = stats.Name()
 	switch config.title {
@@ -96,8 +100,8 @@ func NewMartiLQResource(config configuration, sourcePath string, urlPath string,
 		r.Title = config.title
 	}
 
-	r.IssueDate = time.Now()
-	r.Modified = stats.ModTime()
+	r.IssueDate = time.Now().Format(config.dateTimeFormat)
+	r.Modified = stats.ModTime().Format(config.dateTimeFormat)
 	r.Url = urlPath
 	r.Length = stats.Size()
 	if !excludeHash {

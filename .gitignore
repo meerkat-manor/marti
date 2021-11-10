@@ -1,3 +1,4 @@
+logs/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -11,10 +12,13 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 test/powershell/results/
+test/golang/results/
+test/python/results/
+test/java/results/
 
 docs/source/samples/powershell/test/
 docs/source/samples/python/test
-
+docs/site/
 docs/build
 
 source/python/client/__pycache__
@@ -23,4 +27,3 @@ source/golang/client/src/test
 source/golang/client/src/martilq_client*
 source/golang/client/src/*.exe
 
-docs/site/

@@ -46,7 +46,7 @@ func TestMarti_DirectoryA(t *testing.T) {
 	SourcePath := currentDirectory
 	Recursive := false
 	DefPath := "../test/test_martilq_directoryA.json"
-	ProcessFilePath("", SourcePath, Recursive, DefPath, "") 
+	ProcessFilePath("", SourcePath, "", Recursive, DefPath, "") 
 
 }
 
@@ -56,6 +56,6 @@ func TestMarti_DirectoryB(t *testing.T) {
 	SourcePath := currentDirectory
 	Recursive := false
 	DefPath := "../test/test_martilq_directoryB.json"
-	ProcessFilePath("../config/martilq.ini", SourcePath, Recursive, DefPath, "") 
+	ProcessFilePath("../config/martilq.ini", SourcePath, "", Recursive, DefPath, "") 
 
 }
