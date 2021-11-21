@@ -1,7 +1,8 @@
 
 . ..\..\..\source\powershell\MartiLQ.ps1
-. ..\..\..\source\powershell\MartiLQItem.ps1
-. ..\..\..\source\powershell\Compress-MartiLQ.ps1
+. ..\..\..\source\powershell\MartiLQConfiguration.ps1
+. ..\..\..\source\powershell\MartiLQResource.ps1
+. ..\..\..\source\powershell\MartiLQAttribute.ps1
 
 
 function PullFtpFile {

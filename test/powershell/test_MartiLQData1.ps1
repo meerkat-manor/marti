@@ -1,6 +1,5 @@
 
 . .\source\powershell\MartiLQ.ps1
-. .\source\powershell\ConvertFrom-Ckan.ps1
 
 if (!(Test-Path -Path ".\test\powershell\results\data")) {
     $null = New-Item -Path ".\test\powershell\results\data" -ItemType Directory

@@ -1,0 +1,96 @@
+{
+  "content-type": "application/vnd.martilq.json",
+  "title": "Conversion from CKAN",
+  "uid": "f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038",
+  "description": "###Update November 2019 - additional fields ###\r\n\r\nFrom 21 November 2019, the dataset will be updated to include 7 new fields (see help file for details)\r\n\r\nThese fields are included in conjunction with the professional standards reforms for financial advisers. More information can be found on the ASIC website https://asic.gov.au/regulatory-resources/financial-services/professional-standards-for-financial-advisers-reforms/.\r\n\r\n__Note:__ For most advisers the new fields will be unpopulated on 21 November 2019. As advisers provide this data to ASIC it will appear in the dataset.\r\n\r\n***\r\n\r\n###Dataset summary###\r\n\r\nASIC is Australia’s corporate, markets and financial services regulator. ASIC contributes to Australia’s economic reputation and wellbeing by ensuring that Australia’s financial markets are fair and transparent, supported by confident and informed investors and consumers. \r\n \r\nAustralian Financial Services Licensees are required to keep the details of their financial advisers up to date on ASIC's Financial Advisers Register. Information contained in the register is made available to the public to search via ASIC's Moneysmart website.  \r\n\r\nSelect data from the Financial Advisers Register will be uploaded each week to www.data.gov.au. The data made available will be a snapshot of the register at a point in time. Legislation prescribes the type of information ASIC is allowed to disclose to the public.  \r\n\r\nThe information included in the downloadable dataset is:     \r\n\r\n* Adviser name\r\n* Adviser number\r\n* Adviser role\r\n* Adviser sub type\r\n* Adviser role status\r\n* Adviser ABN\r\n* Year first provided advice \r\n* Licence name\r\n* Licence number\r\n* Licence ABN\r\n* Licence controlled by\r\n* Adviser start date\r\n* Adviser end date\r\n* Adviser CPD failure year\r\n* Adviser principal business address suburb\r\n* Adviser principal business address State/Territory\r\n* Adviser principal business address postcode\r\n* Adviser principal business address Country\r\n* Appointing representative name\r\n* Appointing representative number\r\n* Appointing representative ABN\r\n* Disciplinary action start date\r\n* Disciplinary action end date\r\n* Disciplinary action type\r\n* Product authorisations (for a full list see the Financial Adviser Register – Help File)\r\n* Qualifications and Training\r\n* FASEA approved qualifications\r\n* Memberships\r\n* Further restrictions\r\n\r\nAdditional information about financial advisers can be found via [ASIC's website] (http://www.asic.gov.au/ \"ASIC's website\"). Accessing some information may attract a fee.   \r\n\r\nMore information about searching [ASIC's registers] (http://www.asic.gov.au/online-services/search-asics-registers/ \"ASIC's registers\").   ",
+  "issued": "2021-11-06T13:48:28",
+  "modified": "2021-11-06T13:48:28",
+  "expires": "",
+  "tags": [
+    "document",
+    "marti"
+  ],
+  "publisher": "VCOFF\\meerkat",
+  "contactPoint": "Access.Request@asic.gov.au",
+  "accessLevel": "Confidential",
+  "rights": "Restricted",
+  "license": "cc-by",
+  "state": "active",
+  "batch": 1.0,
+  "describedBy": "",
+  "landingPage": "",
+  "theme": "",
+  "resources": [
+    {
+      "title": "Financial Advisers Dataset - Help File",
+      "uid": "b4fc36ca-b9d5-4ad4-9631-c914367ea302",
+      "documentName": "financial-advisers-register-help-file.pdf",
+      "issuedDate": "2015-05-19T05:10:05.120187",
+      "modified": "2021-03-29T02:23:10.146935",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": 741345,
+      "hash": {
+        "algo": "SHA256",
+        "value": "22552e688cf87ff1edcaf000daec307c",
+        "signed": false
+      },
+      "description": "Help File as at 29/03/2021",
+      "url": "https://data.gov.au/data/dataset/f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038/resource/b4fc36ca-b9d5-4ad4-9631-c914367ea302/download/financial-advisers-register-help-file.pdf",
+      "version": "1.1.0",
+      "format": "PDF",
+      "compression": "",
+      "encryption": ""
+    },
+    {
+      "title": "Financial Advisers Dataset - Current",
+      "uid": "691ff9ed-b601-481d-8283-88127dbbc869",
+      "documentName": "financial_advisers_202109.zip",
+      "issuedDate": "2015-07-14T05:18:49.260369",
+      "modified": "2021-09-08T20:42:41.180925",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": 4724626,
+      "hash": {
+        "algo": "SHA256",
+        "value": "5708dfd23d7a089d78da03932e4f8871",
+        "signed": false
+      },
+      "description": "Financial Advisers Dataset extract as at 09/09/2021 06:42",
+      "url": "https://data.gov.au/data/dataset/f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038/resource/691ff9ed-b601-481d-8283-88127dbbc869/download/financial_advisers_202109.zip",
+      "version": "1.1.0",
+      "format": "CSV",
+      "compression": "",
+      "encryption": ""
+    },
+    {
+      "title": "Financial Advisers Dataset - Current",
+      "uid": "2156cb99-3358-4847-8b5b-fcd2f0d3c4e2",
+      "documentName": "financial_advisers_202109.xlsx",
+      "issuedDate": "2016-11-02T11:54:38.840025",
+      "modified": "2021-09-08T20:42:43.173322",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": 9518613,
+      "hash": {
+        "algo": "SHA256",
+        "value": "",
+        "signed": false
+      },
+      "description": "Financial Advisers Dataset extract as at 09/09/2021 06:42",
+      "url": "https://data.gov.au/data/dataset/f2b7c2c1-f4ef-4ae9-aba5-45c19e4d3038/resource/2156cb99-3358-4847-8b5b-fcd2f0d3c4e2/download/financial_advisers_202109.xlsx",
+      "version": "1.1.0",
+      "format": "XLSX",
+      "compression": "",
+      "encryption": ""
+    }
+  ],
+  "custom": [
+    {
+      "extension": "software",
+      "softwareName": "MartiReference",
+      "author": "Meerkat@merebox.com",
+      "version": "0.0.1"
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 
 . .\source\powershell\MartiLQ.ps1
-. .\source\powershell\Compress-MartiLQ.ps1
 
 try {
         
@@ -8,7 +7,7 @@ try {
     $oMarti = New-MartiChildItem -SourceFolder ".\docs" -Recurse -UrlPath ".\docs" -Filter "*" -LogPath ".\test\powershell\results\Logs"
     $oMarti.description = "Sample execution"
 
-    $x = ConvertTo-Json -InputObject $oMarti
+    $x = ConvertTo-Json -InputObject $oMarti -Depth 6
     Set-Content -Path ".\test\powershell\results\marti_test01.json" -Value $x
 
     Write-Host "Test case #2"
@@ -16,12 +15,12 @@ try {
     Compress-MartiLQ  -SourceFolder ".\docs" -Filter "*" -LogPath ".\test\powershell\results\Logs" -ArchiveFile $ArchiveFile
 
     Write-Host "Test case #3"
-    $y = Get-MartiItem -MartiDefintiion $oMarti -Title "ckan" -Format "txt" -LogPath ".\test\powershell\results\Logs"
+    $y = Get-MartiChildResource -Marti $oMarti -Title "ckan" -Format "txt" -LogPath ".\test\powershell\results\Logs"
     Write-Host "Get item Title: $($y.title)"
     Write-Host "Get item Url: $($y.url)"
 
     Write-Host "Test case #4"
-    $oMarti = New-MartiResource -SourcePath ".\docs\ckan.md" -LogPath ".\test\powershell\results\Logs"
+    $oMarti = New-MartiResource -SourcePath ".\docs\source\ckan.md" -LogPath ".\test\powershell\results\Logs"
     $oMarti.description = "Sample execution for ckan"
 
     $x = ConvertTo-Json -InputObject $oMarti
