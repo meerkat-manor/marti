@@ -50,6 +50,7 @@ $oMarti.tags += "ckan"
 $oMarti.tags += "gov"
 $oMarti.tags += "au"
 $oMarti.publisher = "Australian Securities and Investments Commission (ASIC)"
+$oMarti.landingPage = "https://data.gov.au/dataset/ds-dga-ab7eddce-84df-4098-bc8f-500d0d9776d1/details?q=AFS%20Licensee%20Dataset%20extract%20as"
 $x = ConvertTo-Json -InputObject $oMarti -Depth 5
 Set-Content -Path $outFile -Value $x
 Write-Host "Wrote converted definition to: $outFile"

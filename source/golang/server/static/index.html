@@ -6,10 +6,10 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>MartiLQ Dashboard</title>
+    <title>MartiLQ Definition</title>
 
     <!-- Bootstrap core CSS -->
-<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -26,17 +26,12 @@
         }
       }
     </style>
-
-    
-    <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
   </head>
   <body>
     
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Meerkat Manor</a>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Load definition" aria-label="Load"  id="loaddefinition">
-  <button class="w-50 btn  btn-primary" type="submit" id="loadBtn">Load</button>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="https://github.com/meerkat-manor/marti">MartiLQ</a>
 </header>
 
 <div class="container-fluid">
@@ -46,21 +41,48 @@
 
       <h2>MartiLQ definition</h2>
       <div class="table-responsive">        
-        <div class="output"></div>
+
+        <p>The following <string>martiLQ</string> definitions are provided as samples</p>
+        <p>The <a href="https://github.com/meerkat-manor/marti">server code</a> for this is available and the code can be changed to reflect your actual or sample definitions</p>
+
+        <br>
+        <table class="table table-striped table-sm">
+        <thead>
+        <th>Definition</th><th>Description</th>
+        <thead>
+        <tbody>
+        
+        <tr>
+        <td><a href="browse.html?martilq=martilq_afsl.json">martilq_afsl.json</a></td>
+        <td>Australian Financial Services License sample</td>
+        </tr>
+        <tr>
+          <td><a href="browse.html?martilq=martilq_asic.json">martilq_asic.json</a></td>
+          <td>Australian Securities and Incetsments Commission adviser sample</td>
+        </tr>
+        <tr>
+          <td><a href="browse.html?martilq=martilq_bsb.json">martilq_bsb.json</a></td>
+          <td>Australian Payment Network BSB sample</td>
+        </tr>
+        <tr>
+          <td><a href="browse.html?martilq=martilq_docs.json">martilq_docs.json</a></td>
+          <td>MartiLQ documentation folder sample</td>
+        </tr>
+          
+        </tbody>
+        </table>
+
       </div>
     </main>
   </div>
 </div>
 
  <footer  class="bg-dark flex-md-nowrap p-0 shadow">
-   <div class="row">
-    <a target="_blank" href="https://icons8.com/icon/64141/internet">Internet</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-   </div>
+
  </footer>
 
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-    <script src="js/app.js"></script>
     
   </body>
 </html>

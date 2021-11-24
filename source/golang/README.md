@@ -9,9 +9,28 @@ The prototype is able to:
  * Initialise by creating a config file
  * Create a JSON **martiLQ** definition file based on files in a directory
 
+
+## Client
+
 __TO COME__
 
-Publish of Golan package is yet to occur. A binary executable will also be
+Publish of Golang package is yet to occur. A binary executable will also be
 published for Linux and Windows of the prototype. 
 
 This will occur after merge of code into ``main`` branch.
+
+## Server
+
+A web UI exists as a functionnal demonstration to view a collection of
+**martiLQ** definition files.
+
+## Docker
+
+```
+
+go env -w GOOS=linux
+go env -w GOARCH=386
+go build ./main.go
+
+docker build -t martilq-go-server:latest .
+```

@@ -1,0 +1,146 @@
+{
+  "content-type": "application/vnd.martilq.json",
+  "title": "Conversion from CKAN",
+  "uid": "ab7eddce-84df-4098-bc8f-500d0d9776d1",
+  "description": "This data has been converted from DATA GOV AU CKAN data source with URL 'https://data.gov.au/api/3/action/package_show?id=ab7eddce-84df-4098-bc8f-500d0d9776d1'",
+  "issued": "2021-11-06T13:48:28",
+  "modified": "2021-11-06T13:48:28",
+  "expires": "",
+  "tags": [
+    "document",
+    "marti",
+    "ckan",
+    "gov",
+    "au"
+  ],
+  "publisher": "Australian Securities and Investments Commission (ASIC)",
+  "contactPoint": "Access.Request@asic.gov.au",
+  "accessLevel": "Confidential",
+  "rights": "Restricted",
+  "license": "cc-by",
+  "state": "active",
+  "batch": 1.0,
+  "describedBy": "",
+  "landingPage": "https://data.gov.au/dataset/ds-dga-ab7eddce-84df-4098-bc8f-500d0d9776d1/details?q=AFS%20Licensee%20Dataset%20extract%20as",
+  "theme": "",
+  "resources": [
+    {
+      "title": "AFS Licensee Dataset - Current",
+      "uid": "d98a113d-6b50-40e6-b65f-2612efc877f4",
+      "documentName": "afs_lic_202111.csv",
+      "issuedDate": "2016-03-10T12:15:49.07712",
+      "modified": "2021-11-01T03:46:03.958513",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": 9328930,
+      "hash": {
+        "algo": "SHA256",
+        "value": "307d8972c10a0723af7bfa5f03c56c36",
+        "signed": false
+      },
+      "description": "AFS Licensee Dataset extract as at 01/11/2021 14:33",
+      "url": "https://data.gov.au/data/dataset/ab7eddce-84df-4098-bc8f-500d0d9776d1/resource/d98a113d-6b50-40e6-b65f-2612efc877f4/download/afs_lic_202111.csv",
+      "version": "1.1.0",
+      "format": "CSV",
+      "compression": "",
+      "encryption": ""
+    },
+    {
+      "title": "AFS Licensee - Help File",
+      "uid": "2e831e8d-f9d7-4de2-9482-0597f4f6abf9",
+      "documentName": "australian-financial-services-licensee-help-file.pdf",
+      "issuedDate": "2016-03-10T12:32:04.564184",
+      "modified": "2017-05-29T00:09:40.392458",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": null,
+      "hash": {
+        "algo": "SHA256",
+        "value": "",
+        "signed": false
+      },
+      "description": "Help File as at 10/03/2016",
+      "url": "https://data.gov.au/data/dataset/ab7eddce-84df-4098-bc8f-500d0d9776d1/resource/2e831e8d-f9d7-4de2-9482-0597f4f6abf9/download/australian-financial-services-licensee-help-file.pdf",
+      "version": "1.1.0",
+      "format": "PDF",
+      "compression": "",
+      "encryption": ""
+    },
+    {
+      "title": "AFS Licensee Dataset - National Map",
+      "uid": "197ae0f5-121f-4ded-87f7-a54ff76f9471",
+      "documentName": "afs_lic_202111.csv-geo-au",
+      "issuedDate": "2016-03-10T14:31:00.013256",
+      "modified": "2021-11-01T03:46:09.778434",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": 9179162,
+      "hash": {
+        "algo": "SHA256",
+        "value": "",
+        "signed": false
+      },
+      "description": "The following changes were made to align with national map: - Delimiter changed to comma (,) - Latitude and longitude field names changed to lat and lon",
+      "url": "https://data.gov.au/data/dataset/ab7eddce-84df-4098-bc8f-500d0d9776d1/resource/197ae0f5-121f-4ded-87f7-a54ff76f9471/download/afs_lic_202111.csv-geo-au",
+      "version": "1.1.0",
+      "format": "CSV-GEO-AU",
+      "compression": "",
+      "encryption": ""
+    },
+    {
+      "title": "AFS Licensee Dataset - Current",
+      "uid": "710d69b2-05cc-473e-94ae-075766081d49",
+      "documentName": "afs_lic_202111.xlsx",
+      "issuedDate": "2016-04-06T13:55:16.278489",
+      "modified": "2021-11-01T03:46:11.303206",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": 707842,
+      "hash": {
+        "algo": "SHA256",
+        "value": "",
+        "signed": false
+      },
+      "description": "AFS Licensee Dataset extract as at 01/11/2021 14:30",
+      "url": "https://data.gov.au/data/dataset/ab7eddce-84df-4098-bc8f-500d0d9776d1/resource/710d69b2-05cc-473e-94ae-075766081d49/download/afs_lic_202111.xlsx",
+      "version": "1.1.0",
+      "format": "XLSX",
+      "compression": "",
+      "encryption": ""
+    },
+    {
+      "title": "AFS Licensee Dataset - Current",
+      "uid": "1fc2b334-74ae-4588-85aa-83e3a8c9f2cc",
+      "documentName": "afs_lic_202111.tsv",
+      "issuedDate": "2016-11-30T08:55:39.249263",
+      "modified": "2021-11-01T03:46:12.987395",
+      "state": "active",
+      "author": "Australian Securities and Investments Commission (ASIC)",
+      "length": 9170476,
+      "hash": {
+        "algo": "SHA256",
+        "value": "",
+        "signed": false
+      },
+      "description": "AFS Licensee Dataset extract as at 01/11/2021 14:30",
+      "url": "https://data.gov.au/data/dataset/ab7eddce-84df-4098-bc8f-500d0d9776d1/resource/1fc2b334-74ae-4588-85aa-83e3a8c9f2cc/download/afs_lic_202111.tsv",
+      "version": "1.1.0",
+      "format": "TSV",
+      "compression": "",
+      "encryption": ""
+    }
+  ],
+  "custom": [
+    {
+      "extension": "software",
+      "softwareName": "MartiReference",
+      "author": "Meerkat@merebox.com",
+      "version": "0.0.1"
+    },
+    {
+      "extension": "template",
+      "renderer": "MartiReference:Mustache",
+      "url": "data/martilq_ckan.must"
+    }
+  ]
+}

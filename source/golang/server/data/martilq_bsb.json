@@ -1,0 +1,564 @@
+{
+     "content-type": "application/vnd.martilq.json",
+     "title": "Australian BSB source",
+     "uid": "ae5d4d4b-5a7f-494d-8629-a0ced5bc7ba0",
+     "description": "The original files are published on the APN FTP site and have been copied to a web server",
+     "modified": "2021-11-05",
+     "publisher": "Australian Payment Network",
+     "contactPoint": "",
+     "accessLevel": "Confidential",
+     "rights": "Restricted",
+     "tags": [],
+     "license": "",
+     "state": "active",
+     "batch": 1.0,
+     "describedBy": "",
+     "landingPage": "https://bsb.auspaynet.com.au/public/BSB_DB.NSF/publicBSB.xsp",
+     "theme": "",
+     "resources": [
+          {
+               "title": "BSBDirectoryOct21-307",
+               "uid": "0c2ee577-3fbb-46b9-bcc6-40eae069569c",
+               "documentName": "BSBDirectoryOct21-307.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-11-01T09:00:45",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1352205,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "dd01585bed7a0b6da5d4deb5dff70a4b8ccfee873cf0454f2a46910c3275f03e",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15054
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectorySep21-306",
+               "uid": "900e815a-e052-4198-9d92-e0f1aac07616",
+               "documentName": "BSBDirectorySep21-306.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-10-01T09:00:48",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1351281,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "4f5c97799f6006247fad64f9a5acc425e79f31342cbbbdaaba2995af16ac56b4",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15050
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectoryAug21-305",
+               "uid": "2ebda69a-8eef-4eb4-817d-a78e38bf5141",
+               "documentName": "BSBDirectoryAug21-305.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-09-01T09:00:43",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1352016,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "26e40760989ff8a314cda70628c38b66d0d565ea8ad677b81b83780e33984104",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15055
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectoryJul21-304",
+               "uid": "1af01fb4-003e-4179-bb26-e74a543bc837",
+               "documentName": "BSBDirectoryJul21-304.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-08-05T09:00:46",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1351065,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "5306b8baaafaf60600b645f3514dde3f654ac2b0bdbae96b0d0501b18488b1b5",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15044
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectoryJun21-303",
+               "uid": "e37d8ab5-e733-458d-a0b5-72368a8e201a",
+               "documentName": "BSBDirectoryJun21-303.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-07-01T09:00:48",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1350547,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "77a1274fe6d7d239540b434b26e57c41a9d5a38b86bdb9f7e86a7874af5e8fef",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15042
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectoryMay21-302",
+               "uid": "69681b42-2950-4878-a932-cbda107677ec",
+               "documentName": "BSBDirectoryMay21-302.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-06-01T09:00:52",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1350255,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "f978eeb1a8939206a2794eccabd54f1285edb77fd5d1994b42b24fb813a21a77",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15040
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectoryApr21-301",
+               "uid": "8f10458d-6256-457f-ae90-77b8286b88ba",
+               "documentName": "BSBDirectoryApr21-301.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-05-03T09:00:51",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1352037,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "9b170364f544e6fa92ed1abe40d726d1d43685fe61dd3e4796ed0b48a47644a8",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15064
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          },
+          {
+               "title": "BSBDirectoryMar21-300",
+               "uid": "b5d88aa6-1b40-49eb-93c1-98a6e7d06007",
+               "documentName": "BSBDirectoryMar21-300.csv",
+               "issuedDate": "2021-11-05T20:58:03",
+               "modified": "2021-04-01T09:00:55",
+               "expires": "",
+               "state": "active",
+               "author": "Meerkat@merebox.com",
+               "length": 1353104,
+               "hash": {
+                    "algo": "SHA256",
+                    "value": "8a566fb97e800b05dd5dec9cfd030f4f1fb10259714d33b22aaeb22788a6d19a",
+                    "signed": false
+               },
+               "description": "",
+               "url": "",
+               "version": "",
+               "content-type": "text/csv",
+               "encoding": null,
+               "compression": null,
+               "encryption": null,
+               "attributes": [
+                    {
+                         "category": "dataset",
+                         "name": "header",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 1
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "footer",
+                         "function": "count",
+                         "comparison": "NA",
+                         "value": 0
+                    },
+                    {
+                         "category": "format",
+                         "name": "separator",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "format",
+                         "name": "columns",
+                         "function": "value",
+                         "comparison": "NA",
+                         "value": ","
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "records",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 15065
+                    },
+                    {
+                         "category": "dataset",
+                         "name": "columns",
+                         "function": "count",
+                         "comparison": "EQ",
+                         "value": 8
+                    }
+               ]
+          }
+     ],
+     "custom": [
+          {
+               "extension": "software",
+               "softwareName": "MARTILQREFERENCE",
+               "author": "Meerkat@merebox.com",
+               "version": "0.0.1"
+          }
+     ]
+}

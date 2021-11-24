@@ -11,41 +11,60 @@ import (
 
 func main() {
 	port := flag.String("p", "8080", "Http listen port")
-	directory := flag.String("d", "static", "Static directory content")
+	staticDirectory := flag.String("s", "static", "Static directory content")
 	docsDirectory := flag.String("docs", "", "Docs directory content")
+	dataDirectory := flag.String("data", "", "Data directory content")
+	trace := flag.Bool("trace", false, "Produce trace logs")
 	flag.Parse()
 
+	if *trace == true {	
+		log.Printf("static folder: %s\n", *staticDirectory)
+		log.Printf("data folder: %s\n", *dataDirectory)
+		log.Printf("docs folder: %s\n", *docsDirectory)
+	}
+
 	http.HandleFunc("/data/", func( res http.ResponseWriter, req *http.Request ) {
-		//log.Printf("Data file %s \n", req.URL.Path)
-		http.ServeFile(res, req, req.URL.Path[1:]);
+		safePath := ValidatePath(filepath.FromSlash(req.URL.Path[1:]))
+		if (*dataDirectory != "") {
+			safePath = filepath.FromSlash(filepath.Join(*dataDirectory, strings.Replace(safePath, "data/", "", 1)))
+		}
+		http.ServeFile(res, req, safePath)
 	})
 
 	http.HandleFunc("/docs/", func( res http.ResponseWriter, req *http.Request ) {
+		localPath := ""
 		if (*docsDirectory == "") {
 			temp := "../../.."
 			docsDirectory = &temp
+			localPath = ValidatePath(filepath.FromSlash(*docsDirectory+req.URL.Path))
+		} else {
+			localPath = ValidatePath(filepath.FromSlash(*docsDirectory+strings.Replace(req.URL.Path, "docs/", "", 1)))
 		}
-		//log.Printf("Docs file %s \n", req.URL.Path)
-		localPath := filepath.FromSlash(*docsDirectory+req.URL.Path)
+		if *trace == true {	
+			log.Printf("fetch docs: \"%s\"", localPath)
+		}
 		f, err := os.Open(localPath)
 		if err != nil {
-			http.ServeFile(res, req, filepath.FromSlash(*directory + "/404.html"));
+			log.Printf("fetch docs error: \"%s\" with %s", localPath, err)
+			http.ServeFile(res, req, filepath.FromSlash(*staticDirectory + "/404.html"));
 		} else {
 			s, err := f.Stat()
 			if err != nil || s.IsDir() {
-				http.ServeFile(res, req, filepath.FromSlash(*directory + "/404.html"));
+				log.Printf("fetch docs stat error: \"%s\"", localPath)
+				http.ServeFile(res, req, filepath.FromSlash(*staticDirectory + "/404.html"))
 			} else {
-				http.ServeFile(res, req, localPath);
+				http.ServeFile(res, req, localPath)
 			}
 		}
 	})
 
-	fileServer := http.FileServer(FileSystem{http.Dir(*directory)})
+	fileServer := http.FileServer(FileSystem{http.Dir(*staticDirectory)})
 	http.Handle("/", fileServer)
 
-	log.Printf("Serving \"%s\" on HTTP port: %s\n", *directory, *port)
+	log.Printf("Serving on HTTP port: %s\n", *port)
 	log.Fatal(http.ListenAndServe(":"+*port, nil))
 }
+
 
 
 type FileSystem struct {
@@ -59,7 +78,6 @@ func (fs FileSystem) Open(path string) (http.File, error) {
 	}
 
 	s, err := f.Stat()
-	//log.Printf("File %s \n", path)
 	if s.IsDir() {
 		index := strings.TrimSuffix(path, "/") + "/index.html"
 		if _, err := fs.fs.Open(index); err != nil {
@@ -68,4 +86,11 @@ func (fs FileSystem) Open(path string) (http.File, error) {
 	}
 
 	return f, nil
+}
+
+func ValidatePath(path string) string {
+
+	safePath := path
+
+	return safePath
 }
