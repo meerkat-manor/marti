@@ -14,7 +14,7 @@ The **martiLQ** document
 
 ```json
 {
-    "content-type": "application/vnd.martilq.json",
+    "contentType": "application/vnd.martilq.json",
     "title": "GEN001",
     "uid": "cff090b2-5845-490c-bd81-88b3a9267b5a",
     "description": "Simple example with no config",
@@ -49,7 +49,7 @@ The **martiLQ** document
             "description": "",
             "url": "file://martiLQ.md",
             "version": "",
-            "content-type": "",
+            "contentType": "",
             "encoding": "UTF-8",
             "compression": "",
             "encryption": "",

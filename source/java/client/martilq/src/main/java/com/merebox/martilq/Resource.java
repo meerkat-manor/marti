@@ -21,8 +21,9 @@ public class Resource {
 
     public String description;
     public String url;
+    public String structure;
     public String version;
-    public String format;
+    public String content_type;
     public String compression;
     public String encryption;
 

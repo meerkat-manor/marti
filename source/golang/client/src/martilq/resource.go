@@ -29,8 +29,9 @@ type Resource struct {
 
 	Description string `json:"description"`
 	Url string `json:"url"`
+	Structure string `json:"structure"`
 	Version string `json:"version"`
-	Content_Type string `json:"content-type"`
+	ContentType string `json:"contentType"`
 	Encoding string `json:"encoding"`
 	Compression string `json:"compression"`
 	Encryption string `json:"encryption"`
@@ -112,7 +113,7 @@ func NewMartiLQResource(config configuration, sourcePath string, urlPath string,
 	parts := strings.Split(sourcePath,".")
 	extension := parts[len(parts)-1]
 
-	r.Content_Type = mime.TypeByExtension("."+extension)
+	r.ContentType = mime.TypeByExtension("."+extension)
 	records := 0
 	columns := -1
 

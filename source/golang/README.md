@@ -26,11 +26,13 @@ A web UI exists as a functionnal demonstration to view a collection of
 
 ## Docker
 
+Please remember to copy documents into "docs" folder.
+
 ```
 
 go env -w GOOS=linux
 go env -w GOARCH=386
-go build ./main.go
+go build ./src/main.go
 
 docker build -t martilq-go-server:latest .
 ```

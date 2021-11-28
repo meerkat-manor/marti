@@ -1,0 +1,311 @@
+{
+    "id": null,
+    "describe": "BSB file metadata details. The file is a legacy fixed column position file.  The record length is not fixed as the last column can be stripped of blanks.  The length is 112 to 113 bytes.  Position are 1 index based",
+    "encoding": "UTF-8",
+    "format": "Fixed Column Position (FCP)",
+    "multiRecord": true,
+    "lineEndings": "CRLF",
+    "header": true,
+    "footer": true,
+    "source": null,
+
+    "recordFormat": [
+        {
+            "formatName" : "Header",
+            "columns": [
+                {
+                    "columnName": "TXT1",
+                    "description": "Fixed identifier of \"HEADER RECORD Effective Date: \"",
+                    "type": "char",
+                    "starting": 1,
+                    "ending": 31,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "TXT1",
+                        "rightLabel": "",
+                        "heading": "TXT1" 
+                    }
+                },
+                {
+                    "columnName": "EffectiveDate",
+                    "description": "Formatted effective date",
+                    "type": "char",
+                    "starting": 32,
+                    "ending": 42,
+                    "dataset": "",
+                    "formatting": "DD mmm YYYY",
+                    "labels": {
+                        "leftLabel": "EffectiveDate",
+                        "rightLabel": "",
+                        "heading": "EffectiveDate" 
+                    }
+                },
+                {
+                    "columnName": "TXT2",
+                    "description": "Fixed identifier of \" File Created At: \"",
+                    "type": "char",
+                    "starting": 43,
+                    "ending": 64,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "TXT2",
+                        "rightLabel": "",
+                        "heading": "TXT2" 
+                    }
+                },
+                {
+                    "columnName": "RunDate",
+                    "description": "Formatted run date",
+                    "type": "char",
+                    "starting": 65,
+                    "ending": 84,
+                    "dataset": "",
+                    "formatting": "DD mmm YYYY HH:mm:ss",
+                    "labels": {
+                        "leftLabel": "EffectiveDate",
+                        "rightLabel": "",
+                        "heading": "EffectiveDate" 
+                    }
+                },
+                {
+                    "columnName": "TXT3",
+                    "description": "Fixed identifier of \" Report Number: \"",
+                    "type": "char",
+                    "starting": 85,
+                    "ending": 103,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "TXT3",
+                        "rightLabel": "",
+                        "heading": "TXT3" 
+                    }
+                },
+                {
+                    "columnName": "ReportNumber",
+                    "description": "Report sequential number",
+                    "type": "int",
+                    "starting": 104,
+                    "ending": 105,
+                    "dataset": "",
+                    "formatting": "###",
+                    "labels": {
+                        "leftLabel": "Report#",
+                        "rightLabel": "",
+                        "heading": "Report#" 
+                    }
+                },
+                {
+                    "columnName": "TXT4",
+                    "description": "Trailing blanks for padding",
+                    "type": "char",
+                    "starting": 106,
+                    "ending": 111,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "TXT4",
+                        "rightLabel": "",
+                        "heading": "TXT4" 
+                    }
+                }
+            ]
+        },
+        {
+            "formatName" : "Data",
+            "columns": [
+                {
+                    "columnName": "BSB",
+                    "description": "Bank State Branch (BSB) code that is unique",
+                    "type": "char",
+                    "starting": 1,
+                    "ending": 7,
+                    "dataset": "",
+                    "formatting": "###-###",
+                    "labels": {
+                        "leftLabel": "BSB",
+                        "rightLabel": "",
+                        "heading": "BSB" 
+                    }
+                },
+                {
+                    "columnName": "Bank",
+                    "description": "Mnemonic for the bank",
+                    "type": "varchar",
+                    "starting": 8,
+                    "ending": 10,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Bank",
+                        "rightLabel": "",
+                        "heading": "Bank" 
+                    }
+                },
+                {
+                    "columnName": "Branch",
+                    "description": "Branch name and in some cases describes the type of business it conducts",
+                    "type": "varchar",
+                    "starting": 11,
+                    "ending": 45,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Branch",
+                        "rightLabel": "",
+                        "heading": "" 
+                    }
+                },
+                {
+                    "columnName": "StreetAddress",
+                    "description": "Street address for the bank branch.  This includes the level, street number and street type",
+                    "type": "varchar",
+                    "starting": 46,
+                    "ending": 80,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Address",
+                        "rightLabel": "",
+                        "heading": "Street Address" 
+                    }
+                },
+                {
+                    "columnName": "Town",
+                    "description": "Town where the branch is located",
+                    "type": "varchar",
+                    "starting": 81,
+                    "ending": 100,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Town/City",
+                        "rightLabel": "",
+                        "heading": "Town/City" 
+                    }
+                },
+                {
+                    "columnName": "State",
+                    "description": "Australian state or terrritory where the branch is located",
+                    "type": "varchar",
+                    "starting": 101,
+                    "ending": 103,
+                    "dataset": "NSW, VIC, QLD, SA, NT, WA, TAS, ACT",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "State",
+                        "rightLabel": "",
+                        "heading": "State" 
+                    }
+                },
+                {
+                    "columnName": "Postcode",
+                    "description": "Australian postcode for the bank branch",
+                    "type": "int",
+                    "starting": 104,
+                    "ending": 107,
+                    "dataset": "",
+                    "formatting": "####",
+                    "labels": {
+                        "leftLabel": "Postcode",
+                        "rightLabel": "",
+                        "heading": "PostCode" 
+                    }
+                },
+                {
+                    "columnName": "Payments",
+                    "description": "Payments flag.  The value is a concatenation of P=Paper Payments, E=Electronic Payments, H=High Value Payments",
+                    "type": "varchar",
+                    "starting": 108,
+                    "ending": 111,
+                    "dataset": "P, E, H, PE, PH, EH, PEH",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Payment Types",
+                        "rightLabel": "",
+                        "heading": "" 
+                    }
+                }
+            ]
+        },
+        {
+            "formatName" : "Footer",
+            "columns": [
+                {
+                    "columnName": "TXT5",
+                    "description": "Fixed string \"TRAILER RECORD Total number of records (except header and trailer): \"",
+                    "type": "char",
+                    "starting": 1,
+                    "ending": 72,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "TXT5",
+                        "rightLabel": "",
+                        "heading": "TXT5" 
+                    }
+                },
+                {
+                    "columnName": "RecordCount",
+                    "description": "Number of data records in the file",
+                    "type": "int",
+                    "starting": 73,
+                    "ending": 78,
+                    "dataset": "",
+                    "formatting": "##,###",
+                    "labels": {
+                        "leftLabel": "Report#",
+                        "rightLabel": "",
+                        "heading": "Report#" 
+                    }
+                },
+                {
+                    "columnName": "TXT6",
+                    "description": "Trailing blanks for padding",
+                    "type": "char",
+                    "starting": 79,
+                    "ending": 112,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "TXT6",
+                        "rightLabel": "",
+                        "heading": "TXT6" 
+                    }
+                }            
+            ]
+        }
+    ],
+    "indexes": [
+        {
+            "indexName": "BSB",
+            "primary": true,
+            "unique": true,
+            "columns": [
+                {"name": "BSB"}
+            ]
+        }
+    ],
+    "sample": [
+        {"record": "HEADER RECORD  Effective Date: 01 Sep 2021     File Created At: 01 Sep 2021 08:58:50    Report Number: 305     "},
+        {"record": "012-298ANZFrenchs Forest                     Shop 5, Forestway Shopping Centre  Frenchs Forest      NSW2086PEH "},
+        {"record": "033-652WBCSwan Hill                          169-171 Campbell Street            Swan Hill           VIC3585PEH "},
+        {"record": "932-000RABRegional Australia Bank            Suite 4 Technology Park MadgwickDr Armidale            NSW2350PEH "},
+        {"record": "TRAILER RECORD    Total number of records (except header and trailer): 15,055                                  "}
+    ],
+    "custom": [
+        {
+          "extension": "software",
+          "softwareName": "MartiReference",
+          "author": "Meerkat@merebox.com",
+          "version": "0.0.1"
+        },
+        {
+          "extension": "template",
+          "renderer": "MARTILQREFERENCE:Mustache",
+          "url": "template/details/martilq_cols_fcp.must"
+        }
+    ]    
+}

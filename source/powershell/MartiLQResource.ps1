@@ -1,4 +1,44 @@
 
+function Get-MimeType {
+Param( 
+    [Parameter(Mandatory)][String] $Extension
+)
+
+    $mimeType = "application/unknown";
+    if ( $null -ne $Extension )
+    {
+        Switch ($Extension)
+        {
+            ".json" { $mimetype = "application/json" ; break }
+            ".md" { $mimetype = "text/markdown" ; break }
+            ".yml" { $mimetype = "text/yaml" ; break }
+            ".rst" { $mimetype = "text/x-rst" ; break }
+            ".7z" { $mimetype = "application/x-7z-compressed" ; break }
+            ".mti" { $mimetype = "application/vnd.martilq.json" ; break }
+            ".ttf" { $mimetype = $null ; break }
+            ".eot" { $mimetype = $null ; break }
+            ".woff" { $mimetype = $null ; break }
+            ".woff2" { $mimetype = $null ; break }
+            ".csv" { $mimetype = "text/csv" ; break }
+            ".tsv" { $mimetype = "text/csv" ; break }
+            Default {
+                $drive = Get-PSDrive HKCR -ErrorAction SilentlyContinue;
+                if ( $null -eq $drive )
+                {
+                    $drive = New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
+                }
+                $ext = Get-ItemProperty HKCR:$Extension -ErrorAction SilentlyContinue;
+                if ( $null -ne $ext) {
+                    $mimeType = $ext."Content Type";
+                }
+            }
+        }
+    }
+
+    return $mimeType
+
+}
+
 
 function New-MartiResource {
 Param( 
@@ -45,14 +85,15 @@ Param(
             modified = $item.LastWriteTime.ToString("yyyy-MM-ddTHH:mm:ss")
             expires = $expires.ToString("yyyy-MM-ddTHH:mm:ss") 
             state = "active"
-            author = ""
+            author = $null
             length = $item.Length
             hash = $hash
 
-            description = ""
-            url = ""
+            description = $null
+            url = $null
+            structure = $null
             version = $version
-            format = $item.Extension.Substring(1)
+            contentType = Get-MimeType($item.Extension)
             compression = $null
             encryption = $null
 
@@ -531,7 +572,7 @@ function Compare-MartiResource {
     $formatProcessed = $false
     [System.Collections.ArrayList]$lerror = @()
 
-    if ($Resource.format -eq "CSV") {
+    if ($Resource.contentType -eq "text/csv") {
         $formatProcessed = $true
 
         $data = $inputData | ConvertFrom-Csv -Delim ','
@@ -573,7 +614,7 @@ function Compare-MartiResource {
     } 
     
     
-    if ($Resource.format -eq "JSON") {
+    if ($Resource.contentType -eq "application/json") {
         $formatProcessed = $true
 
         $data = $inputData | ConvertFrom-Json

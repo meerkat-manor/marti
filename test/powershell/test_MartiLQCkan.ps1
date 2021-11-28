@@ -2,8 +2,8 @@
 # .\test\powershell\test_MartiLQCkan.ps1 from project root
 
 . .\source\powershell\MartiLQ.ps1
-. .\source\powershell\MartiLQItem.ps1
-. .\source\powershell\ConvertFrom-Ckan.ps1
+. .\source\powershell\MartiLQResource.ps1
+. .\source\powershell\MartiLQUtilities.ps1
 
 $outFile = ".\test\powershell\results\marti_test_asic.json"
 $ckan = Get-Content -Path ".\docs\source\samples\json\asic_ckan_api.json" -Raw

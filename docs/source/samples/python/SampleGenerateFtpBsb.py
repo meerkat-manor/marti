@@ -76,18 +76,18 @@ for file_name in files:
             oResource = mlq.NewMartiLQResource(os.path.join(test_dir, file_name), "", False, True)
             oMarti["resources"].append(oResource)
 
-mlq.CloseLog()
+mlq.Close()
 
 
 print("Save martiLQ definition")
-jsonFile = open(os.path.join(test_dir, "BSBDirectoryPlain.json"), "w")
+jsonFile = open(os.path.join(test_dir, "martilq_bsb.json"), "w")
 jsonFile.write(json.dumps(oMarti, indent=5))
 jsonFile.close()
-print("Base sample JSON written: BSBDirectoryPlain.json")
+print("Base sample JSON written: martilq_bsb.json")
 
 
 print("Creating martiLQ ZIP file")
-zipFileName = "BSBDirectory.zip"
+zipFileName = "martilq_bsb.zip"
 fileZipCount = 0
 
 mlq = martiLQ()
@@ -108,24 +108,26 @@ with zipfile.ZipFile(os.path.join(test_dir, zipFileName), "w", compression=zipfi
             
 
 oResource = mlq.NewMartiLQResource(os.path.join(test_dir, zipFileName), "", False, True)
-oResource["url"] = os.path.join(test_dir, zipFileName)
-mlq.SetAttributeValueString(Attributes=oResource["attributes"], Key="compression", Category="format", Function="algo", Value="WINZIP")
-mlq.SetAttributeValueNumber(Attributes=oResource["attributes"], Key="files", Category="dataset", Function="count", Value=fileZipCount)
+oResource["url"] = test_dir + "/" + zipFileName
+
+mResource.SetAttributeValueString(oResource, Key="compression", Category="format", Function="algo", Value="WINZIP")
+mResource.SetAttributeValueNumber(oResource, Key="files", Category="dataset", Function="count", Value=fileZipCount)
+
 oMarti["resources"].append(oResource)
 
-mlq.CloseLog()
+mlq.Close()
 
 print("Save martiLQ ZIP definition")
-jsonFile = open(os.path.join(test_dir, "MartiLQ_BSBZip.json"), "w")
+jsonFile = open(os.path.join(test_dir, "martilq_bsb_zip.json"), "w")
 jsonFile.write(json.dumps(oMarti, indent=5))
 jsonFile.close()
-print("ZIP sample JSON written: MartiLQ_BSBZip.json")
+print("ZIP sample JSON written: martilq_bsb_zip.json")
 
 
 
-print("Sample completed: SampleGenerateBsb.py")
+print("Sample completed: SampleGenerateFtpBsb.py")
 
-lqresults, testError = mlq.TestMartiDefinition(os.path.join(test_dir, "BSBDirectoryPlain.json"))
+lqresults, testError = mlq.TestMartiDefinition(os.path.join(test_dir, "martilq_bsb.json"))
 
 testfile = open(os.path.join(test_dir, "LoadQualityTest01.csv"), "w+", newline ="") 
 with testfile:     

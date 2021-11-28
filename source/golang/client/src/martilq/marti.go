@@ -22,7 +22,7 @@ import (
 
 
 type Marti struct {
-	Content_type string `json:"content-type"`
+	Content_type string `json:"contentType"`
 	Title string `json:"title"`
 	Uid string `json:"uid"`
 

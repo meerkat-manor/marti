@@ -30,6 +30,12 @@ class martiLQ:
         "version": "0.0.1"
     }
 
+    _oTemplate = {
+        "extension": "template",
+        "renderer": "MARTILQREFERENCE:Mustache",
+        "url": ""
+    }
+
 
     _MartiErrorId = ""
     _oMartiDefinition = None
@@ -99,16 +105,21 @@ class martiLQ:
             publisher = getpass.getuser()
 
         lcustom = []
+        self._oSoftware["softwareName"] = self.GetSoftwareName()
         lcustom.append(self._oSoftware)
+        self._oTemplate["renderer"] = self.GetSoftwareName() + ":Mustache"
+        self._oTemplate["url"] = "template/martilq_ckan.must"
+        lcustom.append(self._oTemplate)
 
         lresource = []
 
         self._oMartiDefinition = {
-            "content-type": "application/vnd.martilq.json",
+            "contentType": "application/vnd.martilq.json",
             "title": "",
             "uid": str(uuid.uuid4()),
 
             "description": "",
+            "issued": dateToday,
             "modified": dateToday,
             "publisher": publisher,
             "contactPoint": self._oConfiguration.GetConfig("contactPoint"),

@@ -5,11 +5,11 @@ services:
    web:
       hostname: martilq-web
       image: martilq-go-server:latest
-      container_name: matilq-web
+      container_name: martilq-web
 
       ports:
          - 8080:8080
 
       volumes:
-        - ./data:/home/data
-        - ../../../docs:/home/docs
+        - ./src/data:/home/data
+        - ./src/docs:/home/docs

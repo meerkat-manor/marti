@@ -1,5 +1,5 @@
 {
-     "content-type": "application/vnd.martilq.json",
+     "contentType": "application/vnd.martilq.json",
      "title": "SampleFetchBSB",
      "uid": "08e22a4d-5a11-4b19-9172-feb36601009e",
      "description": "",
@@ -33,7 +33,7 @@
                "description": "",
                "url": "ftp://bsb.hostedftp.com/~auspaynetftp/BSB/BSBDirectoryAug21-305.csv",
                "version": "",
-               "content-type": "text/csv",
+               "contentType": "text/csv",
                "compression": null,
                "encryption": null,
                "attributes": [
@@ -98,7 +98,7 @@
                "description": "",
                "url": "ftp://bsb.hostedftp.com/~auspaynetftp/BSB/BSBDirectoryAug21-305.txt",
                "version": "",
-               "content-type": "text/plain",
+               "contentType": "text/plain",
                "compression": null,
                "encryption": null,
                "attributes": [
@@ -163,7 +163,7 @@
                "description": "",
                "url": "ftp://bsb.hostedftp.com/~auspaynetftp/BSB/BSBDirectoryJul21-304.csv",
                "version": "",
-               "content-type": "text/csv",
+               "contentType": "text/csv",
                "compression": null,
                "encryption": null,
                "attributes": [
@@ -228,7 +228,7 @@
                "description": "",
                "url": "ftp://bsb.hostedftp.com/~auspaynetftp/BSB/BSBDirectoryJul21-304.txt",
                "version": "",
-               "content-type": "text/plain",
+               "contentType": "text/plain",
                "compression": null,
                "encryption": null,
                "attributes": [
@@ -293,7 +293,7 @@
                "description": "",
                "url": "ftp://bsb.hostedftp.com/~auspaynetftp/BSB/BSBDirectorySep21-306.csv",
                "version": "",
-               "content-type": "text/csv",
+               "contentType": "text/csv",
                "compression": null,
                "encryption": null,
                "attributes": [
@@ -358,7 +358,7 @@
                "description": "",
                "url": "ftp://bsb.hostedftp.com/~auspaynetftp/BSB/BSBDirectorySep21-306.txt",
                "version": "",
-               "content-type": "text/plain",
+               "contentType": "text/plain",
                "compression": null,
                "encryption": null,
                "attributes": [

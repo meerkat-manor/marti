@@ -1,14 +1,15 @@
 FROM busybox
 
-LABEL version="202111A"
-LABEL description="matiLQ Go web UI by Meerkat Manor "
+LABEL version="202111B"
+LABEL description="martiLQ Go web UI by Meerkat Manor "
 LABEL authors="meerkat@merebox.com"
 
-COPY ./static /home/static
-COPY ./main /home/main
-COPY ./docs /home/docs
-COPY ./data /data
+COPY ./src/static /martilq/static
+COPY ./src/main /martilq/main
+COPY ./src/docs /martilq/docs
+COPY ./src/template /martilq/template
+COPY ./src/data /martilq/data
 
 EXPOSE 8080
 
-ENTRYPOINT exec /home/main -p 8080 -s /home/static -data /data/ -docs /home/docs
+ENTRYPOINT exec /martilq/main -p 8080 -static /martilq/static -data /martilq/data/ -docs /martilq/docs -template /martilq/template

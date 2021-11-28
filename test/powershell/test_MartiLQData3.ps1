@@ -1,8 +1,9 @@
 
 . .\source\powershell\MartiLQ.ps1
-. .\source\powershell\MartiLQItem.ps1
-. .\source\powershell\ConvertFrom-Ckan.ps1
-. .\source\powershell\Compare-MartiLQResource.ps1
+. .\source\powershell\MartiLQResource.ps1
+. .\source\powershell\MartiLQAttribute.ps1
+. .\source\powershell\MartiLQUtilities.ps1
+
 
 try {
         

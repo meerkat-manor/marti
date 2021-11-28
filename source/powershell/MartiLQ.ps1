@@ -1,13 +1,8 @@
 
-#. ..\..\..\source\powershell\MartiLQUtilities.ps1
-
 . .\source\powershell\MartiLQUtilities.ps1
 . .\source\powershell\MartiLQConfiguration.ps1
 . .\source\powershell\MartiLQResource.ps1
 . .\source\powershell\MartiLQAttribute.ps1
-
-
-
 
 
 function New-MartiDefinition
@@ -19,23 +14,32 @@ function New-MartiDefinition
         author = "Meerkat@merebox.com"
         version = "$script:SoftwareVersion"
     }
+   
+    $oTemplate = [PSCustomObject]@{
+        extension = "template"
+        renderer =  "MARTILQREFERENCE:Mustache"
+        url = ""
+    }
 
     $publisher = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
     [System.Collections.ArrayList]$lcustom = @()
     $lcustom += $oSoftware
+    $lcustom += $oTemplate
 
     [System.Collections.ArrayList]$lresource = @()
     
+    $expires = (Get-Date).AddYears(7)
+
     $oMarti = [PSCustomObject]@{
-        "content-type" = "application/vnd.martilq.json"
+        contentType = "application/vnd.martilq.json"
         title = ""
         uid = (New-Guid).ToString()
 
         description = ""
         issued = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
         modified = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
-        expires = ""
+        expires = $expires -f "yyyy-MM-ddTHH:mm:ss"
         tags = @( "document", "marti")
         publisher = $publisher
         contactPoint = ""
@@ -218,13 +222,15 @@ Param(
         }
 
         $hash = New-MartiHash -Algorithm "SHA256" -FilePath "" -Value $_.hash
+        $expires = (Get-Date).AddYears(7)
 
         $oResource = [PSCustomObject]@{ 
             title = $_.name
             uid = $_.id
             documentName = $name
-            issuedDate = $_.created
-            modified = $_.last_modified
+            issuedDate = $_.created.ToString("yyyy-MM-ddTHH:mm:ss")
+            modified = $_.last_modified.ToString("yyyy-MM-ddTHH:mm:ss")
+            expires = $expires.Tostring("yyyy-MM-ddTHH:mm:ss")
             state = $_.state
             author = $oCkan.result.author
             length = $_.size
@@ -232,10 +238,11 @@ Param(
 
             description = $_.description
             url = $_.url
+            structure = $null
             version = $version
-            format = $_.format
-            compression = ""
-            encryption = ""
+            contentType = Get-MimeType(("."+$_.format))
+            compression = $null
+            encryption = $null
         }
        
         $lresource += $oResource

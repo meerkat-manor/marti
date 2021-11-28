@@ -1,0 +1,79 @@
+<h2>Metadata definition</h2>
+{{#item}}
+<br>
+<h3>File details</h3>
+
+<table class="table table-striped table-sm">
+<tr><th>Description</th><td>{{describe}}</td></tr>
+<tr><th>Encoding</th><td>{{encoding}}</td></tr>
+<tr><th>Format</th><td>{{format}}</td></tr>
+<tr><th>Multi record</th><td>{{multiRecord}}</td></tr>
+<tr><th>Line Endings</th><td>{{lineEndings}}</td></tr>
+<tr><th>Header</th><td>{{header}}</td></tr>
+<tr><th>Footer</th><td>{{footer}}</td></tr>
+<tr><th>Delimiter</th><td>{{delimiter}}</td></tr>
+<tr><th>Quote</th><td>{{quote}}</td></tr>
+<tr><th>Escape</th><td>{{escape}}</td></tr>
+</table>
+
+{{#recordFormat}}
+<br>
+<h3>{{formatName}} Columns</h3>
+<table class="table table-striped table-sm">
+<thead>
+<th>Name</th><th>Description</th><th>Type</th><th>Length</th><th>Nullable</th><th>Default</th><th>Dataset</th>
+<thead>
+<tbody>
+{{#columns}}
+<tr>
+<td>{{columnName}}</td>
+<td>{{description}}</td>
+<td>{{type}}</td>
+<td>{{length}}</td>
+<td>{{nullable}}</td>
+<td>{{default}}</td>
+<td>{{dataset}}</td>
+</tr>
+<tr>
+<td></td>
+<td>Format: {{formatting}}</td>
+<td colspan="2">L Label: {{labels.leftLabel}}</td>
+<td colspan="2">R Label: {{labels.rightLabel}}</td>
+<td colspan="2">Heading: {{labels.heading}}</td>
+</tr>
+{{/columns}}
+</tbody>
+</table>
+{{/recordFormat}}
+
+<br>
+<h3>Index</h3>
+<table class="table table-striped table-sm">
+<thead>
+<th>Name</th><th>Primary</th><th>Unique</th><th>Columns</th>
+<thead>
+<tbody>
+{{#indexes}}
+<tr>
+<td>{{indexName}}</td>
+<td>{{primary}}</td>
+<td>{{unique}}</td>
+<td>
+{{#columns}}
+{{name}},
+{{/columns}}
+</td>
+</tr>
+{{/indexes}}
+</tbody>
+</table>
+
+<br><hr>
+<h3>Sample</h3>
+<pre>
+{{#sample}}
+{{record}}
+{{/sample}}
+</pre>
+{{/item}}
+<p font="small"><a href="/template/details/martilq_cols_csv.must">Default columns CSV template</a>.  Version: 202111B</p>

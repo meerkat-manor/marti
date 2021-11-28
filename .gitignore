@@ -27,3 +27,4 @@ source/golang/client/src/test
 source/golang/client/src/martilq_client*
 source/golang/client/src/*.exe
 
+source/golang/server/main

@@ -105,7 +105,7 @@ sample can be generated using the GOLANG client program with parameters:
 
 ```json
 {
-    "content-type": "application/vnd.martilq.json",
+    "contentType": "application/vnd.martilq.json",
     "title": "GEN001",
     "uid": "9a0a7edb-dd81-4fc5-a6cb-c5716eda7b51",
     "description": "Simple example",
@@ -140,7 +140,7 @@ sample can be generated using the GOLANG client program with parameters:
             "description": "",
             "url": "http://localhost/martilq/martilq.md",
             "version": "",
-            "content-type": "",
+            "contentType": "",
             "encoding": "UTF-8",
             "compression": "",
             "encryption": "",

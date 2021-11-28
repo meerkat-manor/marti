@@ -1,0 +1,171 @@
+{
+    "id": null,
+    "describe": "BSB file metadata details. The file is a CSV (RFC4180) formatted file.",
+    "encoding": "UTF-8",
+    "format": "RFC4180",
+    "multiRecord": false,
+    "lineEndings": "CRLF",
+    "header": false,
+    "footer": false,
+    "delimiter": ",",
+    "quote": "\"",
+    "escape": "\"",
+    "source": null,
+
+
+    "recordFormat": [
+        {
+            "formatName" : "Data",
+            "columns": [
+                {
+                    "columnName": "BSB",
+                    "description": "Bank State Branch (BSB) code that is unique",
+                    "type": "char",
+                    "length": 7,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "",
+                    "formatting": "###-###",
+                    "labels": {
+                        "leftLabel": "BSB",
+                        "rightLabel": "",
+                        "heading": "BSB" 
+                    }
+                },
+                {
+                    "columnName": "Bank",
+                    "description": "Mnemonic for the bank",
+                    "type": "varchar",
+                    "length": 3,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Bank",
+                        "rightLabel": "",
+                        "heading": "Bank" 
+                    }
+                },
+                {
+                    "columnName": "Branch",
+                    "description": "Branch name and in some cases describes the type of business it conducts",
+                    "type": "varchar",
+                    "length": 35,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Branch",
+                        "rightLabel": "",
+                        "heading": "" 
+                    }
+                },
+                {
+                    "columnName": "StreetAddress",
+                    "description": "Street address for the bank branch.  This includes the level, street number and street type",
+                    "type": "varchar",
+                    "length": 35,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Address",
+                        "rightLabel": "",
+                        "heading": "Street Address" 
+                    }
+                },
+                {
+                    "columnName": "Town",
+                    "description": "Town where the branch is located",
+                    "type": "varchar",
+                    "length": 20,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Town/City",
+                        "rightLabel": "",
+                        "heading": "Town/City" 
+                    }
+                },
+                {
+                    "columnName": "State",
+                    "description": "Australian state or terrritory where the branch is located",
+                    "type": "varchar",
+                    "length": 3,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "NSW, VIC, QLD, SA, NT, WA, TAS, ACT",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "State",
+                        "rightLabel": "",
+                        "heading": "State" 
+                    }
+                },
+                {
+                    "columnName": "Postcode",
+                    "description": "Australian postcode for the bank branch",
+                    "type": "int",
+                    "length": 4,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "",
+                    "formatting": "####",
+                    "labels": {
+                        "leftLabel": "Postcode",
+                        "rightLabel": "",
+                        "heading": "PostCode" 
+                    }
+                },
+                {
+                    "columnName": "Payments",
+                    "description": "Payments flag.  The value is a concatenation of P=Paper Payments, E=Electronic Payments, H=High Value Payments",
+                    "type": "varchar",
+                    "length": 3,
+                    "nullable": false,
+                    "default": null,
+                    "dataset": "P, E, H, PE, PH, EH, PEH",
+                    "formatting": "",
+                    "labels": {
+                        "leftLabel": "Payment Types",
+                        "rightLabel": "",
+                        "heading": "" 
+                    }
+                }
+            ]
+        }
+    ],
+    "indexes": [
+        {
+            "indexName": "BSB",
+            "primary": true,
+            "unique": true,
+            "columns": [
+                {"name": "BSB"}
+            ]
+        }
+    ],
+    "sample": [
+        {"record": "\"012-028\",\"ANZ\",\"Banking Products NSW Phone\",\"Level 7  75 Dorcas Street\",\"South Melbourne\",\"VIC\",\"3205\",\"PE\""},
+        {"record": "\"033-062\",\"WBC\",\"Moonee Ponds\",\"71 Puckle Street\",\"Moonee Ponds\",\"VIC\",\"3039\",\"PEH\""},
+        {"record": "\"062-731\",\"CBA\",\"Narromine\",\"65 Dandaloo St  Cnr Nymagee Street\",\"Narromine\",\"NSW\",\"2821\",\"PEH\""}
+    ],
+    "custom": [
+        {
+          "extension": "software",
+          "softwareName": "MartiReference",
+          "author": "Meerkat@merebox.com",
+          "version": "0.0.1"
+        },
+        {
+          "extension": "template",
+          "renderer": "MARTILQREFERENCE:Mustache",
+          "url": "template/details/martilq_cols_csv.must"
+        }
+    ]    
+}

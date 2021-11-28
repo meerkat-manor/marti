@@ -1,0 +1,20 @@
+<h2>MartiLQ definition</h2>
+<p>The following <string>martiLQ</string> definitions are provided as samples</p>
+<p>The <a href="https://github.com/meerkat-manor/marti">server code</a> for this is available and the code can be changed to reflect your actual or sample definitions</p> 
+{{#item}}
+<br>
+<table class="table table-striped table-sm">
+<thead>
+<th>Definition</th><th>Document</th>
+<thead>
+<tbody>
+{{#files}}
+<tr>
+<td><a href="browse.html?martilq={{fileName}}">{{fileName}}</a></td>
+<td>{{describe}}</td>
+</tr>
+{{/files}}
+</tbody>
+</table>
+{{/item}}
+<p font="small"><a href="/template/martilq_view.must">View template</a>.  Version: 202111B</p>

@@ -109,8 +109,9 @@ class mResource:
 
                 "description": "",
                 "url": self._oConfiguration.GetConfig("urlPrefix"),
+                "structure": "",
                 "version": self._oConfiguration.GetConfig("version"),
-                "content-type": self.GetContentType(SourcePath),
+                "contentType": self.GetContentType(SourcePath),
                 "encoding": self._oConfiguration.GetConfig("encoding"),
                 "compression": self._oConfiguration.GetConfig("compression"),
                 "encryption": self._oConfiguration.GetConfig("encryption"),
@@ -135,6 +136,36 @@ class mResource:
         
         return oResource
 
+
+    def SetAttributeValueString(oResource, Category, Key, Function, Value, Comparison="EQ"):
+
+        for item in oResource["attributes"]:
+        
+            if item["category"] == Category and item["name"] == Key and item["function"] == Function:
+                if item["comparison"] == "NA" or item["comparison"] == Comparison:
+                    item["comparison"] = Comparison
+                    item["value"] = Value
+                    return
+
+        # Add the attribute    
+        oAttribute = {
+            "category": Category,
+            "name": Key,
+            "function": Function,
+            "comparison": Comparison,
+            "value": Value
+        }    
+
+        oResource["attributes"].append(oAttribute)
+        
+        return
+        
+    
+    def SetAttributeValueNumber(oResource, Category, Key, Function, Value, Comparison="EQ"):
+        
+        mResource.SetAttributeValueString(oResource, Category, Key, Function, Value, Comparison)
+
+        return
 
 
     def NewMartiLQHash(self, Algorithm, FilePath, Value="", Sign=""):

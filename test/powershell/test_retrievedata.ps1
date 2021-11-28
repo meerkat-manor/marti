@@ -1,8 +1,8 @@
 
 
 
-. .\source\powershell\New-Marti.ps1
-. .\source\powershell\ConvertFrom-Ckan.ps1
+. .\source\powershell\MartiLQ.ps1
+. .\source\powershell\MartiLQUtilities.ps1
 
 
 if (!(Test-Path -Path ".\test\powershell\results\data")) {

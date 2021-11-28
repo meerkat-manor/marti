@@ -41,7 +41,7 @@ The **martiLQ** document
 
 ```json
 {
-    "content-type": "application/vnd.martilq.json",
+    "contentType": "application/vnd.martilq.json",
     "title": "GEN002",
     "uid": "42532ae8-4d42-4875-b7c8-bcb7a5c38eaa",
     "description": "Simple example",
@@ -79,7 +79,7 @@ The **martiLQ** document
             "description": "",
             "url": "https://github.com/meerkat-manor/marti/blob/draft_specifications/docs/source/martiLQ.md",
             "version": "",
-            "content-type": "",
+            "contentType": "",
             "encoding": "UTF-8",
             "compression": "",
             "encryption": "",
