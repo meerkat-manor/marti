@@ -20,7 +20,7 @@ from mlogging import mLogging
 class mConfiguration:
 
     _SoftwareVersion = "0.0.1"
-    _default_metaFile = "##marti##.json"
+    _default_metaFile = "##martilq##.json"
 
     _oSoftware = {
         "extension": "software",
@@ -48,7 +48,7 @@ class mConfiguration:
             "dateFormat": "2006-01-02",
             "dateTimeFormat": "2006-01-02T15:04:05+0100",
             "dataPath": "",
-            "temPath": "",
+            "tempPath": "",
 
             "tags": None,
             "publisher": "",
@@ -63,7 +63,7 @@ class mConfiguration:
             "author": "",
             "title": "{{documentName}}",
             "state": "active",
-            "expires": "m:7:0:0",
+            "expires": "m:10:0:0",
             "version": "1.0",
             "urlPrefix": "",
             "encoding": "",

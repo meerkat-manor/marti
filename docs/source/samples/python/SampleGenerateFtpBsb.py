@@ -7,11 +7,11 @@ import csv
 import zipfile
 
 
-sys.path.insert(0, "../../../../source/python/client")
+sys.path.insert(0, "./source/python/client")
 from martiLQ import *
 
 ftpFetch = True
-os.environ["MARTILQ_LOGPATH"] = "./test/logs"
+os.environ["MARTILQ_LOGPATH"] = "./docs/source/samples/python/test/logs"
 
 def ftpList(host, path):
     
@@ -53,11 +53,11 @@ remote_dir = "/~auspaynetftp/BSB/"
 print("Fetch sample file list")
 files = ftpList(remote_host, remote_dir)
 
-test_dir = "./test/ftp"
+test_dir = "./docs/source/samples/python/test/fetch_ftp"
 if not os.path.exists(test_dir):
     os.mkdir(test_dir)
 
-print("Fetch sample files")
+print("Fetch sample files via FTP")
 for file_name in files:
     if file_name.startswith("BSBDirectory"):
         if file_name.endswith(".csv") | file_name.endswith(".txt"):
@@ -123,8 +123,6 @@ jsonFile.write(json.dumps(oMarti, indent=5))
 jsonFile.close()
 print("ZIP sample JSON written: martilq_bsb_zip.json")
 
-
-
 print("Sample completed: SampleGenerateFtpBsb.py")
 
 lqresults, testError = mlq.TestMartiDefinition(os.path.join(test_dir, "martilq_bsb.json"))
@@ -136,6 +134,8 @@ with testfile:
 
 if testError:
     print("MISMATCH DETECTED")
+else:
+    print("MATCHED")
 
 print("Test completed: SampleGenerateFtpBsb.py")
 

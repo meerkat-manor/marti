@@ -21,7 +21,7 @@ from mresource import mResource
 class martiLQ:
 
     _SoftwareVersion = "0.0.1"
-    _default_metaFile = "##marti##.json"
+    _default_metaFile = "##martilq##.json"
 
     _oSoftware = {
         "extension": "software",

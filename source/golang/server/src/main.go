@@ -9,10 +9,17 @@ import (
 	"io/ioutil"
 	"os"
 	"encoding/json"
+
+	"errors"
+	"html/template"
+	"github.com/russross/blackfriday"
 )
 
+
+
+
 func main() {
-	port := flag.String("p", "8080", "Http listen port")
+	bind := flag.String("bind", ":8080", "Bind Http listen to address and port, e.g. localhost:8080 or justy simply :8080")
 	staticDirectory := flag.String("static", "static", "Static directory content")
 	docsDirectory := flag.String("docs", "", "Document directory content")
 	dataDirectory := flag.String("data", "", "Data directory content")
@@ -49,7 +56,43 @@ func main() {
 		http.ServeFile(res, req, safePath)
 	})
 
+
 	http.HandleFunc("/docs/", func( res http.ResponseWriter, req *http.Request ) {
+
+		if !strings.HasSuffix(req.URL.Path, ".md") {
+			//http.Handler.ServeHTTP(http.Handler, res, req)
+			return
+		}
+
+		var pathErr *os.PathError
+		input, err := ioutil.ReadFile("." + req.URL.Path)
+		if errors.As(err, &pathErr) {
+			http.Error(res, http.StatusText(http.StatusNotFound)+": "+req.URL.Path, http.StatusNotFound)
+			log.Printf("file not found: %s", err)
+			return
+		}
+	
+		if err != nil {
+			http.Error(res, "Internal Server Error: "+err.Error(), 500)
+			log.Printf("Couldn't read path %s: %v (%T)", req.URL.Path, err, err)
+			return
+		}
+	
+		output := blackfriday.MarkdownCommon(input)
+	
+		res.Header().Set("contentType", "text/html; charset=utf-8")
+
+		outputTemplate.Execute(res, struct {
+			Path string
+			Body template.HTML
+		}{
+			Path: req.URL.Path,
+			Body: template.HTML(string(output)),
+		})
+	
+	})
+
+	http.HandleFunc("/docsx/", func( res http.ResponseWriter, req *http.Request ) {
 		localPath := ""
 		if (*docsDirectory == "") {
 			temp := "../../.."
@@ -84,8 +127,8 @@ func main() {
 	fileServer := http.FileServer(FileSystem{http.Dir(*staticDirectory)})
 	http.Handle("/", fileServer)
 
-	log.Printf("Serving on HTTP port: %s\n", *port)
-	log.Fatal(http.ListenAndServe(":"+*port, nil))
+	log.Printf("Serving HTTP on address and port: %s\n", *bind)
+	log.Fatal(http.ListenAndServe(*bind, nil))
 }
 
 
@@ -194,3 +237,19 @@ func apiHandlerView(res http.ResponseWriter, req *http.Request) {
     }
 	
 }
+
+
+
+
+
+var outputTemplate = template.Must(template.New("base").Parse(`
+<html>
+  <head>
+    <title>{{ .Path }}</title>
+  </head>
+  <body>
+    {{ .Body }}
+  </body>
+</html>
+`))
+

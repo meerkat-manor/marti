@@ -62,6 +62,9 @@ function fetchData(dataFile) {
             });
         }
         // Use the template
+        if (template == "") {
+            template = "template/martilq_no_struct.must"
+        }
         fetchMust(template);
 
     });

@@ -10,7 +10,7 @@ function New-MartiDefinition
    
     $oSoftware = [PSCustomObject]@{
         extension = "software"
-        softwareName = "MartiReference"
+        softwareName = Get-SoftwareName
         author = "Meerkat@merebox.com"
         version = "$script:SoftwareVersion"
     }
@@ -21,7 +21,13 @@ function New-MartiDefinition
         url = ""
     }
 
-    $publisher = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+
+    $oConfig = Get-DefaultConfiguration
+    if ( $nulll -eq $oConfig.publisher -or $oConfig.publisher -eq "") {
+        $publisher = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+    } else {
+        $publisher = $oConfig.publisher
+    }
 
     [System.Collections.ArrayList]$lcustom = @()
     $lcustom += $oSoftware
@@ -29,7 +35,7 @@ function New-MartiDefinition
 
     [System.Collections.ArrayList]$lresource = @()
     
-    $expires = (Get-Date).AddYears(7)
+    $expires = Set-DefaultExpiryDate -DocumentDate (Get-Date)  -Configuration $oConfig
 
     $oMarti = [PSCustomObject]@{
         contentType = "application/vnd.martilq.json"
@@ -37,26 +43,26 @@ function New-MartiDefinition
         uid = (New-Guid).ToString()
 
         description = ""
-        issued = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
-        modified = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
-        expires = $expires -f "yyyy-MM-ddTHH:mm:ss"
-        tags = @( "document", "marti")
+        issued = Get-Date -f $oConfig.dateTimeFormat
+        modified = Get-Date -f $oConfig.dateTimeFormat
+        expires = $expires.Tostring($oConfig.dateTimeFormat)
+        tags = $oConfig.tags
         publisher = $publisher
-        contactPoint = ""
-        accessLevel = "Confidential"
-        rights = "Restricted"
-        license = ""
-        state = "active"
-        batch = 1.0
+        contactPoint = $oConfig.contactPoint
+        accessLevel = $oConfig.accessLevel
+        rights = $oConfig.rights
+        license = $oConfig.license
+        state = $oConfig.state
+        batch =  $oConfig.batch
         describedBy = ""
         landingPage = ""
-        theme =""
+        theme =$oConfig.theme
 
         resources = $lresource
         custom = $lCustom
     }
 
-    return $oMarti
+    return $oMarti, $oConfig
 }
 
 
@@ -199,7 +205,7 @@ Param(
 
     $oCkan = ConvertFrom-Json -InputObject $InputObject
 
-    $oMarti = New-MartiDefinition
+    $oMarti, $oConfig = New-MartiDefinition
 
     $oMarti.title = "Conversion from CKAN"
     $oMarti.state = $oCkan.result.state
@@ -278,12 +284,12 @@ Param(
     Write-Log "Parameter: Filter   Value: $Filter "
     Write-Log ""
 
-    $marti_mri = $global:default_metaFile
+    $martilq_mri = $global:default_metaFile
 
-    $oMarti = New-MartiDefinition -SourceFolder $SourceFolder -Filter $Filter -LogPath $LogPath
+    $oMarti, $oConfig = New-MartiDefinition -SourceFolder $SourceFolder -Filter $Filter -LogPath $LogPath
     $oMarti.description = "Sample execution"
     
-    $fullMetadatName = Join-Path -Path (Split-Path -Path $ArchiveFile -Parent) -ChildPath $marti_mri
+    $fullMetadatName = Join-Path -Path (Split-Path -Path $ArchiveFile -Parent) -ChildPath $martilq_mri
     $x = ConvertTo-Json -InputObject $oMarti
     Add-Content -Path $fullMetadatName -Value $x
  

@@ -46,13 +46,14 @@ Param(
     [String] $UrlPath = "",
     [switch] $ExcludeHash,
     [switch] $ExtendAttributes,
+    [PSCustomObject] $Configuration = $null,
     [String] $LogPath
 
 ) 
 
     $Global:MartiErrorId = ""
     $script:LogPathName = $LogPath
- 
+
     Write-Debug "Parameter: LogPath   Value: $LogPath "
     Open-Log
     Write-Log "Function 'New-MartiResource' parameters follow"
@@ -61,6 +62,9 @@ Param(
     Write-Log "Parameter: ExcludeHash   Value: $ExcludeHash "
     Write-Log ""
 
+    if ($null -eq $Configuration) {
+        $Configuration = Get-DefaultConfiguration
+    }
 
     if (Test-Path -Path $SourcePath -PathType Leaf) {
        
@@ -71,21 +75,22 @@ Param(
         if ($ExcludeHash) {
             $hash = $null
         } else {
-            $hash = New-MartiHash -Algorithm "SHA256" -FilePath $item.FullName
+            $hash = New-MartiHash -Algorithm $Configuration.hashAlgorithm -FilePath $item.FullName
         }
 
         $lattribute =  Set-MartiResourceAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
-        $expires = (Get-Date).AddYears(7)
+        $expires = Set-DefaultExpiryDate -DocumentDate $item.LastWriteTime  -Configuration $Configuration
+        $version = $Configuration.version
 
         $oResource = [PSCustomObject]@{ 
-            title = $item.Name.Replace($item.Extension, "")
+            title = Set-DefaultTitle -Document $item.Name -Configuration $Configuration
             uid = (New-Guid).ToString()
             documentName = $item.Name
-            issuedDate = Get-Date -f "yyyy-MM-ddTHH:mm:ss"
-            modified = $item.LastWriteTime.ToString("yyyy-MM-ddTHH:mm:ss")
-            expires = $expires.ToString("yyyy-MM-ddTHH:mm:ss") 
-            state = "active"
-            author = $null
+            issuedDate = Get-Date -f $Configuration.dateTimeFormat
+            modified = $item.LastWriteTime.ToString($Configuration.dateTimeFormat)
+            expires = $expires.ToString($Configuration.dateTimeFormat) 
+            state = $Configuration.state
+            author = $Configuration.author
             length = $item.Length
             hash = $hash
 
@@ -182,7 +187,7 @@ Param(
     Write-Log "Parameter: ExcludeHash   Value: $ExcludeHash "
     Write-Log ""
 
-    $oMarti = New-MartiDefinition
+    $oMarti, $oConfig = New-MartiDefinition
     $lresource = $oMarti.resources
 
     $SourceFullName = (Get-Item -Path $SourceFolder).FullName
@@ -497,6 +502,21 @@ function Set-MartiResourceAttributes {
         }
     }
 
+    if ($FileType -eq "MD") {
+        if ($ExtendedAttributes) {
+            [System.Collections.ArrayList]$lattribute = @()
+            $rowCount = (Get-Content $Path).Length                
+            $oAttribute = [PSCustomObject]@{
+                category = "dataset"
+                name = "records"
+                function = "count"
+                comparison = "EQ"
+                value = $rowCount
+            }
+            $lattribute += $oAttribute
+        }
+    }
+
     if ($FileType -eq "JSON") {
         $lattribute = New-DefaultJsonAttributes
     }
@@ -678,4 +698,45 @@ function Compare-MartiResource {
     return $oResult
 }
 
+function Set-DefaultExpiryDate{
+    Param( 
+        [Parameter(Mandatory)][Datetime] $DocumentDate,
+        [Parameter(Mandatory)][PSCustomObject] $Configuration
+    ) 
+
+    
+    if ($null -eq $oConfig.expires -or $oConfig.expires -eq "") {
+        $expires = $DocumentDate.AddYears(10)
+    } else {
+        $factors = $oConfig.expires.Split(":")
+        if ($factors[0] -ne "m") {
+            $expires = $DocumentDate.AddYears(10)
+        } else {
+            $expires = $DocumentDate.AddYears($factors[1])
+            $expires = $expires.AddMonths($factors[2])
+            $expires = $expires.AddDays($factors[3])
+        }
+    }
+
+    return $expires
+
+}
+
+
+function Set-DefaultTitle{
+    Param( 
+        [Parameter(Mandatory)][String] $Document,
+        [Parameter(Mandatory)][PSCustomObject] $Configuration
+    ) 
+
+    if ($null -eq $oConfig.title -or $oConfig.title -eq "") {
+        $title = $Document.Replace($item.Extension, "")
+    } else {
+        $title = $oConfig.title.Replace("{{documentName}}", $Document.Replace($item.Extension, ""))
+        $title = $title.Replace("{{documentName.ext}}", $Document)
+    }
+
+    return $title
+
+}
 

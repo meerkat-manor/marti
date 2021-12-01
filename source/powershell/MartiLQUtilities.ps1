@@ -3,7 +3,7 @@
 $script:LogPathName = ""
 
 function Get-SoftwareName {
-    return [String] "MARTIREFERENCE"
+    return [String] "MARTILQREFERENCE"
 }
 
 

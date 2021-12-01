@@ -5,12 +5,12 @@ import (
 	"os"
 )
 
-func TestMarti_JsonSave(t *testing.T) {
+func TestMartiLQ_JsonSave(t *testing.T) {
 	m:= NewMarti()
 	m.Save("../test/basic_test.json")
 }
 
-func TestMarti_ResourceAdd(t *testing.T) {
+func TestMartiLQ_ResourceAdd(t *testing.T) {
 	m := NewMarti()
 	r := NewResource(m.config)
 	r.Title = "Title text"
@@ -24,7 +24,7 @@ func TestMarti_ResourceAdd(t *testing.T) {
 	m.Save("../test/test_addresource.json")
 }
 
-func TestMarti_ResourceExpire(t *testing.T) {
+func TestMartiLQ_ResourceExpire(t *testing.T) {
 	m := NewMarti()
 	m.LoadConfig("../../../../martilq.ini")
 	r := NewResource(m.config)
@@ -40,7 +40,7 @@ func TestMarti_ResourceExpire(t *testing.T) {
 }
 
 
-func TestMarti_DirectoryA(t *testing.T) {
+func TestMartiLQ_DirectoryA(t *testing.T) {
 	
 	currentDirectory, _ := os.Getwd()
 	SourcePath := currentDirectory
@@ -50,7 +50,7 @@ func TestMarti_DirectoryA(t *testing.T) {
 
 }
 
-func TestMarti_DirectoryB(t *testing.T) {
+func TestMartiLQ_DirectoryB(t *testing.T) {
 	
 	currentDirectory, _ := os.Getwd()
 	SourcePath := currentDirectory

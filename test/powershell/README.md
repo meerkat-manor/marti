@@ -1,11 +1,12 @@
 
 
 To execute the PowerShell scripts, please invoke from the root Marti directory and not from
-with the current directory set to ``.\test\powershel``
+with the current directory set to ``.\test\powershell``
 
 ``powershell
 
 # To seed the test data
+# Add code for FTP fetch for BSB
 .\test\powershell\test_retrievedata.ps1
 
 

@@ -11,5 +11,5 @@ services:
          - 8080:8080
 
       volumes:
-        - ./src/data:/home/data
-        - ./src/docs:/home/docs
+        - ./src/data:/martilq/data
+        - ./src/docs:/martilq/docs

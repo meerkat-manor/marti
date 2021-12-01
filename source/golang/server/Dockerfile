@@ -1,6 +1,6 @@
 FROM busybox
 
-LABEL version="202111B"
+LABEL version="202111C"
 LABEL description="martiLQ Go web UI by Meerkat Manor "
 LABEL authors="meerkat@merebox.com"
 
@@ -12,4 +12,4 @@ COPY ./src/data /martilq/data
 
 EXPOSE 8080
 
-ENTRYPOINT exec /martilq/main -p 8080 -static /martilq/static -data /martilq/data/ -docs /martilq/docs -template /martilq/template
+ENTRYPOINT exec /martilq/main -bind :8080 -static /martilq/static -data /martilq/data/ -docs /martilq/docs -template /martilq/template

@@ -9,18 +9,18 @@ import zipfile
 import datetime
 import time
 
-sys.path.insert(0, "../../../../source/python/client")
+sys.path.insert(0, "./source/python/client")
 from martiLQ import *
 
 httpFetch = True
-os.environ["MARTILQ_LOGPATH"] = "./test/logs"
+os.environ["MARTILQ_LOGPATH"] = "./docs/source/samples/python/test/logs"
 
 
 def HttpList(remote_url):
     
     files = []
 
-    with open("listfiles_bsb.txt", "r") as f:
+    with open("./docs/source/samples/python/listfiles_bsb_http.txt", "r") as f:
         files = f.read().splitlines()
 
     return files
@@ -31,25 +31,28 @@ remote_url = "http://apnedata.merebox.com.s3.ap-southeast-2.amazonaws.com/au/bsb
 print("Fetch sample file list")
 files = HttpList(remote_url)
 
-test_dir = "./test/http"
+test_dir = "./docs/source/samples/python/test/fetch_http"
 if not os.path.exists(test_dir):
     os.mkdir(test_dir)
 
 if httpFetch:
-    print("Fetch sample files")
+    print("Fetch sample files via HTTP")
     for file_name in files:
         if file_name.startswith("BSBDirectory"):
             if file_name.endswith(".csv") | file_name.endswith(".txt"):
-                with urllib.request.urlopen(remote_url + file_name) as resp:
-                    last_modified = resp.info()["Last-Modified"]
-                    dt_obj = datetime.datetime.strptime(last_modified, '%a, %d %b %Y %H:%M:%S %Z')
+                try:
+                    with urllib.request.urlopen(remote_url + file_name) as resp:
+                        last_modified = resp.info()["Last-Modified"]
+                        dt_obj = datetime.datetime.strptime(last_modified, '%a, %d %b %Y %H:%M:%S %Z')
 
-                    data_file_name = os.path.join(test_dir, file_name)
-                    with open(data_file_name, 'wb') as data_file:
-                        shutil.copyfileobj(resp, data_file)
+                        data_file_name = os.path.join(test_dir, file_name)
+                        with open(data_file_name, 'wb') as data_file:
+                            shutil.copyfileobj(resp, data_file)
 
-                    modTime = time.mktime(dt_obj.timetuple())
-                    os.utime(data_file_name, (modTime, modTime))
+                        modTime = time.mktime(dt_obj.timetuple())
+                        os.utime(data_file_name, (modTime, modTime))
+                except:
+                    print("error with fetching "+remote_url + file_name)
 
 print("Creating martiLQ definition")
 mlq = martiLQ()
@@ -61,7 +64,7 @@ for file_name in files:
             oResource = mlq.NewMartiLQResource(os.path.join(test_dir, file_name), "", False, True)
             oMarti["resources"].append(oResource)
 
-mlq.CloseLog()
+mlq.Close()
 
 
 print("Save martiLQ definition")
@@ -90,11 +93,10 @@ with zipfile.ZipFile(os.path.join(test_dir, zipFileName), "w", compression=zipfi
 
 oResource = mlq.NewMartiLQResource(os.path.join(test_dir, zipFileName), "", False, True)
 oResource["url"] = test_dir + zipFileName
-mlq.SetAttributeValueString(Attributes=oResource["attributes"], Key="compression", Category="format", Function="algo", Value="WINZIP")
-mlq.SetAttributeValueNumber(Attributes=oResource["attributes"], Key="files", Category="dataset", Function="count", Value=fileZipCount)
+mResource.SetAttributeValueNumber(oResource, Key="files", Category="dataset", Function="count", Value=fileZipCount)
 oMarti["resources"].append(oResource)
 
-mlq.CloseLog()
+mlq.Close()
 
 print("Save martiLQ ZIP definition")
 jsonFile = open(os.path.join(test_dir, "MartiLQ_BSBZip.json"), "w")
@@ -104,7 +106,7 @@ print("ZIP sample JSON written: MartiLQ_BSBZip.json")
 
 
 
-print("Sample completed: SampleGenerateBsb.py")
+print("Sample completed: SampleGenerateHttpBsb.py")
 
 lqresults, testError = mlq.TestMartiDefinition(os.path.join(test_dir, "BSBDirectoryPlain.json"))
 
@@ -115,6 +117,8 @@ with testfile:
 
 if testError:
     print("MISMATCH DETECTED")
+else:
+    print("MATCHED")
 
-print("Test completed: SampleGenerateFtpBsb.py")
+print("Test completed: SampleGenerateHttpBsb.py")
 
