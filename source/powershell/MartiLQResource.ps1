@@ -63,7 +63,7 @@ Param(
     Write-Log ""
 
     if ($null -eq $Configuration) {
-        $Configuration = Get-DefaultConfiguration
+        $Configuration = Get-Configuration
     }
 
     if (Test-Path -Path $SourcePath -PathType Leaf) {
@@ -172,6 +172,7 @@ Param(
     [switch] $Recurse,
     [switch] $ExtendAttributes,
     [switch] $ExcludeHash,
+    [String] $ConfigPath,
     [String] $LogPath
 
 ) 
@@ -187,7 +188,16 @@ Param(
     Write-Log "Parameter: ExcludeHash   Value: $ExcludeHash "
     Write-Log ""
 
-    $oMarti, $oConfig = New-MartiDefinition
+    $oMarti, $oConfig = New-MartiDefinition -ConfigPath $ConfigPath
+    if ($null -ne $LogPath -and $LogPath -ne "") {
+        $oConfig.logPath = $LogPath
+    }
+    if ($null -ne $urlPath -and $urlPath -ne "") {
+        $oConfig.urlPrefix = $urlPath
+    } else {
+        $urlPath = $oConfig.urlPrefix        
+    }
+
     $lresource = $oMarti.resources
 
     $SourceFullName = (Get-Item -Path $SourceFolder).FullName
@@ -700,8 +710,9 @@ function Compare-MartiResource {
 
 function Set-DefaultExpiryDate{
     Param( 
+        [Parameter(Mandatory)][PSCustomObject] $Configuration,
         [Parameter(Mandatory)][Datetime] $DocumentDate,
-        [Parameter(Mandatory)][PSCustomObject] $Configuration
+        [Parameter][Datetime] $RunDate
     ) 
 
     
@@ -709,13 +720,21 @@ function Set-DefaultExpiryDate{
         $expires = $DocumentDate.AddYears(10)
     } else {
         $factors = $oConfig.expires.Split(":")
-        if ($factors[0] -ne "m") {
-            $expires = $DocumentDate.AddYears(10)
-        } else {
-            $expires = $DocumentDate.AddYears($factors[1])
-            $expires = $expires.AddMonths($factors[2])
-            $expires = $expires.AddDays($factors[3])
+        if ($factors[0] -eq "m") {
+            $expires = $DocumentDate
+        } elseif ($factors[0] -eq "r") {
+            if ($null -eq $RunDate) {
+                $expires = Get-Date
+            } else {
+                $expires = $RunDate
+            }
+        } 
+        else {
+            $expires = Get-Date
         }
+        $expires = $expires.AddYears($factors[1])
+        $expires = $expires.AddMonths($factors[2])
+        $expires = $expires.AddDays($factors[3])
     }
 
     return $expires

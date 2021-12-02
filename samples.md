@@ -68,13 +68,13 @@ $env:MARTILQ_PROJECT_PATH=Get-Location
 Set-Location -Path (Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "source\golang\client\src") -PassThru
 
 $mfile = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "test/golang/results/test_proc_docs.json"
-$cfile = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "docs/source/samples/json/sample_docs.ini"
+$cfile = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "docs/source/samples/conf/sample_docs.ini"
 $spath = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "docs/source/"
 
 go run . -- -t MAKE -m $mfile -c $cfile -s $spath --title "DOCS Sample" --description "Directory example for DOCS" --filter "w*"  --update
 
 $mfile = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "test/golang/results/test_proc_bsb.json"
-$cfile = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "docs/source/samples/json/GEN005.ini"
+$cfile = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "docs/source/samples/conf/GEN005.ini"
 $spath = Join-Path -Path $env:MARTILQ_PROJECT_PATH -ChildPath "docs/source/samples/python/test/http/"
 
 go run . -- -t MAKE -m $mfile -c $cfile -s $spath --title "GEN005" --description "Directory example for BSB"   --update

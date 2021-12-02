@@ -38,7 +38,7 @@ print("Definition description is: {}".format(oMarti["description"]))
 
 mlq.CloseLog()
 
-configPath = "./docs/source/samples/json/GEN005.ini"
+configPath = "./docs/source/samples/conf/GEN005.ini"
 sourcePath = "./docs/source/*"
 saveFile = "./test/python/results/test_proc_docs.json"
 ProcessFilePath(ConfigPath=configPath, SourcePath=sourcePath, Filter="", Recursive=True, UrlPrefix="https://localhost/", DefinitionPath=saveFile)

@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"encoding/json"
-
+	
 	"errors"
 	"html/template"
 	"github.com/russross/blackfriday"
@@ -25,9 +25,10 @@ func main() {
 	dataDirectory := flag.String("data", "", "Data directory content")
 	templateDirectory := flag.String("template", "", "Template directory content")
 	trace := flag.Bool("trace", false, "Produce trace logs")
+
 	flag.Parse()
 
-	if *trace == true {	
+	if *trace {	
 		log.Printf("static folder: %s\n", *staticDirectory)
 		log.Printf("data folder: %s\n", *dataDirectory)
 		log.Printf("docs folder: %s\n", *docsDirectory)
@@ -39,7 +40,7 @@ func main() {
 		if (*dataDirectory != "") {
 			safePath = filepath.FromSlash(filepath.Join(*dataDirectory, strings.Replace(safePath, "data/", "", 1)))
 		}
-		if *trace == true {	
+		if *trace {	
 			log.Printf("resolved data folder: %s\n", safePath)
 		}
 		http.ServeFile(res, req, safePath)
@@ -50,7 +51,7 @@ func main() {
 		if (*templateDirectory != "") {
 			safePath = filepath.FromSlash(filepath.Join(*templateDirectory, strings.Replace(safePath, "template/", "", 1)))
 		}
-		if *trace == true {	
+		if *trace {	
 			log.Printf("resolved template folder: %s\n", safePath)
 		}
 		http.ServeFile(res, req, safePath)
@@ -90,34 +91,6 @@ func main() {
 			Body: template.HTML(string(output)),
 		})
 	
-	})
-
-	http.HandleFunc("/docsx/", func( res http.ResponseWriter, req *http.Request ) {
-		localPath := ""
-		if (*docsDirectory == "") {
-			temp := "../../.."
-			docsDirectory = &temp
-			localPath = ValidatePath(filepath.FromSlash(*docsDirectory+req.URL.Path))
-		} else {
-			localPath = ValidatePath(filepath.FromSlash(*docsDirectory+strings.Replace(req.URL.Path, "docs/", "", 1)))
-		}
-		if *trace == true {	
-			log.Printf("resolved docs folder: \"%s\"", localPath)
-		}
-		f, err := os.Open(localPath)
-		if err != nil {
-			log.Printf("fetch docs error: \"%s\" with %s", localPath, err)
-			http.NotFound(res, req)
-		} else {
-			s, err := f.Stat()
-			if err != nil || s.IsDir() {
-				log.Printf("fetch docs stat error: \"%s\"", localPath)
-				http.NotFound(res, req)
-				//http.ServeFile(res, req, filepath.FromSlash(*staticDirectory + "/404.html"))
-			} else {
-				http.ServeFile(res, req, localPath)
-			}
-		}
 	})
 
 	

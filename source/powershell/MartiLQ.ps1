@@ -7,6 +7,9 @@
 
 function New-MartiDefinition
 {
+    Param( 
+        [String] $ConfigPath = $null    
+    ) 
    
     $oSoftware = [PSCustomObject]@{
         extension = "software"
@@ -22,7 +25,12 @@ function New-MartiDefinition
     }
 
 
-    $oConfig = Get-DefaultConfiguration
+    if ($null -eq $ConfigPath -or $ConfigPath -eq "") {
+        $oConfig = Get-Configuration
+    } else {
+        $oConfig = Import-Configuration -ConfigPath $ConfigPath
+    }
+
     if ( $nulll -eq $oConfig.publisher -or $oConfig.publisher -eq "") {
         $publisher = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
     } else {
@@ -54,8 +62,8 @@ function New-MartiDefinition
         license = $oConfig.license
         state = $oConfig.state
         batch =  $oConfig.batch
-        describedBy = ""
-        landingPage = ""
+        describedBy = $oConfig.describedBy
+        landingPage = $oConfig.landingPage
         theme =$oConfig.theme
 
         resources = $lresource
