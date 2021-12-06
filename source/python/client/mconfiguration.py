@@ -48,7 +48,7 @@ class mConfiguration:
             "dateFormat": "2006-01-02",
             "dateTimeFormat": "2006-01-02T15:04:05+0100",
             "dataPath": "",
-            "tempPath": "",
+            "tempPath": "temp",
 
             "tags": None,
             "publisher": "",

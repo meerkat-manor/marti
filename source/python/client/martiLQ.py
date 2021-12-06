@@ -13,10 +13,14 @@ import argparse
 from configparser import ConfigParser
 import requests
 import mimetypes
+import shutil
+import tempfile
+import urllib.request
 
 from mconfiguration import mConfiguration
 from mlogging import mLogging
 from mresource import mResource
+from mutility import mUtility
 
 class martiLQ:
 
@@ -382,6 +386,120 @@ class martiLQ:
         return oTestResults, testError
 
 
+def ConvertFromCkan(CkanPath=None, PackageUrl=None, FetchResource=False):
+
+    if CkanPath is None or CkanPath == "":
+        if PackageUrl is None and PackageUrl == "":
+            raise Exception("CKAN file '{}' not supplied nor package Url '{}' ".format(CkanPath, PackageUrl))
+        else:
+            try:
+                user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
+                headers = {"User-Agent": user_agent}
+
+                req = urllib.request.Request(PackageUrl, None, headers=headers, method="GET")
+                with urllib.request.urlopen(req) as response:
+                    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                        shutil.copyfileobj(response, tmp_file)
+                        jsonFileName = tmp_file.name
+            except Exception as e:
+                print(e)
+                raise Exception("ERROR with: {}".format(PackageUrl))
+    else:
+        if not os.path.exists(CkanPath):
+            raise Exception("CKAN file '{}' does not exist".format(CkanPath))
+        jsonFileName = CkanPath
+
+
+    jsonFile = open(jsonFileName, "r")
+    oCkan = json.load(jsonFile)
+    jsonFile.close()
+
+    mlq = martiLQ()
+    oMarti = mlq.NewMartiDefinition()
+
+    oMarti["title"] = "Conversion from CKAN"
+    oMarti["state"] = oCkan["result"]["state"]
+    oMarti["uid"] = oCkan["result"]["id"]
+    if "contact_point" in oCkan["result"]:
+        oMarti["contactPoint"] = oCkan["result"]["contact_point"]
+    if "license_id" in oCkan["result"]:
+        oMarti["license"] = oCkan["result"]["license_id"]
+    if "notes" in oCkan["result"]:
+        oMarti["description"] = oCkan["result"]["notes"]
+    
+    version = "1.1.0"
+
+    today = datetime.datetime.today() 
+    dateToday = today.strftime("%Y-%m-%dT%H:%M:%S") 
+
+    for resource in oCkan["result"]["resources"]:
+
+        f_leng = resource["size"]
+        f_hash = None
+        f_contentType = ""
+
+        local_res = None
+        if FetchResource and not resource["url"] is None:
+            try:
+                user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
+                headers = {"User-Agent": user_agent}
+
+                req = urllib.request.Request(resource["url"], None, headers=headers, method="GET")
+                with urllib.request.urlopen(req) as response:
+                    #with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                    tmp_fileName = mUtility.MakeLocalTempFile(resource["url"], None)
+                    with open(tmp_fileName, "wb") as tmp_file:
+                        shutil.copyfileobj(response, tmp_file)
+
+                    local_res = mlq.NewMartiLQResource(tmp_fileName, UrlPath=resource["url"], ExcludeHash=False, ExtendAttributes=True)
+                    if not local_res is None:
+                        if f_leng is None or f_leng < 1:
+                            f_leng = local_res["length"]
+                        if f_hash is None:
+                            f_hash = local_res["hash"]
+
+                    os.remove(tmp_fileName)
+
+            except Exception as e:
+                print(e)
+                print("ERROR with: {}".format(resource["url"]))
+                mlq._Log.WriteLog("ERROR with: {}".format(resource["url"]))
+                    
+        parts = resource["url"].split("/")
+        doc_name = parts[len(parts)-1]
+
+        oResource = { 
+            "title": resource["name"],
+            "uid": resource["id"], 
+            "documentName": doc_name,
+            "issueDate": resource["created"],
+            "modified": resource["last_modified"],
+            "expires": None, #self._oConfiguration.ExpireDate(item).strftime("%Y-%m-%dT%H:%M:%S%z"),
+            "state": resource["state"], 
+            "author": oCkan["result"]["author"], 
+            "length": f_leng, 
+            "hash": f_hash,
+
+            "description": resource["description"],
+            "url": resource["url"], 
+            "structure": "",
+            "version": resource["revision_id"], 
+            "contentType": f_contentType, #self.GetContentType(SourcePath),
+            "encoding": None, #self._oConfiguration.GetConfig("encoding"),
+            "compression": None, #self._oConfiguration.GetConfig("compression"),
+            "encryption": None, #self._oConfiguration.GetConfig("encryption"),
+            "describedBy": PackageUrl, 
+            "landingPage": None, #self._oConfiguration.GetConfig("landingPage"),
+            "attributes": []
+        }
+       
+        if not local_res is None:
+            oResource["attributes"] = local_res["attributes"]
+            
+        oMarti["resources"].append(oResource)
+
+    return mlq
+
 
 def Make(ConfigPath, SourcePath, Filter, Recursive, UrlPrefix, DefinitionPath):
 
@@ -413,6 +531,7 @@ def GetResources(ConfigPath, OutputPath, DefinitionPath, Proxy=None, ProxyUser=N
         print("Fetched files")
 
     return fetched_files, fetch_error
+
 
 def main():
 

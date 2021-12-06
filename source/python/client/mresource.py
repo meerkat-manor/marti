@@ -66,6 +66,7 @@ class mResource:
         self._Log.WriteLog("Parameter: SourcePath   Value: {}".format(SourcePath))
         self._Log.WriteLog("Parameter: UrlPath   Value: {}".format(UrlPath))
         self._Log.WriteLog("Parameter: ExcludeHash   Value: {}".format(ExcludeHash))
+        self._Log.WriteLog("Parameter: ExtendAttributes   Value: {}".format(ExtendAttributes))
         self._Log.WriteLog("")
 
         if os.path.exists(SourcePath):

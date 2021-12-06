@@ -87,6 +87,7 @@ Write-Host "File list size: $($fileList.count)" -ForegroundColor Gray
 
 Write-Host "Now iterate through the remote files and build remote martiLQ list " -ForeGroundColor Green
 
+$x = Import-Configuration -ConfigPath "docs\source\samples\conf\sample_bsb.ini"
 $oMarti, $oConfig = New-MartiDefinition
 $oMarti.title = "Remote_BSB_data"
 $oMarti.description = "This definition covers the remote BSB data files `r downloaded from the Australian Payment Network"

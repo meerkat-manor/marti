@@ -1,0 +1,714 @@
+{
+    "help": "https://data.gov.sg/api/3/action/help_show?name=package_show",
+    "success": true,
+    "result": {
+        "license_title": null,
+        "maintainer": null,
+        "coverage_start": "2003-01-01",
+        "topics": [
+            "finance"
+        ],
+        "private": false,
+        "maintainer_email": null,
+        "num_tags": 5,
+        "sources": [
+            "e049f25c-f126-44dd-8384-d1e7e1e80468"
+        ],
+        "frequency": "annual",
+        "coverage_end": "2019-12-31",
+        "id": "e7a00a47-2676-4352-9495-a796124a3453",
+        "metadata_modified": "2021-09-01T13:11:07.826474",
+        "author": null,
+        "author_email": null,
+        "state": "active",
+        "version": null,
+        "metadata_created": "2016-08-30T07:10:20.777881",
+        "relationships_as_object": [],
+        "creator_user_id": "01081b94-5834-45f2-8f41-0c43e9682b16",
+        "type": "dataset",
+        "resources": [
+            {
+                "cache_last_updated": null,
+                "coverage_start": "2007-01-01",
+                "package_id": "e7a00a47-2676-4352-9495-a796124a3453",
+                "validation_state": "passed",
+                "coverage_end": "2019-12-31",
+                "datastore_active": true,
+                "id": "3b64eaf4-78d7-4312-8167-1a423b83d0db",
+                "size": null,
+                "reject_reason": "Warnings:\n\nWarning message: Column headers should be less than or equal to 25 characters long.\nAffected header(s): 5\nRecommendations: \n- Consider shortening your column headers.\n",
+                "redo_approval": false,
+                "state": "active",
+                "hash": "",
+                "description": "* Approved Donations refers to the total tax deductions granted in respect of qualifying donations. For the Year of Assessment (YA)2010 to YA2015 and YA2017 to YA2019, the amount of tax deduction granted is 2.5 times the amount of qualifying donation made. For YA2016, the amount of tax deduction granted is 3 times.\r\n* Chargeable Income is the taxable income of a company less allowable or approved deductions such as business losses, expenses, capital allowances, donations and claims for tax reliefs and tax exemptions. Chargeable income is zero if total deduction is more than total income.\r\n* Net Tax Assessed is the net tax payable or repayable by a company after taking into account allowable tax credits, tax remission, tax rebates and tax deducted at source. ",
+                "format": "CSV",
+                "mimetype_inner": null,
+                "url_type": "s3",
+                "mimetype": null,
+                "cache_url": null,
+                "name": "Chargeable Income of Companies",
+                "created": "2016-08-30T15:19:11.772631",
+                "url": "https://storage.data.gov.sg/income-of-companies-by-income-type-annual/resources/chargeable-income-of-companies-2021-09-01T13-01-26Z.csv",
+                "fields": [
+                    {
+                        "name": "year_of_assessment",
+                        "format": "YYYY",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2007\"}}}, {\"count\": 13, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2007\"}}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Year of Assessment",
+                        "total": 13,
+                        "type": "datetime",
+                        "sub_type": "year"
+                    },
+                    {
+                        "unit_of_measure": "Count",
+                        "name": "no_of_companies_assessed",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "No. of Companies Assessed",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "total_income",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Total Income",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "donations",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Approved Donations",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "ci_before_reliefs_exemption",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Chargeable Income before Reliefs and Exemption",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "group_relief",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Group Relief",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "loss_carryback_relief",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 5, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 5, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Loss Carry-back Relief",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "tax_exemption",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Full/ Partial Tax Exemption",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "ci",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Chargeable Income",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "gross_tax_payable",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Gross Tax Payable",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "tax_deducted_at_source",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 11, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 6, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 2, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"9884\", \"min\": \"7353\"}}}, {\"count\": 2, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"9884\", \"min\": \"7353\"}}}]",
+                        "title": "Tax Deducted at Source",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "other_tax_set_offs",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Other Tax Set-offs",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "net_tax_assessed",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 13, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 13, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Net Tax Assessed",
+                        "total": 13,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    }
+                ],
+                "last_modified": "2021-09-01T13:01:26.619488",
+                "position": 0,
+                "revision_id": "2ceec892-a18c-4fdd-9354-cedbf40b7555",
+                "resource_type": null
+            },
+            {
+                "cache_last_updated": null,
+                "coverage_start": "2003-01-01",
+                "package_id": "e7a00a47-2676-4352-9495-a796124a3453",
+                "validation_state": "passed",
+                "coverage_end": "2019-12-31",
+                "datastore_active": true,
+                "id": "ec8ed20b-707f-41a6-80d0-1f2be8025261",
+                "size": null,
+                "reject_reason": "Warnings:\n\nWarning message: Column headers should be less than or equal to 25 characters long.\nAffected header(s): 7\nRecommendations: \n- Consider shortening your column headers.\n",
+                "redo_approval": false,
+                "state": "active",
+                "hash": "",
+                "description": "* Approved Donations refers to the total tax deductions granted in respect of qualifying donations. For the Year of Assessment (YA)2010 to YA2015 and YA2017 to YA2019, the amount of tax deduction granted is 2.5 times the amount of qualifying donation made. For YA2016, the amount of tax deduction granted is 3 times.\r\n* Chargeable Income is the taxable income of a company less allowable or approved deductions such as business losses, expenses, capital allowances, donations and claims for tax reliefs and tax exemptions. Chargeable income is zero if total deduction is more than total income.\r\n* Net Tax Assessed is the net tax payable or repayable by a company after taking into account allowable tax credits, tax remission, tax rebates and tax deducted at source. \r\n* Taxable Group means those companies with net tax payable after taking into account allowable tax credits, tax remission, tax rebates and tax deducted at source. ",
+                "format": "CSV",
+                "mimetype_inner": null,
+                "url_type": "s3",
+                "mimetype": null,
+                "cache_url": null,
+                "name": "Chargeable Income of Companies by Tax Group",
+                "created": "2016-08-30T15:15:23.148826",
+                "url": "https://storage.data.gov.sg/income-of-companies-by-income-type-annual/resources/chargeable-income-of-companies-by-tax-group-2021-09-01T13-04-08Z.csv",
+                "fields": [
+                    {
+                        "name": "year_of_assessment",
+                        "format": "YYYY",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 34, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2003\"}}}, {\"count\": 34, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2003\"}}}, {\"count\": 34, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Year of Assessment",
+                        "total": 34,
+                        "type": "datetime",
+                        "sub_type": "year"
+                    },
+                    {
+                        "name": "tax_group",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 34, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Tax Group",
+                        "total": 34,
+                        "type": "text",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "Count",
+                        "name": "no_of_companies_assessed",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 34, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 9, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 8, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "No. of Companies Assessed",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "total_income",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 34, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Total Income",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "donations",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 34, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 34, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 5, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 4, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 1, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"3035\", \"min\": \"3035\"}}}, {\"count\": 1, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"3035\", \"min\": \"3035\"}}}]",
+                        "title": "Approved Donations",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "assessable_income",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 26,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 8, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 8, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 8, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 8, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 8, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Assessable Income",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "ci_before_reliefs_exemption",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Chargeable Income before Reliefs and Exemption",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "group_relief",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Group Relief",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "loss_carryback_relief",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 22, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 12, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 5, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"9560\", \"min\": \"4975\"}}}, {\"count\": 5, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"9560\", \"min\": \"4975\"}}}]",
+                        "title": "Loss Carry-back Relief",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "tax_exemption",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Full/ Partial Tax Exemption",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "ci",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Chargeable Income",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "gross_tax_payable",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 4, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 4, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Gross Tax Payable",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "tax_deducted_at_source",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 20, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 11, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"7010\", \"min\": \"1499\"}}}, {\"count\": 11, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"7010\", \"min\": \"1499\"}}}, {\"count\": 6, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Tax Deducted at Source",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "other_tax_set_offs",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 8, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 7, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Other Tax Set-offs",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "net_tax_assessed",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 8,
+                            "na": "Data not available or not applicable"
+                        },
+                        "detected_types": "[{\"count\": 26, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 26, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Net Tax Assessed",
+                        "total": 34,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    }
+                ],
+                "last_modified": "2021-09-01T13:04:08.143326",
+                "position": 1,
+                "revision_id": "ee894546-7838-499b-b46d-4371fa1506eb",
+                "resource_type": null
+            },
+            {
+                "cache_last_updated": null,
+                "coverage_start": "2007-01-01",
+                "package_id": "e7a00a47-2676-4352-9495-a796124a3453",
+                "validation_state": "passed",
+                "coverage_end": "2019-12-31",
+                "datastore_active": true,
+                "id": "83b36d2e-6d2a-47d0-8042-415db84442e9",
+                "size": null,
+                "reject_reason": "",
+                "redo_approval": false,
+                "state": "active",
+                "hash": "",
+                "description": "* Royalties: From YA2012, figures exclude royalties earned by companies that have filed their tax returns using Form C-S, a simplified income tax return for small companies. \r\n* Other types of income: From YA2012, figures include royalties earned by companies that have filed their tax returns using Form C-S.",
+                "format": "CSV",
+                "mimetype_inner": null,
+                "url_type": "s3",
+                "mimetype": null,
+                "cache_url": null,
+                "name": "Income of Companies by Income Type",
+                "created": "2016-08-30T15:21:21.848713",
+                "url": "https://storage.data.gov.sg/income-of-companies-by-income-type-annual/resources/income-of-companies-by-income-type-2021-09-01T13-07-05Z.csv",
+                "fields": [
+                    {
+                        "name": "year_of_assessment",
+                        "format": "YYYY",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 78, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2007\"}}}, {\"count\": 78, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2007\"}}}, {\"count\": 78, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Year of Assessment",
+                        "total": 78,
+                        "type": "datetime",
+                        "sub_type": "year"
+                    },
+                    {
+                        "name": "income_type",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 78, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Income Type",
+                        "total": 78,
+                        "type": "text",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "amount",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 78, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 78, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Amount",
+                        "total": 78,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    }
+                ],
+                "last_modified": "2021-09-01T13:07:05.613367",
+                "position": 2,
+                "revision_id": "98e51ec1-a1e4-4db9-9c5a-15fc1ab9647e",
+                "resource_type": null
+            },
+            {
+                "cache_last_updated": null,
+                "coverage_start": "2003-01-01",
+                "package_id": "e7a00a47-2676-4352-9495-a796124a3453",
+                "validation_state": "passed",
+                "coverage_end": "2019-12-31",
+                "datastore_active": true,
+                "id": "be33c464-7566-402d-87e2-07ccf07c251d",
+                "size": null,
+                "reject_reason": "",
+                "redo_approval": false,
+                "state": "active",
+                "hash": "",
+                "description": "* Royalties: From YA2012, figures exclude royalties earned by companies that have filed their tax returns using Form C-S, a simplified income tax return for small companies. \r\n* Other types of income: From YA2012, figures include royalties earned by companies that have filed their tax returns using Form C-S.\r\n* Taxable Group means those companies with net tax payable after taking into account allowable tax credits, tax remission, tax rebates and tax deducted at source. ",
+                "format": "CSV",
+                "mimetype_inner": null,
+                "url_type": "s3",
+                "mimetype": null,
+                "cache_url": null,
+                "name": "Income of Companies by Tax Group and Income Type",
+                "created": "2016-08-30T15:20:38.822666",
+                "url": "https://storage.data.gov.sg/income-of-companies-by-income-type-annual/resources/income-of-companies-by-tax-group-and-income-type-2021-09-01T13-11-07Z.csv",
+                "fields": [
+                    {
+                        "name": "year_of_assessment",
+                        "format": "YYYY",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 204, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2003\"}}}, {\"count\": 204, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"2019\", \"min\": \"2003\"}}}, {\"count\": 204, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}]",
+                        "title": "Year of Assessment",
+                        "total": 204,
+                        "type": "datetime",
+                        "sub_type": "year"
+                    },
+                    {
+                        "name": "tax_group",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 204, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Tax Group",
+                        "total": 204,
+                        "type": "text",
+                        "sub_type": "general"
+                    },
+                    {
+                        "name": "income_type",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 204, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}]",
+                        "title": "Income Type",
+                        "total": 204,
+                        "type": "text",
+                        "sub_type": "general"
+                    },
+                    {
+                        "unit_of_measure": "S$ Thousand",
+                        "name": "amount",
+                        "format": "",
+                        "coordinate_system": "",
+                        "null_values": {
+                            "count": 0
+                        },
+                        "detected_types": "[{\"count\": 204, \"sub_type\": \"general\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"percentage\", \"name\": \"numeric\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"postal_code\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"general\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"address\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 204, \"sub_type\": \"telephone\", \"name\": \"text\", \"metadata\": {}}, {\"count\": 29, \"sub_type\": \"x\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"x\", \"bounds\": {\"max\": 54338.72, \"min\": 919.05}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 23, \"sub_type\": \"y\", \"name\": \"geo_coordinate\", \"metadata\": {\"columnName\": \"y\", \"bounds\": {\"max\": 50172.05, \"min\": 12576.34}, \"system\": {\"epsg\": \"3414\", \"name\": \"SVY21\", \"crs\": \"SVY21\"}}}, {\"count\": 6, \"sub_type\": \"year\", \"name\": \"datetime\", \"metadata\": {\"financial\": \"financial_year\", \"name\": \"year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"year\", \"formatLength\": 4, \"coverage\": {\"max\": \"8006\", \"min\": \"2181\"}}}, {\"count\": 6, \"sub_type\": \"financial_year\", \"name\": \"datetime\", \"metadata\": {\"name\": \"financial_year\", \"format\": \"YYYY\", \"momentFormat\": \"YYYY\", \"columnName\": \"financial_year\", \"formatLength\": 4, \"coverage\": {\"max\": \"8006\", \"min\": \"2181\"}}}]",
+                        "title": "Amount",
+                        "total": 204,
+                        "type": "numeric",
+                        "sub_type": "general"
+                    }
+                ],
+                "last_modified": "2021-09-01T13:11:07.099793",
+                "position": 3,
+                "revision_id": "96295334-fbab-402e-8866-86f90ce3a96d",
+                "resource_type": null
+            }
+        ],
+        "num_resources": 4,
+        "description": "Total income amount by income type (e.g. trade income, rents, interest, royalties), approved donations, tax set-offs (e.g. group relief, partial tax exemption) and net tax assessed of taxable and non-taxable companies for Year of Assessment (YA)2003 to YA2019. Income is assessed on a preceding year basis. The basis period for any YA is the financial year ending in the year preceding the YA.\r\n\r\n* All figures are as at 31 March two years from each Year of Assessment (i.e. the YA2017 figures are as at 31 March 2019).",
+        "tags": [
+            {
+                "vocabulary_id": null,
+                "state": "active",
+                "display_name": "Businesses",
+                "id": "01104f64-2dab-4c2e-ae76-a963fa1c0aea",
+                "name": "Businesses"
+            },
+            {
+                "vocabulary_id": null,
+                "state": "active",
+                "display_name": "Companies",
+                "id": "45b9a7da-0c6e-42b3-b2c2-c1353fd463a3",
+                "name": "Companies"
+            },
+            {
+                "vocabulary_id": null,
+                "state": "active",
+                "display_name": "Corporate Tax",
+                "id": "7a2813d3-4f64-4fb9-821f-42c8c86ef7e6",
+                "name": "Corporate Tax"
+            },
+            {
+                "vocabulary_id": null,
+                "state": "active",
+                "display_name": "Rental",
+                "id": "0bc3c372-4b01-4e44-b69a-ec7eb77deab6",
+                "name": "Rental"
+            },
+            {
+                "vocabulary_id": null,
+                "state": "active",
+                "display_name": "Taxes",
+                "id": "e3c7cd32-dac4-473c-a21f-300a914c700c",
+                "name": "Taxes"
+            }
+        ],
+        "groups": [
+            {
+                "display_name": "Finance",
+                "description": "Fiscal position, exchange rates and CPF",
+                "image_display_url": "https://data.gov.sg/uploads/group/2016-10-26-090427.6414884.Finance.svg",
+                "title": "Finance",
+                "id": "5acc2056-696a-4e29-aa86-00f11392d965",
+                "name": "finance"
+            }
+        ],
+        "license_id": null,
+        "relationships_as_subject": [],
+        "organization": {
+            "description": "",
+            "created": "2015-05-19T01:11:32.616280",
+            "title": "Inland Revenue Authority of Singapore",
+            "name": "inland-revenue-authority-of-singapore",
+            "is_organization": true,
+            "state": "active",
+            "image_url": "",
+            "revision_id": "f7173837-46c5-4f15-9b83-178ee894f64f",
+            "type": "organization",
+            "id": "e049f25c-f126-44dd-8384-d1e7e1e80468",
+            "approval_status": "approved"
+        },
+        "name": "income-of-companies-by-income-type-annual",
+        "isopen": false,
+        "url": "",
+        "notes": "Total income amount by income type (e.g. trade income, rents, interest, royalties), approved donations, tax set-offs (e.g. group relief, partial tax exemption) and net tax assessed of taxable and non-taxable companies for Year of Assessment (YA)2003 to YA2019. Income is assessed on a preceding year basis. The basis period for any YA is the financial year ending in the year preceding the YA.\r\n\r\n* All figures are as at 31 March two years from each Year of Assessment (i.e. the YA2017 figures are as at 31 March 2019).",
+        "owner_org": "e049f25c-f126-44dd-8384-d1e7e1e80468",
+        "title": "Income of Companies by Income Type, Annual",
+        "revision_id": "40fc710d-1cee-41bb-b1ea-db0ab7bc5643",
+        "source_ids": [
+            "e049f25c-f126-44dd-8384-d1e7e1e80468"
+        ]
+    }
+}

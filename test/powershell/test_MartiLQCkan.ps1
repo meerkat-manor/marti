@@ -6,7 +6,7 @@
 . .\source\powershell\MartiLQUtilities.ps1
 
 $outFile = ".\test\powershell\results\martilq_test_asic.json"
-$ckan = Get-Content -Path ".\docs\source\samples\json\asic_ckan_api.json" -Raw
+$ckan = Get-Content -Path ".\docs\source\samples\json\CKAN_AU_asic_ckan_api.json" -Raw
 $oMarti = ConvertFrom-Ckan -InputObject $ckan
 $x = ConvertTo-Json -InputObject $oMarti  -Depth 5
 Set-Content -Path $outFile -Value $x
