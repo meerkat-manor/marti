@@ -1,6 +1,4 @@
 
-
-
 . .\source\powershell\MartiLQ.ps1
 . .\source\powershell\MartiLQUtilities.ps1
 

@@ -55,4 +55,18 @@ $x = ConvertTo-Json -InputObject $oMarti -Depth 5
 Set-Content -Path $outFile -Value $x
 Write-Host "Wrote converted definition to: $outFile"
 
+
+# SG 
+$outFile = ".\test\powershell\results\test_martiLQ_ckan_SG1.json"
+$oMarti = ConvertFrom-Ckan -InputObject "https://data.gov.sg/api/action/package_show?id=e7a00a47-2676-4352-9495-a796124a3453" -FetchResource -DataPath "test/powershell/results/data"
+$oMarti.description = "This data has been converted from SG CKAN data source with URL 'https://data.gov.sg/api/action/package_show?id=e7a00a47-2676-4352-9495-a796124a3453'"
+$oMarti.tags += "ckan"
+$oMarti.tags += "gov"
+$oMarti.tags += "sg"
+$oMarti.publisher = "Singapore"
+$oMarti.landingPage = ""
+$x = ConvertTo-Json -InputObject $oMarti -Depth 5
+Set-Content -Path $outFile -Value $x
+Write-Host "Wrote converted definition to: $outFile"
+
 Write-Host "Execution completed"

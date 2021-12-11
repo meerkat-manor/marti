@@ -25,7 +25,7 @@ class mUtility:
         self._Log.SetConfig(self._oConfiguration.GetConfig("logPath"), self._oConfiguration.GetSoftwareName())
 
 
-    def MakeLocalTempFile(UrlPath, Configuration):
+    def NewLocalTempFile(UrlPath, Configuration, TempPath=None):
         # Create temporary file on disk for cases
         # where file size, hashing and encryption are required
         # This is useful for (1) CKAN file fetch
@@ -36,7 +36,11 @@ class mUtility:
         if Configuration is None:
             Configuration = mConfiguration()
 
-        temp_dir = Configuration.GetConfig("tempPath")
+        if not TempPath is None:
+            temp_dir = TempPath
+        else:
+            temp_dir = Configuration.GetConfig("tempPath")
+
         if not os.path.isdir(temp_dir):
             _log = mLogging()
             _log.SetConfig(Configuration.GetConfig("logPath"), Configuration.GetSoftwareName())
@@ -44,8 +48,3 @@ class mUtility:
             _log.WriteLog("Created temp folder : {}".format(temp_dir))
 
         return os.path.join(temp_dir, doc_name)
-
-
-
-
-

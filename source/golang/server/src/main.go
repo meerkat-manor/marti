@@ -19,7 +19,7 @@ import (
 
 
 func main() {
-	bind := flag.String("bind", ":8080", "Bind Http listen to address and port, e.g. localhost:8080 or justy simply :8080")
+	bind := flag.String("bind", ":8080", "Bind HTTP listen to address and port, e.g. localhost:8080 or justy simply :8080")
 	staticDirectory := flag.String("static", "static", "Static directory content")
 	docsDirectory := flag.String("docs", "", "Document directory content")
 	dataDirectory := flag.String("data", "", "Data directory content")

@@ -81,15 +81,17 @@ Param(
         $lattribute =  Set-MartiResourceAttributes -Path $item.FullName -FileType $item.Extension.Substring(1) -ExtendedAttributes:$ExtendAttributes
         $expires = Set-DefaultExpiryDate -DocumentDate $item.LastWriteTime  -Configuration $Configuration
         $version = $Configuration.version
+        $dateToday = Get-Date -f $Configuration.dateTimeFormat
 
         $oResource = [PSCustomObject]@{ 
             title = Set-DefaultTitle -Document $item.Name -Configuration $Configuration
             uid = (New-Guid).ToString()
             documentName = $item.Name
-            issuedDate = Get-Date -f $Configuration.dateTimeFormat
+            issuedDate = $dateToday
             modified = $item.LastWriteTime.ToString($Configuration.dateTimeFormat)
             expires = $expires.ToString($Configuration.dateTimeFormat) 
             state = $Configuration.state
+            stateModified = $dateToday
             author = $Configuration.author
             length = $item.Length
             hash = $hash

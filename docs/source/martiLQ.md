@@ -117,6 +117,7 @@ sample can be generated using the GOLANG client program with parameters:
     "tags": null,
     "license": "",
     "state": "active",
+    "stateModified": "2021-11-02T22:44:29.6887001+11:00",
     "batch": 1.001,
     "describedBy": "",
     "landingPage": "",
@@ -130,6 +131,7 @@ sample can be generated using the GOLANG client program with parameters:
             "modified": "2021-11-02T07:47:13.9410018+11:00",
             "expires": "2023-11-02T00:00:00+11:00",
             "state": "active",
+            "stateModified": "2021-11-02T22:44:29.6881663+11:00",
             "author": "",
             "length": 3654,
             "hash": {

@@ -59,3 +59,36 @@ function Close-Log {
     Write-Log "*   End of processing: [$dateTime]"
     Write-Log "***********************************************************************************"
 }
+
+
+function New-LocalTempFile{
+    Param (
+        [Parameter(Mandatory)][String] $UrlPath, 
+        $Configuration, 
+        $TempPath
+    )
+    # Create temporary file on disk for cases
+    # where file size, hashing and encryption are required
+    # This is useful for (1) CKAN file fetch
+
+    $parts = $UrlPath.split("/")
+    $doc_name = $parts[$parts.Length-1]
+
+    if ($null -eq $Configuration){
+        $oConfig = Get-Configuration
+    }
+
+    if ($null -ne $TempPath){
+        $temp_dir = $TempPath
+    }
+    else {
+        $temp_dir = $oConfig.tempPath
+    }
+
+    if (!(Test-Path -Path $temp_dir)) {
+        New-Item -Path $temp_dir -ItemType Directory
+        Write-Log("Created temp folder : $temp_dir")
+    }
+
+    return Join-Path -Path $temp_dir -ChildPath $doc_name
+}

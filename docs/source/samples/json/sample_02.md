@@ -23,7 +23,7 @@ contactPoint = Your friendly Meerkat
 accessLevel  = Confidential
 rights       = Public
 license      = MIT
-batch        = @./config/batch.no
+batch        = @./conf/batch.no
 theme        = Documentation
 
 

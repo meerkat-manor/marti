@@ -23,6 +23,13 @@ function New-MartiDefinition
         renderer =  "MARTILQREFERENCE:Mustache"
         url = ""
     }
+   
+    $oAcknowledgement = [PSCustomObject]@{
+        url = ""
+        algo = ""
+        value = ""
+        signed =  $false
+    }
 
 
     if ($null -eq $ConfigPath -or $ConfigPath -eq "") {
@@ -42,8 +49,40 @@ function New-MartiDefinition
     $lcustom += $oTemplate
 
     [System.Collections.ArrayList]$lresource = @()
+    [System.Collections.ArrayList]$lconsumer = @()
     
+    $today = Get-Date
+    $dateToday = $today.Tostring($oConfig.dateTimeFormat)
     $expires = Set-DefaultExpiryDate -DocumentDate (Get-Date)  -Configuration $oConfig
+
+    $batch = $oConfig.batch
+	if ($batch -ne "") {
+		if ($batch[0] -eq "@") {
+            if (!(Test-Path -Path $batch.Substring(1))) {
+
+            }
+#				// See if we can locate it in Config INI directory
+#				_, fileb := filepath.Split(m.config.batch[1:])
+#				dirc, _ := filepath.Split(ConfigPath)
+#				_, err := os.Stat(dirc + fileb)
+#				if err == nil {
+#					m.config.batch = "@" + dirc + fileb
+#				}
+			
+
+			if (Test-Path -Path $batch -PathType Leaf) {
+				#readFile, err := os.Open(m.config.batch[1:])
+				#reader := bufio.NewReader(readFile)
+				#m.Batch, _ = strconv.ParseFloat(line, 10)
+				#readFile.Close()
+			} else {
+				Write-Log ("Batch file '$oConfig.batch' does not exist")		
+			}
+		} else {
+			$batch = 1
+            #m.Batch, _ = strconv.ParseFloat(m.config.batch, 10)
+		}
+	}
 
     $oMarti = [PSCustomObject]@{
         contentType = "application/vnd.martilq.json"
@@ -51,22 +90,25 @@ function New-MartiDefinition
         uid = (New-Guid).ToString()
 
         description = ""
-        issued = Get-Date -f $oConfig.dateTimeFormat
-        modified = Get-Date -f $oConfig.dateTimeFormat
+        issued = $dateToday
+        modified = $dateToday
         expires = $expires.Tostring($oConfig.dateTimeFormat)
         tags = $oConfig.tags
         publisher = $publisher
         contactPoint = $oConfig.contactPoint
         accessLevel = $oConfig.accessLevel
+        consumer = $lconsumer
         rights = $oConfig.rights
         license = $oConfig.license
         state = $oConfig.state
-        batch =  $oConfig.batch
+        stateModified = $dateToday
+        batch =  $batch
         describedBy = $oConfig.describedBy
         landingPage = $oConfig.landingPage
         theme =$oConfig.theme
 
         resources = $lresource
+        acknowledge = $oAcknowledgement
         custom = $lCustom
     }
 
@@ -208,10 +250,18 @@ function Get-MartiResource {
 function ConvertFrom-Ckan 
 {
 Param( 
-    [Parameter(Mandatory)][String] $InputObject
+    [Parameter(Mandatory)][String] $InputObject,
+    [Parameter(Mandatory=$false)][switch] $FetchResource,
+    [Parameter(Mandatory=$false)][String] $DataPath
 ) 
 
-    $oCkan = ConvertFrom-Json -InputObject $InputObject
+    if ($InputObject.StartsWith("https://") -or $InputObject.StartsWith("http://") -or $InputObject.StartsWith("ftp://")) {
+        $JsonFileName = Invoke-WebRequest $InputObject
+    } else {
+        $JsonFileName = $InputObject
+    }
+
+    $oCkan = ConvertFrom-Json -InputObject $JsonFileName
 
     $oMarti, $oConfig = New-MartiDefinition
 
@@ -235,7 +285,27 @@ Param(
             $name = ""
         }
 
-        $hash = New-MartiHash -Algorithm "SHA256" -FilePath "" -Value $_.hash
+        $size = $_.size
+
+        if ($FetchResource -and $_.url -ne "") {
+            $localResource = New-LocalTempFile -UrlPath $_.url -Configuration $null -TempPath $DataPath
+            if (Test-Path -Path $localResource -PathType Leaf) {
+                Remove-Item -Path $localResource
+            }
+            Invoke-WebRequest -Uri $_.url -OutFile $localResource 
+            if ($_.hash -eq "") {
+                $hash = New-MartiHash -Algorithm "SHA256" -FilePath $localResource -Value $null
+            } else {
+                $hash = New-MartiHash -Algorithm "SHA256" -FilePath "" -Value $_.hash
+            }
+            if ($size -le 1) {
+                $size = (Get-Item $localResource).length
+            }
+        } else {
+            $hash = New-MartiHash -Algorithm "SHA256" -FilePath "" -Value $_.hash
+        }
+
+
         $expires = (Get-Date).AddYears(7)
 
         $oResource = [PSCustomObject]@{ 
@@ -247,7 +317,7 @@ Param(
             expires = $expires.Tostring("yyyy-MM-ddTHH:mm:ss")
             state = $_.state
             author = $oCkan.result.author
-            length = $_.size
+            length = $size
             hash = $hash
 
             description = $_.description

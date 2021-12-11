@@ -96,14 +96,21 @@ class mConfiguration:
                 self._Log.WriteLog("Configuration path '{}' does not exist".format(ConfigPath))
                 raise Exception("Configuration path '{}' does not exist".format(ConfigPath))
         else:
-            # Look in default location and name
-            home = os.path.expanduser('~')
-            if os.path.exists(os.path.join(home, ".martilq/martilq.ini")): 
-                ConfigPath = os.path.join(home, ".martilq/martilq.ini")
-            if os.path.exists("martilq.ini"): 
-                ConfigPath = "martilq.ini"
+            # Check environment variable
+            check_ini = os.getenv("MARTILQ_MARTILQ_INI", "")
+            if check_ini != "" and os.path.exists(check_ini):
+                ConfigPath = check_ini
+            else:
+                # Look in default location and name            
+                home = os.path.expanduser('~')
+                if os.path.exists("martilq.ini"): 
+                    ConfigPath = "martilq.ini"
+                elif os.path.exists("conf/martilq.ini"): 
+                    ConfigPath = os.path.join(home, "conf/martilq.ini")
+                elif os.path.exists(os.path.join(home, ".martilq/martilq.ini")): 
+                    ConfigPath = os.path.join(home, ".martilq/martilq.ini")
             if not ConfigPath is None:
-              self._Log.WriteLog("Usig configuration path '{}'".format(ConfigPath))
+              self._Log.WriteLog("Using configuration path '{}'".format(ConfigPath))
               config_object.read(ConfigPath)
 
         if config_object.has_section("General"):
@@ -167,6 +174,9 @@ class mConfiguration:
         self._oConfiguration["signKey_File"] = os.getenv("MARTILQ_SIGNKEY_FILE", self._oConfiguration["signKey_File"])
         self._oConfiguration["signKey_Password"] = os.getenv("MARTILQ_SIGNKEY_PASSWORD", self._oConfiguration["signKey_Password"])
         self._oConfiguration["logPath"] = os.getenv("MARTILQ_LOGPATH", self._oConfiguration["logPath"])
+
+        self._oConfiguration["dataPath"] = os.getenv("MARTILQ_DATAPATH", self._oConfiguration["dataPath"])
+        self._oConfiguration["tempPath"] = os.getenv("MARTILQ_TEMPPATH", self._oConfiguration["tempPath"])
 
         self._Log.WriteLog("Configuration load processed")
 
@@ -300,7 +310,7 @@ class mConfiguration:
             raise Exception("Expires value '"+ self._oConfiguration["expires"] +"' is invalid")
 
         base = lExpires[0]
-        if sourcePath == "" or base == "m":
+        if sourcePath is None or sourcePath == "" or base == "m":
             base = "t"
 
         modified = datetime.datetime.today() 

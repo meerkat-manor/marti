@@ -26,7 +26,7 @@ function Get-DefaultConfiguration {
         dateFormat = "yyyy-MM-dd"
         dateTimeFormat = "yyyy-MM-ddTHH:mm:ss"
         dataPath = ""
-        tempPath =  ""
+        tempPath =  "temp"
 
         tags = @( "default", "martiLQ")
         publisher = ""
@@ -61,9 +61,6 @@ function Get-DefaultConfiguration {
         loaded = $false
     }
 
-#self._Log = mLogging()
-#self._Log.SetConfig(self._oConfiguration["logPath"], self.GetSoftwareName())
-
     return $oConfiguration
 }
 
@@ -77,12 +74,23 @@ function Import-Configuration {
 
     if ($null -eq $ConfigPath -or $ConfigPath -eq "") {
 
-        if (Test-Path "martilq.ini") { 
+        $envPath = Get-ChildItem -Path Env:MARTILQ_MARTILQ_INI
+        if ($envPath -ne "" -and (Test-Path -Path $envPath -PathType Leaf)) {
+            $ConfigPath = $envPath
+        } else { if (Test-Path "martilq.ini") { 
             $ConfigPath = "martilq.ini"
-        } else {
-            $homeDir = $env:USERPROFILE
-            if (Test-Path (Join-Path -Path $homeDir -ChildPath ".martilq/martilq.ini")) {
-                $ConfigPath = Join-Path -Path $homeDir -ChildPath ".martilq/martilq.ini"
+            } else {
+                if (Test-Path -Path "conf/martilq.ini" -PathType Leaf) {
+                    $ConfigPath = "conf/martilq.ini"
+                } else { if (Test-Path -Path ".martilq/martilq.ini" -PathType Leaf) {
+                        $ConfigPath = ".martilq/martilq.ini"
+                    } else {
+                        $homeDir = $env:USERPROFILE
+                        if (Test-Path -Path (Join-Path -Path $homeDir -ChildPath ".martilq/martilq.ini") -PathType Leaf) {
+                            $ConfigPath = Join-Path -Path $homeDir -ChildPath ".martilq/martilq.ini"
+                        }
+                    }
+                }
             }
         }
         if ($null -ne $ConfigPath -and $ConfigPath -ne "") {

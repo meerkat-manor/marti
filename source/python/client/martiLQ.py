@@ -39,6 +39,13 @@ class martiLQ:
         "renderer": "MARTILQREFERENCE:Mustache",
         "url": ""
     }
+   
+    _oAcknowledgement = {
+        "url": "",
+        "algo": "",
+        "value": "",
+        "signed": False
+    }
 
 
     _MartiErrorId = ""
@@ -103,6 +110,7 @@ class martiLQ:
 
         today = datetime.datetime.today() 
         dateToday = today.strftime("%Y-%m-%dT%H:%M:%S") 
+        expires = self._oConfiguration.ExpireDate(None)
 
         publisher = self._oConfiguration.GetConfig("publisher")
         if publisher == "":
@@ -125,6 +133,7 @@ class martiLQ:
             "description": "",
             "issued": dateToday,
             "modified": dateToday,
+            "expires": expires.strftime("%Y-%m-%dT%H:%M:%S"),
             "publisher": publisher,
             "contactPoint": self._oConfiguration.GetConfig("contactPoint"),
             "accessLevel": self._oConfiguration.GetConfig("accessLevel"),
@@ -132,12 +141,14 @@ class martiLQ:
             "tags": self._oConfiguration.GetConfig("tags"),
             "license": self._oConfiguration.GetConfig("license"),
             "state": self._oConfiguration.GetConfig("state"),
+            "stateModified": dateToday,
             "batch": self._oConfiguration.GetConfig("batch"),
             "describedBy": self._oConfiguration.GetConfig("describedBy"),
             "landingPage": self._oConfiguration.GetConfig("landingPage"),
             "theme": self._oConfiguration.GetConfig("theme"), 
 
             "resources": lresource,
+            "acknowledge": self._oAcknowledgement,
             "custom": lcustom
         }
 
@@ -386,28 +397,32 @@ class martiLQ:
         return oTestResults, testError
 
 
-def ConvertFromCkan(CkanPath=None, PackageUrl=None, FetchResource=False):
+def ConvertFromCkan(InputObject=None, FetchResource=False, DataPath=None):
 
-    if CkanPath is None or CkanPath == "":
-        if PackageUrl is None and PackageUrl == "":
-            raise Exception("CKAN file '{}' not supplied nor package Url '{}' ".format(CkanPath, PackageUrl))
-        else:
-            try:
-                user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
-                headers = {"User-Agent": user_agent}
+    if InputObject is None or InputObject == "":
+        raise Exception("CKAN file '{}' not supplied as file or Url".format(InputObject))
 
-                req = urllib.request.Request(PackageUrl, None, headers=headers, method="GET")
-                with urllib.request.urlopen(req) as response:
-                    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                        shutil.copyfileobj(response, tmp_file)
-                        jsonFileName = tmp_file.name
-            except Exception as e:
-                print(e)
-                raise Exception("ERROR with: {}".format(PackageUrl))
+    if InputObject.startswith("https://") or InputObject.startswith("http://") or InputObject.startswith("ftp://"):
+        try:
+            user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"
+            headers = {"User-Agent": user_agent}
+
+            req = urllib.request.Request(InputObject, None, headers=headers, method="GET")
+            with urllib.request.urlopen(req) as response:
+                with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+                    shutil.copyfileobj(response, tmp_file)
+                    jsonFileName = tmp_file.name
+        except Exception as e:
+            print(e)
+            raise Exception("ERROR with: {}".format(InputObject))
+        
+        PackageUrl = InputObject
     else:
-        if not os.path.exists(CkanPath):
-            raise Exception("CKAN file '{}' does not exist".format(CkanPath))
-        jsonFileName = CkanPath
+        if not os.path.exists(InputObject):
+            raise Exception("CKAN file '{}' does not exist".format(InputObject))
+        jsonFileName = InputObject
+
+        PackageUrl = None
 
 
     jsonFile = open(jsonFileName, "r")
@@ -416,6 +431,7 @@ def ConvertFromCkan(CkanPath=None, PackageUrl=None, FetchResource=False):
 
     mlq = martiLQ()
     oMarti = mlq.NewMartiDefinition()
+    mlq.LoadConfig(None)
 
     oMarti["title"] = "Conversion from CKAN"
     oMarti["state"] = oCkan["result"]["state"]
@@ -447,7 +463,7 @@ def ConvertFromCkan(CkanPath=None, PackageUrl=None, FetchResource=False):
                 req = urllib.request.Request(resource["url"], None, headers=headers, method="GET")
                 with urllib.request.urlopen(req) as response:
                     #with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                    tmp_fileName = mUtility.MakeLocalTempFile(resource["url"], None)
+                    tmp_fileName = mUtility.NewLocalTempFile(resource["url"], Configuration=None, TempPath=DataPath)
                     with open(tmp_fileName, "wb") as tmp_file:
                         shutil.copyfileobj(response, tmp_file)
 
@@ -458,7 +474,8 @@ def ConvertFromCkan(CkanPath=None, PackageUrl=None, FetchResource=False):
                         if f_hash is None:
                             f_hash = local_res["hash"]
 
-                    os.remove(tmp_fileName)
+                    if DataPath is None:
+                        os.remove(tmp_fileName)
 
             except Exception as e:
                 print(e)
@@ -476,6 +493,7 @@ def ConvertFromCkan(CkanPath=None, PackageUrl=None, FetchResource=False):
             "modified": resource["last_modified"],
             "expires": None, #self._oConfiguration.ExpireDate(item).strftime("%Y-%m-%dT%H:%M:%S%z"),
             "state": resource["state"], 
+            "stateModified": resource["created"],
             "author": oCkan["result"]["author"], 
             "length": f_leng, 
             "hash": f_hash,

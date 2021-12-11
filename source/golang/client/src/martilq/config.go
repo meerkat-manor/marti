@@ -126,9 +126,9 @@ func findIni() string {
 	}
 
 	if foundPath == "" {
-		_, err := os.Stat("./config/"+ cIniFileName)
+		_, err := os.Stat("./conf/"+ cIniFileName)
 		if err == nil {
-			foundPath = "./config/"+  cIniFileName
+			foundPath = "./conf/"+  cIniFileName
 		}
 	}
 

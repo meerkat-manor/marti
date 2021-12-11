@@ -91,7 +91,6 @@ try {
     $lattribute += $oAttribute
 
     $x = ConvertTo-Json -InputObject $lattribute
-    $x
 
 }
 catch {

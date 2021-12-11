@@ -1,28 +1,26 @@
 
 
 To execute the PowerShell scripts, please invoke from the root Marti directory and not from
-with the current directory set to ``.\test\powershell``
+within the cdirectory ``.\test\powershell``
 
 ``powershell
 
-# To seed the test data
-# Add code for FTP fetch for BSB
-.\test\powershell\test_retrievedata.ps1
+# To seed the test data of BSB from the internet
+.\test\powershell\martiLQ_base_test.ps1
 
+# For creating a martiLQ definition on the files in docs directory
+.\test\powershell\martiLQ_docs_test.ps1
 
-# For initial tests
-.\test\powershell\test_MartiLQ.ps1
-
-#
-.\test\powershell\test_MartiLQCkan.ps1
+# For converting CKAN definition to martiLQ
+.\test\powershell\martiLQ_ckan_test.ps1
 
 #
-.\test\powershell\test_MartiLQData1.ps1
+.\test\powershell\martiLQ_data1_test.ps1
 
 #
-.\test\powershell\test_MartiLQData2.ps1
+.\test\powershell\martiLQ_data2_test.ps1
 
 #
-.\test\powershell\test_MartiLQData3.ps1
+.\test\powershell\martiLQ_data3_test.ps1
 
 ``

@@ -104,6 +104,7 @@ class mResource:
                 "modified": last_modified_date,
                 "expires": self._oConfiguration.ExpireDate(item).strftime("%Y-%m-%dT%H:%M:%S%z"),
                 "state": self._oConfiguration.GetConfig("state"),
+                "stateModified": dateToday,
                 "author": self._oConfiguration.GetConfig("author"),
                 "length": os.path.getsize(SourcePath),
                 "hash": hash,
