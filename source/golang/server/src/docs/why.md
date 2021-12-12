@@ -1,8 +1,7 @@
-Why use marti
-=============
+# Why use marti
 
 **martiLQ** is a framework for providing a degree of auditability and reconciliation of
-documents transferred between systems in an organisation and externally.  It does not intend
+documents transferred between systems in an organization and externally.  It does not intend
 define the format or content of the document.  It defines controls that can be used to:
 
 1. verify source
@@ -14,12 +13,11 @@ define the format or content of the document.  It defines controls that can be u
 
 You would use **martiLQ** if any of the controls are a requirement for you.
 
-Documents
----------
+## Documents
 
 Documents in this context are digital storage objects such as operating system files,
 cloud storage objects or blobs.  The document content can have structure and contains multiple
-records or it can be unstructered such as PDFs.  If you are including PDFs then they are
+records or it can be unstructured such as PDFs.  If you are including PDFs then they are
 likely to be be supporting documents for your actual data files.
 
 The **martiLQ** framework is not intended to be used for single record transfers such as 
@@ -27,8 +25,7 @@ in single web transactions.  It is for providing controls when moving large amou
 data as one event.  This data are commonly referred to as batch extracts and performed 
 at scheduled times such as end of day.
 
-Security
---------
+## Security
 
 The framework does not replace your security, inflight encryption or encryption at rest.
 

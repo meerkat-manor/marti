@@ -23,14 +23,14 @@ to demonstrate generating the **martiLQ** document.
 
 ## Problem statement
 
-Even though event streaming is a stragetic goal for many organizations, there exists legacy processes and there
+Even though event streaming is a strategic goal for many organizations, there exists legacy processes and there
 will continue to be a need to transfer data flies and other documents from one system to another. 
 
 When a handover of a data file or document occurs, the best practice is to include metrics with the transfer
 to assure the recipient of provenance and quality of the data file or document.  This is the metadata associated
 with the data file or document.
 
-A document includes unstructered data, letters, pictures, binary objects while data files could be though of
+A document includes unstructured data, letters, pictures, binary objects while data files could be though of
 as structured data that is describes multiple records. 
 
 ### Assurance Problem
@@ -105,6 +105,12 @@ loaded back onto the same compute resource (think mainframe) or physically couri
 reference book [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/patterns/messaging/FileTransferIntegration.html) 
 by Hohpe and Woolf recognizes this by inclusion of the pattern written by Martin Fowler.
 
+---
+**The basic _file transfer_ pattern**
+![](docs/source/filetransfer_base.png)
+
+---
+
 In the explanation written by Martin Fowler, he makes observations about the "File Transfer" including:
 
 "Part of what makes _File Transfer_ simple is that no extra tools or integration packages are needed, but that also means that developers 
@@ -113,6 +119,29 @@ have to do a lot of the work themselves. The applications must agree om file-nam
 
 The pattern being described here addresses the issues and concerns that relate to file transfer. Many of these are related to the common 
 non functional requirements that architects cover in solution designs.
+
+## Solution
+
+The **martiLQ** document pattern can be implemented in various combinations.  Some combinations are illustrated below.
+
+---
+**Using the pattern without large scale change to existing processing**
+![](docs/source/filetransfer_injection.png)
+
+---
+
+---
+**Inclusion of the pattern into existing application code to generate and read the martiLQ document**
+![](docs/source/filetransfer_appcode.png)
+
+---
+
+
+---
+**If there is a requirement for acknowledgement to the publisher, then maybe this approach is applicable**
+![](docs/source/filetransfer_ack.png)
+
+---
 
 ### Security, robustness, reliability, fault-tolerance
 
