@@ -106,7 +106,9 @@ reference book [Enterprise Integration Patterns](https://www.enterpriseintegrati
 by Hohpe and Woolf recognizes this by inclusion of the pattern written by Martin Fowler.
 
 ---
+
 **The basic _file transfer_ pattern**
+
 ![](docs/source/filetransfer_base.png)
 
 ---
@@ -125,20 +127,21 @@ non functional requirements that architects cover in solution designs.
 The **martiLQ** document pattern can be implemented in various combinations.  Some combinations are illustrated below.
 
 ---
+
 **Using the pattern without large scale change to existing processing**
+
 ![](docs/source/filetransfer_injection.png)
 
 ---
 
----
 **Inclusion of the pattern into existing application code to generate and read the martiLQ document**
+
 ![](docs/source/filetransfer_appcode.png)
 
 ---
 
-
----
 **If there is a requirement for acknowledgement to the publisher, then maybe this approach is applicable**
+
 ![](docs/source/filetransfer_ack.png)
 
 ---
