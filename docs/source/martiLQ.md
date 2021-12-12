@@ -39,7 +39,7 @@ modified|Modified date and time of the **martiLQ** document|Now
 tags|List of tags or keywords|
 publisher|Publisher name|
 contactPoint|Contact point of a person or team|
-accessLevel|Acces level|
+accessLevel|Access level|
 rights|Rights|
 
 * Batch
@@ -54,7 +54,7 @@ rights|Rights|
 ### Information extension
 
 The information supplied can be extended by party agreement and there
-are place holders in the defintion.
+are place holders in the definition.
 
 ## Resource 
 
@@ -62,7 +62,7 @@ The resource section is a list of documents or files that are to be grouped
 together are listed under the same **martiLQ** definition.
 
 At least one document or file must be included.  If the same resource is repeated 
-it will commonly be for definiting multiple formats, with each file having a 
+it will commonly be defining multiple formats, with each file having a 
 different extension.  Commonly the definition includes at least the following
 items:
 
@@ -84,7 +84,7 @@ for more details
 Name|Description|Default or values
 ---|---|--
 hash|Hash of document - The hash of the document, which can be blank especially for large documents
-algo|Hash algorithm - Algoroithm used to generate the hash value or sign it
+algo|Hash algorithm - Algorithm used to generate the hash value or sign it
 description|Description - A more detailed description 
 version|Version - A document version
 encoding|Encoding

@@ -152,7 +152,7 @@ func (c *configuration) SaveConfig(ConfigPath string) bool {
 	cfgini.Section("General").Key("logPath").SetValue (c.logPath)
 	cfgini.Section("General").Key("tempPath").SetValue (c.tempPath)
 	cfgini.Section("General").Key("dataPath").SetValue (c.dataPath)
-	cfgini.Section("General").Key("dateFormat").SetValue (c.datdateFormataPath)
+	cfgini.Section("General").Key("dateFormat").SetValue (c.dateFormat)
 	cfgini.Section("General").Key("dateTimeFormat").SetValue (c.dateTimeFormat)
 
 	cfgini.Section("MartiLQ").Key("tags").SetValue(c.tags)

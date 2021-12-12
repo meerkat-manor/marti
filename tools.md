@@ -1,8 +1,8 @@
 # Tools
 
-A number of tools are povided that can be incorporated into your
+A number of tools are provided that can be incorporated into your
 projects that want to use the metadata transfer reconciliation format
-(martiLQ document).
+(**martiLQ** document).
 
 The Python or PowerShell (Windows or Linux) scripts can be
 inserted into your processing pipeline either to pack or

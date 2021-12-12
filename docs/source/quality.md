@@ -19,7 +19,7 @@ load quality metrics.
 * Number of records in the document - This is the number of data primary records not the 
    count of end of lines and is agreed between parties.  XML record counts could be based 
    on the number of primary segments under root.  JSON records can be counted in a similar way.
-   The headers or trailling records are not counted
+   The headers or trailing records are not counted
 
 ## Addresses deficiencies 
 

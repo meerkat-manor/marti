@@ -1,7 +1,7 @@
 Custom Definition
 =================
 
-The custome definition section allows the inclusion of extensions
+The custom definition section allows the inclusion of extensions
 to the standard.  To demonstrate the inclusion, there are three
 sample extensions.  These are:
 

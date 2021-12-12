@@ -6,8 +6,8 @@
 and intended to be consumed by another system component with self-describing information with 
 load assurance metrics.
 
-The consuming system component can be at the same location, a dfifferent geographical location,
-the same organisation or another organisation.
+The consuming system component can be at the same location, a different geographical location,
+the same organization or another organization.
 
 The pattern does not define the format that the data file or document must take or how the data is transferred
 or accessed.  You choose the data format and transfer method. Once you have made the choice, you can describe
@@ -23,7 +23,7 @@ to demonstrate generating the **martiLQ** document.
 
 ## Problem statement
 
-Even though event streaming is a stragetic goal for many organisations, there exists legcay processes and there
+Even though event streaming is a stragetic goal for many organizations, there exists legacy processes and there
 will continue to be a need to transfer data flies and other documents from one system to another. 
 
 When a handover of a data file or document occurs, the best practice is to include metrics with the transfer
@@ -31,14 +31,14 @@ to assure the recipient of provenance and quality of the data file or document. 
 with the data file or document.
 
 A document includes unstructered data, letters, pictures, binary objects while data files could be though of
-as strutured data that is describes multiple records. 
+as structured data that is describes multiple records. 
 
 ### Assurance Problem
 
 **How does the recipient know they have received all related files, the provenance, it is immutable and 
 assurance on quality?**
 
-Many organisations have used the file name as the carrier of this information but this has limits.
+Many organizations have used the file name as the carrier of this information but this has limits.
 
 ## Efficiency Problem
 
@@ -54,7 +54,7 @@ Therefore the objective is to produce a documentation standard that:
 1. provides load assurance when transferring data files and documents
 2. can be tooled and therefore achieve some level of automation 
 3. is extensible to give the publisher and consumer control as to the level of assurance 
-   required to match the risk appetite of the organisation
+   required to match the risk appetite of the organization
 
 ## Context
 
@@ -84,33 +84,63 @@ as they are considered the minimal for best practice
 * Format, encoding, compression
 * Data record count
 
-There is an acknowledgment processs that is recommended for confirmation on processing.  See 
-[acknowldegment](docs/source/acknowledgement.md) for approach details.
+There is an acknowledgment process that is recommended for confirmation on processing.  See 
+[acknowledgement](docs/source/acknowledgement.md) for approach details.
 
 ## Forces
 
-The qualities that this pattern is addressing...
+The qualities that this pattern is addressing are:
+
+1. Frees transfer from file naming convention that include magic strings that store metadata
+2. A event message based paradigm which is independent of the size and number of files
+3. Publishes basic metadata on the files and their source 
+4. Secures the file transfer from tampering or corruption
+5. Allows the inclusion of quality metrics such as provenance, elements and record counts
+6. Allows the consumer to select the files to process avoiding unnecessary transfers
+7. Provides a simple acknowledgment process
+8. Is extendable
 
 The file transfer pattern is the original method for separate processes to exchange data.  The file being stored on magnetic tape and either 
-loaded back onto the same compute resource (think mainframe) or physicaly couriered to another lcoation or tape drive.  The
+loaded back onto the same compute resource (think mainframe) or physically couriered to another location or tape drive.  The
 reference book [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/patterns/messaging/FileTransferIntegration.html) 
-by Hohpe and Woolf recognises this by inculsion of the pattern written by Martin Fowler.
+by Hohpe and Woolf recognizes this by inclusion of the pattern written by Martin Fowler.
 
-This pattern addresess the issues and concerns that relate to file transfer. Many of these are related the the common 
+In the explanation written by Martin Fowler, he makes observations about the "File Transfer" including:
+
+"Part of what makes _File Transfer_ simple is that no extra tools or integration packages are needed, but that also means that developers 
+have to do a lot of the work themselves. The applications must agree om file-naming conventions and the directories they appear.  ...
+, then some application must take responsibility for transferring the file form one disk to another"
+
+The pattern being described here addresses the issues and concerns that relate to file transfer. Many of these are related to the common 
 non functional requirements that architects cover in solution designs.
 
 ### Security, robustness, reliability, fault-tolerance
 
 The pattern defines how security and assurance is applied to the data files and documents.  The pattern does 
 not define how to setup a reliable infrastructure, but it can be used to detect failures
-in the infrastructire.  The fault-tolerance allowance is up to each implementation.
+in the infrastructure.  The fault-tolerance allowance is up to each implementation.
 
 Fault-tolerance and the actionable task can be dialled from 0% tolerance to 100% tolerance on a
 case by case basis. 
 
 ### Manageability
 
+The pattern takes into consideration of how the file transfer is managed.  It can provide a standard
+that makes file transfers easier to manage regardless of the underlying transport mechanism. As the
+same **martiLQ** document can be consumed by multiple recipients, it is easy to distribute, with 
+access controls ensuring only authorized recipients can access the files that are relevant to them.
+
+This reduces the need to run multiple jobs distributing the files.
+
+Management is also improved if the acknowledgement capability is implemented so that the publisher
+knows which recipient has processed the file.  If the recipient no longer wishes the file and stops
+processing the publisher will slowly build a time line and metrics to recognize that the file 
+is no longer consumed.  The publisher can then cease to produce unused files.
+
 ### Efficiency, performance, throughput, bandwidth requirements, space utilization
+
+If the process is using event based messaging, files that are not required at the destination
+are never transferred.  This saves bandwidth and storage at the destination.
 
 ### Scalability (incremental growth on-demand)
 
@@ -120,43 +150,64 @@ may be factor in the decision of breaking down to smaller volumes.
 
 ### Extensibility, evolvability, maintainability
 
-The **martiLQ** document can be customised and can evolve as the market conidtions change.  Versioning
+The **martiLQ** document can be customized and can evolve as the market conditions change.  Versioning
 is built into the definition and consumers can select which attributes are mandatory for
 processing. 
 
 ### Modularity, independence, re-usability, openness, composability (plug-and-play), portability
 
+The **martiLQ** document is an open definition that can be used in may file transfer scenarios.  You can compose
+new functionality on top of the open code.
+
+The **martiLQ** document is portable as is the reference implementation.  You can run the Python, PowerShell, Go code
+on both Windows and Linux platforms and on different architectures.
+
 ### Completeness and correctness
+
+The **martiLQ** document contains metadata to ensure that all files in a job file transfer are treated
+as a package or integral unit.  If files are missing then this is recognized early in the process and
+the recipient consumer can decide on whether to continue processing or halt.
+
+Additional scope also exists in the **martiLQ** document to add more load quality assurance metrics, which can be 
+automatically processed to ensure correctness.
 
 ### Ease-of-construction
 
+The **martiLQ** document is a JSON formatted document, making it easy to construct using modern tools.
+
+**Note**: An XML format document is in the backlog for possible implementation.
+
+Using the reference implementation, the organization can implement the pattern into their current process without
+requiring extensive builds.  The reference implementation has code in various programming languages and can run on
+Windows and Linux platforms.
+
+All code is visible and auditable.
+
+**Note**: The reference implementation is not the most efficient code in all situations and there is much room for
+improvement.  The objective of the reference implementation was to demonstrate the ease of use by scanning 
+file system directory or converting from another format such as CKAN.
+
 ### Ease-of-use
 
-## Solution
+If you are comfortable with using the reference implementation, you can be generating **martiLQ** documents in short time.
 
-
-
-A description, using text and/or graphics, of how to achieve the intended goals and objectives. The description should identify both the solution's static structure and its dynamic behavior - the people and computing actors, and their collaborations. The description may include guidelines for implementing the solution. Variants or specializations of the solution may also be described.
+Download the git repository code, review the samples and adjust to scan your directory to generate the **martiLQ** document.
+As a simplistic approach you can execute the code in your pipeline after you have created existing files.
 
 ## Resulting Context
 
+After applying the pattern consistently on file transfers within the organization, the expectation is that you will spend less
+time discussing and building the mechanics of file transfer including the polling, monitoring and load assurance.  A large portion
+which will have been for you as part of the **martiLQ** document and its implementation.
 
+There will also less documentation to review and discuss as the **martiLQ** document will provide standards that developers can 
+follow such as the encoding and format.  This applies to both structured and unstructured data.
 
-The post-conditions after the pattern has been applied. Implementing the solution normally requires trade-offs among competing forces.
-This element describes which forces have been resolved and how, and which remain unresolved. It may also indicate other patterns that may be applicable in the new context. (A pattern may be one step in accomplishing some larger goal.) Any such other patterns will be described in detail under Related Patterns.
+You will still need to decide fo structured data on how many files, the data columns and records to be included in each file.
+
+For unstructured data, such as bundling like documents together, the process is much simpler if you take the approach to create
+a folder containing the files and then execute the routine to compress and package all together.
 
 ## Examples
 
 Please refer to the [documentation](docs/source/README.md) and [samples](docs/source/samples/README.md)
-
-## Rationale
-
-An explanation/justification of the pattern as a whole, or of individual components within it, indicating how the pattern actually works, and why - how it resolves the forces to achieve the desired goals and objectives, and why this is "good". The Solution element of a pattern describes the external structure and behavior of the solution: the Rationale provides insight into its internal workings.
-
-## Related Patterns
-
-The relationships between this pattern and others. These may be predecessor patterns, whose resulting contexts correspond to the initial context of this one; or successor patterns, whose initial contexts correspond to the resulting context of this one; or alternative patterns, which describe a different solution to the same problem, but under different forces; or co-dependent patterns, which may/must be applied along with this pattern.
-
-## Known Uses
-
-Known applications of the pattern within existing systems, verifying that the pattern does indeed describe a proven solution to a recurring problem. Known Uses can also serve as Examples.

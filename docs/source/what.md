@@ -12,7 +12,7 @@ for various programming languages and situations.  As many programming languages
 generate portable programs that can execute on multiple operating systems, the
 likelihood is that a tools exists for you.
 
-The source for tools is provided in the Github repository and some have precompiled
+The source for tools is provided in the Github repository and some have pre-compiled
 images.
 
 See the project source directory for more details.

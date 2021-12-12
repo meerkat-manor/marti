@@ -1,13 +1,13 @@
 # Documentation
 
-**martiLQ** stands for metadata reconcilation for transfer information, load quality
+**martiLQ** stands for metadata reconciliation for transfer information, load quality
 
 Before starting with **martiLQ** it is advisable to understand if it is right for
-your organisation's needs.  Information is available in a number of short 
+your organization's needs.  Information is available in a number of short 
 documents.
 
-There is no quickstart document to get you started as each use case and
-organisation is different. There are sample implementations which you
+There is no quick start document to get you started as each use case and
+organization is different. There are sample implementations which you
 can adjust if they resonate with your circumstances,
 see [sample implementations](samples/)
 
