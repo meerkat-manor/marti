@@ -44,7 +44,7 @@ type Marti struct {
 	Custom []interface{} `json:"custom"`
 
 
-	config configuration
+	config Configuration
 }
 
 func NewMarti() Marti {
@@ -63,7 +63,7 @@ func NewMarti() Marti {
 	return m
 }
 
-func Load(c configuration, pathFile string) (Marti, error) {
+func Load(c Configuration, pathFile string) (Marti, error) {
 	
 	m := Marti {}
 

@@ -1,11 +1,10 @@
-Comparison of martiLQ document definition
-=========================================
+# Comparison of martiLQ document definition
 
 The use of metadata definitions is not unique and examples
 exist in many different situations.  Some are standard and open
 while others are closed.
 
-Some open standards are EXIF data for pictures, SQL DDL defintions
+Some open standards are EXIF data for pictures, SQL DDL definitions
 for databases, the XMP definition and web header responses before the 
 web content.
 
@@ -23,18 +22,16 @@ a CKAN source into a **martiLQ** document definition and then process the data
 through the pipeline as you would for any other data file that had a
 **martiLQ** document definition.
 
-Benefit of CKAN and martiLQ
----------------------------
+## Benefit of CKAN and martiLQ
 
 The CKAN is excellent at defining the data source details but it lacks information
-for load quality.  If you have CKAN deployed in your organisation and wish
+for load quality.  If you have CKAN deployed in your organization and wish
 exhange or process the data referenced in CKAN, then there are synergies between
 CKAN and marti.
 
 Samples exist on CKAN integration.
 
-Magda and martiLQ
------------------
+## Magda and martiLQ
 
 Another source of data is [Magda](https://magda.io/) which has API metadata
 definitions.  Magda is more about data federation and as such provides

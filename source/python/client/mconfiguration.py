@@ -19,23 +19,25 @@ from mlogging import mLogging
 
 class mConfiguration:
 
-    _SoftwareVersion = "0.0.1"
+    _SoftwareVersion = "0.0.2"
     _default_metaFile = "##martilq##.json"
 
     _oSoftware = {
         "extension": "software",
-        "softwareName": "MARTILQREFERENCE",
+        "softwareName": GetSoftwareName(),
         "author": "Meerkat@merebox.com",
-        "version": "0.0.1"
+        "version": GetSoftwareVersion()
     }
-    
     
     _oConfiguration = None
     _Log = None
 
 
-    def GetSoftwareName(self):
+    def GetSoftwareName():
         return "MARTILQREFERENCE"
+
+    def GetSoftwareVersion():
+        return _SoftwareVersion
 
     def __init__(self):
 

@@ -24,14 +24,13 @@ from mutility import mUtility
 
 class martiLQ:
 
-    _SoftwareVersion = "0.0.1"
     _default_metaFile = "##martilq##.json"
 
     _oSoftware = {
         "extension": "software",
-        "softwareName": "MARTILQREFERENCE",
+        "softwareName": mConfiguration.GetSoftwareName(),
         "author": "Meerkat@merebox.com",
-        "version": "0.0.1"
+        "version": mConfiguration.GetSoftwareVersion()
     }
 
     _oTemplate = {

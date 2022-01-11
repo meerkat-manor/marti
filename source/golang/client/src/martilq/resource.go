@@ -40,7 +40,7 @@ type Resource struct {
 	Attributes []Attribute `json:"attributes"`
 }
 
-func NewResource(config configuration) Resource {
+func NewResource(config Configuration) Resource {
 
 	r := Resource {}
 	u := uuid.New()
@@ -57,7 +57,7 @@ func NewResource(config configuration) Resource {
 	return r
 }
 
-func NewMartiLQResource(config configuration, sourcePath string, urlPath string, excludeHash bool, extendAttributes bool) (Resource, error) {
+func NewMartiLQResource(config Configuration, sourcePath string, urlPath string, excludeHash bool, extendAttributes bool) (Resource, error) {
 	
 	r := Resource {}
 

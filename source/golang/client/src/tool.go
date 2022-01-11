@@ -142,13 +142,13 @@ func loadArguments(args []string) {
 					params.description = args[ix]
 				}
 			} else {
-				panic("Missing parameter for DECRIPTION")
+				panic("Missing parameter for DESCRIPTION")
 			}
 		}
 
 
 		if !matched && args[ix] != "--" {
-			fmt.Println("Unrecognised command line argument: " + args[ix])
+			fmt.Println("Unrecognized command line argument: " + args[ix])
 		}
 
 		ix = ix + 1
@@ -160,7 +160,7 @@ func printHelp() {
 
 	fmt.Println("")
 	fmt.Println("\t   martilqcli_client ")
-	fmt.Println("\t   =======++======== ")
+	fmt.Println("\t   ================= ")
 	fmt.Println("")
 	fmt.Println("\tThis program is intended as a simple reference implementation")
 	fmt.Println("\tin Go of the MartiLQ framework.  It is does not provide all")
@@ -171,10 +171,10 @@ func printHelp() {
 	fmt.Println("")
 	fmt.Println(" -h or --help : Display this help")
 	fmt.Println(" -t or --task : Execute a predefined task which are")
-	fmt.Println("           INIT initialise a new configuration file")
+	fmt.Println("           INIT initialize a new configuration file")
 	fmt.Println("           MAKE make a MartiLQ definition file")
 	fmt.Println("           GET resources based on MartiLQ definition file")
-	fmt.Println("           RECON reconicile a MartiLQ definition file")
+	fmt.Println("           RECON reconcile a MartiLQ definition file")
 	fmt.Println(" -c or --config : Configuration file used by all tasks")
 	fmt.Println("           This is the file written by the INIT task")
 	fmt.Println(" -s or --source : Source directory or file to build MartiLQ definition")
@@ -218,62 +218,13 @@ func main () {
 	} else {
 
 
-		if params.task == "INIT" {
-			if params.configPath == "" {
-				panic("Missing 'config' parameter")
-			}
-
-			_, err := os.Stat(params.configPath)
-			if err == nil {
-				panic("MartiLQ configuration file '"+ params.configPath+"' already exists")
-			}
-
-			c := martilq.NewConfiguration()
-			if c.SaveConfig(params.configPath) != true {
-				panic("Configuration not saved to: "+ params.configPath)
-			}
-			fmt.Println("Created MARTILQ INI definition: " + params.configPath)
-			matched = true
-		}
-
-		if params.task == "MAKE" {
-
-			if params.sourcePath == "" {
-				panic("Missing 'source' parameter")
-			}
-			if params.definitionPath == "" {
-				panic("Missing 'output' parameter")
-			}
-
-			_, err := os.Stat(params.definitionPath)
-			if err == nil && params.update == false {
-				panic("MartiLQ document '"+ params.definitionPath+"' already exists and update not specified")
-			}
-
-			m := martilq.Make(params.configPath, params.sourcePath, params.filter, params.recursive, params.urlPrefix, params.definitionPath )
-			if params.title != "" {
-				m.Title = params.title
-			}
-			if params.description != "" {
-				m.Description = params.description
-			}
-			m.Save(params.definitionPath)
-
-			fmt.Println("Created MARTILQ definition: " + params.definitionPath)
-			matched = true
-		}
-
-		if params.task == "GET" {
-			fmt.Println("ET task not implemented")
-			matched = true
-		}
-
-
 		if params.task == "RECON" {
 
-			_ = martilq.ReconcileFilePath(params.configPath, params.sourcePath, params.recursive, params.definitionPath, params.outputPath )
-			
+			m = martilq.ReconcileFilePath(params.configPath, params.sourcePath, params.recursive, params.definitionPath, params.outputPath )
+		
 			matched = true
+
+
 		}
 
 		if !matched {

@@ -1,7 +1,7 @@
 # References
 
 The following are references to documents that inspired the creation of **martiLQ**
-document and associatd framework.
+document and associated framework.
 
 https://dex.dss.gov.au/sites/default/files/documents/2021-06/data-exchange-protocols-june-2021.pdf
 

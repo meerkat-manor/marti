@@ -1,7 +1,7 @@
 
 
 
-$script:SoftwareVersion = "0.0.1"
+$script:SoftwareVersion = "0.0.2"
 $global:default_metaFile = "##martilq##.json"
 
 $global:martiLQ_configuration = $null
@@ -57,6 +57,11 @@ function Get-DefaultConfiguration {
         proxy = $null
         proxy_User = $null
         proxy_Credential = $null
+
+        smtp_Host = $null
+        smtp_Port = $null
+        smtp_User = $null
+        smtp_Credential = $null
 
         loaded = $false
     }
@@ -153,6 +158,13 @@ function Import-Configuration {
 
         if ($null -ne $iConfig.Hash) {
             $oConfig.hashAlgorithm = Set-ConfigurationValue $oConfig.hashAlgorithm -Value $iConfig.Hash.hashAlgorithm
+        }
+
+        if ($null -ne $iConfig.Smtp) {
+            $oConfig.smtp_Host = Set-ConfigurationValue $oConfig.smtp_Host -Value $iConfig.Smtp.host
+            $oConfig.smtp_Port = Set-ConfigurationValue $oConfig.smtp_Port -Value $iConfig.Smtp.port
+            $oConfig.smtp_User = Set-ConfigurationValue $oConfig.smtp_Port -Value $iConfig.Smtp.username
+            $oConfig.smtp_Credential = Set-ConfigurationValue $oConfig.smtp_Credential -Value $iConfig.Smtp.password
         }
 
     }

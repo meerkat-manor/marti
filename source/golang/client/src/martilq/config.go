@@ -12,12 +12,12 @@ import (
 
 const cSoftwareName = "MARTILQREFERENCE"
 const cSoftwareAuthor = "Meerkat@merebox.com"
-const cSoftwareVersion = "0.0.1"
+const cSoftwareVersion = "0.0.2"
 const cIniFileName = "martilq.ini"
 const cExpires = "t:7:0:0"
 const cEncoding = ""
 
-type configuration struct {
+type Configuration struct {
 	softwareName string
 
 	dateFormat string
@@ -68,14 +68,16 @@ func GetSoftwareName() string {
 	return cSoftwareName
 }
 
-func NewConfiguration() configuration {
+func NewConfiguration() Configuration {
 
-	c :=  configuration {}
+	c :=  Configuration {}
 
 	c.softwareName = GetSoftwareName()
 
 	c.dateFormat = "2006-01-02"
 	c.dateTimeFormat = "2006-01-02T15:04:05-0700"
+	c.dataPath = ""
+	c.tempPath =  "temp"
 
 	c.title = "{{documentName}}"
 	c.state = "active"
@@ -94,6 +96,8 @@ func NewConfiguration() configuration {
 
 	c.spatial = GetSpatial()
 	c.temporal = GetTemporal()
+
+
 
 	configPath := findIni()
 	if configPath != "" {
@@ -145,7 +149,7 @@ func findIni() string {
 	return foundPath
 }
 
-func (c *configuration) SaveConfig(ConfigPath string) bool {
+func (c *Configuration) SaveConfig(ConfigPath string) bool {
 
 	cfgini, _ := ini.LooseLoad("./martilq.ini")
 		
@@ -197,7 +201,7 @@ func (c *configuration) SaveConfig(ConfigPath string) bool {
 	return true
 }
 
-func (c *configuration) LoadConfig(ConfigPath string) bool {
+func (c *Configuration) LoadConfig(ConfigPath string) bool {
 
 	if ConfigPath != "" {
 		_, err := os.Stat(ConfigPath)
@@ -286,7 +290,7 @@ func Loadenv(key string, default_value string ) string {
 }
 
 
-func (c *configuration) ExpireDate(sourcePath string ) time.Time {
+func (c *Configuration) ExpireDate(sourcePath string ) time.Time {
 
 	var expires time.Time
 

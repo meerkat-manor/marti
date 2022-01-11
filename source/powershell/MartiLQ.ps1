@@ -5,7 +5,7 @@
 . .\source\powershell\MartiLQAttribute.ps1
 
 
-function New-MartiDefinition
+function New-MartiLQDefinition
 {
     Param( 
         [String] $ConfigPath = $null    
@@ -22,13 +22,6 @@ function New-MartiDefinition
         extension = "template"
         renderer =  "MARTILQREFERENCE:Mustache"
         url = ""
-    }
-   
-    $oAcknowledgement = [PSCustomObject]@{
-        url = ""
-        algo = ""
-        value = ""
-        signed =  $false
     }
 
 
@@ -97,7 +90,7 @@ function New-MartiDefinition
         publisher = $publisher
         contactPoint = $oConfig.contactPoint
         accessLevel = $oConfig.accessLevel
-        consumer = $lconsumer
+        consumers = $lconsumer
         rights = $oConfig.rights
         license = $oConfig.license
         state = $oConfig.state
@@ -108,13 +101,101 @@ function New-MartiDefinition
         theme =$oConfig.theme
 
         resources = $lresource
-        acknowledge = $oAcknowledgement
+        acknowledge = Get-Acknowledgement
         custom = $lCustom
     }
 
     return $oMarti, $oConfig
 }
 
+
+function Save-MartiLQDefinition
+{
+    Param( 
+        [Parameter(Mandatory)][PSCustomObject] $MartiLQ,
+        [Parameter(Mandatory)][String] $FilePath
+    ) 
+
+    $fileJson = $FilePath
+    $MartiLQ | ConvertTo-Json -depth 100 | Out-File $fileJson
+
+    return $fileJson
+}
+
+
+function Restore-MartiLQDefinition
+{
+    Param( 
+        [Parameter(Mandatory)][String] $FilePath
+    ) 
+
+    $oMartiLQ = [PSCustomObject](Get-Content -Raw $FilePath | Out-String | ConvertFrom-Json)
+    
+    $version = Get-DefinitionVersion -MartiLQ $oMartiLQ
+    if ($version -lt "0.0.2") {
+        if (![bool]($oMartiLQ.PSCustomObject.Properties.name -match "consumers")) {
+            [System.Collections.ArrayList]$lconsumer = @()
+            $oMartiLQ | Add-Member -Name "consumers" -Type NoteProperty -Value $lconsumer
+        }
+
+        if (![bool]($oMartiLQ.PSCustomobject.Properties.name -match "acknowledge")) {
+            $oMartiLQ | Add-Member -Name "acknowledge" -Type NoteProperty -Value (Get-Acknowledgement)
+        }
+
+        Set-DefinitionVersion -MartiLQ $oMartiLQ -Version "0.0.2"
+        $newVersion = Get-DefinitionVersion -MartiLQ $oMartiLQ
+        Write-Host "Updating from version $version to $newVersion"
+    }
+
+    return $oMartiLQ
+}
+
+function Get-DefinitionVersion
+{
+param (
+    [Parameter(Mandatory)][PSCustomObject] $MartiLQ
+)
+   
+    $version = "0.0.1"
+    $MartiLQ.custom | ForEach-Object {
+        if ($_.extension -eq "software" -and $_.softwareName -eq (Get-SoftwareName)) {
+            $version = $_.version
+        }        
+    }
+
+    return $version
+}
+
+function Set-DefinitionVersion
+{
+param (
+    [Parameter(Mandatory)][PSCustomObject] $MartiLQ,
+    [Parameter(Mandatory)][String] $Version
+)
+   
+    $MartiLQ.custom | ForEach-Object {
+
+        if ($_.extension -eq "software" -and $_.softwareName -eq (Get-SoftwareName)) {
+                $_.version = $Version
+                #return $MartiLQ
+        }
+        
+    }
+
+    #return $MartiLQ
+}
+
+function Get-Acknowledgement{
+   
+    $oAcknowledgement = [PSCustomObject]@{
+        url = ""
+        algo = ""
+        value = ""
+        signed =  $false
+    }
+
+    return $oAcknowledgement
+}
 
 function Set-MartiAttribute
 {
@@ -244,9 +325,6 @@ function Get-MartiResource {
 }
 
 
-
-
-
 function ConvertFrom-Ckan 
 {
 Param( 
@@ -341,7 +419,6 @@ Param(
 }
 
 
-
 function Compress-MartiLQ
 {
 Param( 
@@ -396,7 +473,4 @@ Param(
 
     Close-Log
 }
-
-
-
 
